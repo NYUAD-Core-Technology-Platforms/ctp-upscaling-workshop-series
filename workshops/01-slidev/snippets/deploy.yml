@@ -1,0 +1,36 @@
+# .github/workflows/deploy.yml — publish the deck to GitHub Pages on every push to main
+name: Deploy Slidev
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter ./workshops/01-slidev build --base /ctp-upscaling-workshop-series/01/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: workshops/01-slidev/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

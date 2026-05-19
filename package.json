@@ -1,0 +1,16 @@
+{
+  "name": "ctp-upscaling-workshop-series",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Workshop series for CTP at NYUAD: a reusable Slidev template plus one deck per workshop.",
+  "scripts": {
+    "new-workshop": "node scripts/new-workshop.mjs",
+    "dev:01": "pnpm --filter ./workshops/01-slidev dev",
+    "build:01": "pnpm --filter ./workshops/01-slidev build",
+    "export:01": "pnpm --filter ./workshops/01-slidev export"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=18"
+  }
+}
