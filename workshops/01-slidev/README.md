@@ -45,35 +45,36 @@ workshops/01-slidev/
 │   ├── component.vue
 │   └── deploy.yml
 └── exercises/
-    └── README.md         # Three hands-on exercises that pair with the slides
+    └── README.md         # Hands-on exercises that pair with the slides
 ```
 
 ---
 
 ## Outline (~60 min total)
 
-### Part A — From Prompt (~30 min, AI-assisted authoring)
+### Part A — From Prompt (20 min, AI-assisted workflows)
 
 | Section | Topic | ~ time |
 |---------|-------|--------|
-| A · 01 | Why AI for drafting? (trade-offs) | 5 min |
-| A · 02 | Tools that work well | 5 min |
-| A · 03 | Prompt patterns that produce real outlines | 10 min |
-| A · 04 | Editorial review checklist | 5 min |
-| A · 05 | Hand-off to Slidev | 5 min |
+| A · 01 | Start with the workflow | 3 min |
+| A · 02 | Chat tools and the Markdown brief | 4 min |
+| Exercise A | Create a Markdown presentation brief | 5 min |
+| A · 03 | Deck builders and in-app copilots | 3 min |
+| A · 04 | Agentic/source-controlled workflows | 3 min |
+| A · 05 | Bridge to Slidev | 2 min |
 
-### Part B — To Polished Deck (~30 min, Slidev)
+### Part B — To Polished Deck (~40 min, Slidev)
 
 | Section | Topic | ~ time |
 |---------|-------|--------|
 | B · 01 | Why Slidev? | 5 min |
 | B · 02 | Install & run locally | 5 min |
-| B · 03 | Authoring in Markdown | 10 min + exercise |
-| B · 04 | Theming with the CTP template | 5 min + exercise |
-| B · 05 | Export & publish | 5 min + exercise |
+| B · 03 | Authoring in Markdown | 15 min + exercise |
+| B · 04 | Theming with the CTP template | 7 min + exercise |
+| B · 05 | Export & publish | 8 min + exercise |
 | B · 06 | Wrap up & Q&A | — |
 
-Pair the workshop with `exercises/README.md` — three short hands-on exercises that attendees do on their own laptops. The exercises live in Part B; Part A is currently teaching only (no hands-on AI prompting exercise yet — easy to add one later if attendees want it).
+Pair the workshop with `exercises/README.md` — one short Part A prompting exercise plus three Slidev exercises that attendees do on their own laptops.
 
 ---
 

@@ -1,6 +1,52 @@
 # Workshop 01 — Exercises
 
-Three short exercises that pair with the slides. Each one stands alone — skip any that aren't relevant.
+One short Part A prompt exercise plus three Slidev exercises that pair with the slides. Each one stands alone — skip any that isn't relevant.
+
+## Exercise A — Create a Markdown presentation brief (5 min)
+
+Use ChatGPT, Claude, Gemini, or any similar chat assistant. If you have your own non-confidential source material, use that. Otherwise, use the fallback source text below.
+
+Prompt:
+
+```text
+Turn the source material below into a Markdown presentation brief.
+
+Audience: staff and researchers who need a practical 10-minute overview.
+Goal: help them understand the topic, remember the key points, and know what to do next.
+Length: 6-8 slides, 10 minutes.
+Tone: clear, technical, no hype, no emoji.
+
+Output:
+- title
+- audience
+- learning objectives
+- one h2 per slide
+- 2-4 bullets per slide
+- speaker notes for each slide
+- questions or facts to verify before presenting
+
+Source material:
+PASTE YOUR NOTES, ABSTRACT, WEBSITE TEXT, OR PAPER EXCERPT HERE
+```
+
+Fallback source material:
+
+```text
+The Core Technology Platforms at NYU Abu Dhabi support research by providing
+shared access to specialized instruments, technical staff, training, and
+method-development support. Researchers often arrive with a scientific question
+but need help choosing an instrument, preparing samples, estimating timelines,
+or understanding what data quality is realistic.
+
+A good orientation presentation should explain what the platforms are, when a
+researcher should contact them, what information to bring to the first meeting,
+and how shared facilities improve reproducibility and reduce duplicated effort.
+It should avoid marketing language and focus on practical next steps.
+```
+
+Result: you should have a `presentation-brief.md`-style outline that could feed Slidev, PowerPoint, Canva, an AI deck builder, or another AI editing pass.
+
+**Stretch:** ask the assistant to revise the brief for a different audience, such as first-year graduate students or external collaborators.
 
 ## Exercise 1 — Your first deck (5 min)
 
