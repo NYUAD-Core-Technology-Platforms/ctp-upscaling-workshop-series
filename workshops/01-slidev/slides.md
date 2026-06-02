@@ -43,9 +43,9 @@ layout: default
 The workshop is in **two halves**, mirroring the title.
 
 **Part A — From Prompt** (AI-assisted authoring)
-1. Pick the right AI tool for drafting presentation content.
-2. Write prompts that produce a structured slide outline, not generic mush.
-3. Edit AI output for accuracy, voice, and brand fit.
+1. Map the main types of AI tools that can help create presentations.
+2. Turn raw source material into a structured Markdown presentation brief.
+3. Choose when to stay in chat, when to use visual deck tools, and when to use an agentic workflow.
 
 **Part B — To Polished Deck** (Slidev)
 4. Spin up a Slidev deck on your laptop from zero.
@@ -54,13 +54,13 @@ The workshop is in **two halves**, mirroring the title.
 7. Export the result to PDF, a static site, or GitHub Pages.
 
 <CtpCallout label="Format" tone="accent">
-Two halves, ~30 min each, plus three hands-on exercises in <code>exercises/README.md</code> — feel free to do them as we go.
+Part A is a 20-minute map of AI-assisted presentation workflows, including one short prompt exercise. Part B is the hands-on Slidev build.
 </CtpCallout>
 
 <!--
 Read the goals out loud — anchors expectations for the two-part structure.
-Mention that Part A teaches the AI side and Part B is the Slidev side, and that
-exercises are self-paced.
+Mention that Part A teaches how to think about the tool landscape without turning
+the workshop into a tool catalog. Part B is where everyone starts building.
 -->
 
 ---
@@ -73,12 +73,12 @@ PART A
 # From Prompt
 
 ::subtitle::
-Drafting a presentation with AI before writing a line of Slidev.
+AI-assisted workflows before writing a line of Slidev.
 
 <!--
-Big-chapter divider. Set the framing: Part A is the AI side — how to use Claude,
-ChatGPT, and friends to do the heavy lifting on structure and first-draft content.
-Mention that Part B (the Slidev half) comes after the break.
+Big-chapter divider. Set the framing: Part A is a 20-minute map of AI-assisted
+presentation workflows. We are not ranking tools. We are asking what kind of
+work each tool is good at, and where the durable source of truth should live.
 -->
 
 ---
@@ -88,36 +88,44 @@ layout: section
 ::number::
 PART A · 01
 
-# Why AI for drafting?
+# Start with the workflow
 
 ::subtitle::
-What you trade by handing the first draft to a language model.
+The hard part is not opening a slide app.
 
 ---
 layout: two-cols-header
 ---
 
-# The trade-offs
+# The work before the deck
 
 ::left::
 
-### What AI is good at
-- **Structure.** An outline in 30 seconds vs. 30 minutes.
-- **Breaking the blank page.** Anything beats staring.
-- **Variations.** "Now do the same as a 5-min lightning talk."
-- **Code scaffolding** the dev server lifts to runnable.
+### Source material
+- Papers
+- Websites
+- Reports
+- Notes
+- Existing decks
+- Data summaries
 
 ::right::
 
-### What AI is bad at
-- **Domain facts** in your specific field — it hallucinates confidently.
-- **Voice.** Generic-academic by default; reads like every other deck.
-- **Following the brand.** It will sprinkle emoji and exclamation marks unless told not to.
-- **Knowing when to stop.** It pads.
+### Presentation work
+- Understand the material.
+- Decide the audience journey.
+- Pick the claims and evidence.
+- Shape slide-by-slide structure.
+- Then choose a tool to render it.
 
-<CtpCallout label="Net effect" tone="accent">
-You spend less time drafting and more time editing. The edit pass is non-optional — never present an AI's first answer.
+<CtpCallout label="Framing" tone="accent">
+The goal is not to find the one perfect AI presentation tool. The goal is to keep the thinking portable enough that many tools can help without trapping the work.
 </CtpCallout>
+
+<!--
+Use this slide to slow down the "AI makes slides" instinct. The first decision is
+not Gamma vs. PowerPoint vs. Slidev; it is where the structure of the talk lives.
+-->
 
 ---
 layout: section
@@ -126,37 +134,78 @@ layout: section
 ::number::
 PART A · 02
 
-# Tools that work well
+# Level 1: chat tools
 
 ::subtitle::
-Pick the one that fits the task; don't shop for the "best" in the abstract.
+Turn source material into a structured brief.
 
 ---
 layout: two-cols-header
 ---
 
-# Pick by task
+# From raw material to a brief
 
 ::left::
 
-### Long-form drafting
-- **Claude.ai** (this workshop's primary tool) — strong reasoning, good at following long format instructions, accepts large source documents.
-- **ChatGPT** — similar use cases, slightly different prose style. Use whichever you have a subscription to.
+### Inputs
+- A PDF or paper
+- A website
+- Lab notes
+- A project README
+- A half-written abstract
 
-### Visual mockups
-- **Claude.ai design** — the [interactive mockup tool](https://claude.ai/design). Used to generate the CTP design system that this very theme runs on.
+Examples: ChatGPT, Claude, Gemini, Copilot Chat.
 
 ::right::
 
-### In the editor
-- **Claude Code** / **Cursor** — paste an outline, get a `slides.md` scaffold. Iterates side-by-side with your terminal and Slidev's hot reload.
+### Output
+- Audience and goal
+- Learning objectives
+- Slide-by-slide outline
+- Key claims and evidence
+- Draft speaker notes
+- Asset ideas
 
-### Specialized
-- **Perplexity** — when you need cited facts (research methodology, recent papers). Not for slide structure.
+Call this file `presentation-brief.md`.
 
-<CtpCallout label="Rule of thumb">
-Reach for the tool that takes your input in the format you already have. Outline in a Notion doc? Claude.ai handles that. Outline already in a code editor? Claude Code or Cursor saves the copy-paste step.
+<CtpCallout label="Why Markdown now?" tone="accent">
+Markdown shows up after the need is clear: it is plain text with structure. Humans can read it, AI can edit it, and many presentation tools can consume it.
 </CtpCallout>
+
+---
+
+# Hands-on: make the brief
+
+Use ChatGPT or any chat assistant. Give it source material and ask for a Markdown presentation brief.
+
+```text
+Turn the source material below into a Markdown presentation brief.
+
+Audience: [who will attend]
+Goal: [what they should be able to do after]
+Length: 6-8 slides, 10 minutes.
+Tone: clear, technical, no hype, no emoji.
+
+Output:
+- title
+- audience
+- learning objectives
+- one h2 per slide
+- 2-4 bullets per slide
+- speaker notes for each slide
+- questions or facts to verify
+
+Source material:
+PASTE NOTES, ABSTRACT, WEBSITE TEXT, OR PAPER EXCERPT HERE
+```
+
+Five minutes. The goal is a reusable brief, not a polished deck.
+
+<!--
+This is the one Part A hands-on moment. Attendees can use their own source
+material or the fallback excerpt in exercises/README.md. Keep it moving: the
+point is that the first durable artifact is the brief.
+-->
 
 ---
 layout: section
@@ -165,85 +214,43 @@ layout: section
 ::number::
 PART A · 03
 
-# Prompt patterns that produce real outlines
+# Levels 2 and 3
 
 ::subtitle::
-The shape of the prompt matters more than which model you use.
+When the tool starts making slides.
 
 ---
-
-# Prompt 1 — the outline request
-
-Five things every outline prompt needs:
-
-1. **Audience.** "Grad students who use Linux daily but have never touched git."
-2. **Length / format.** "8–12 slides, ~30 min including 2 exercises."
-3. **Tone.** "Editorial, third-person institutional. No exclamation marks, no emoji."
-4. **Output format.** "Use h2 for section headings, bullets for body, plain text — no markdown rendering of headings."
-5. **Source material.** Paste the existing notes / paper / repo README the talk is based on.
-
-Without all five, you get generic mush. With all five, you get a usable skeleton in one shot.
-
-<!--
-Walk through this slowly. Point at past prompts you wrote that DIDN'T include
-audience and got useless output as a result.
--->
-
+layout: two-cols-header
 ---
 
-# Prompt 1 — example
+# Visual-first tools
 
-```text
-You are drafting a workshop outline.
+::left::
 
-Audience: grad students at NYU Abu Dhabi who already write Python and Bash
-daily, but have never used git collaboratively.
+### Level 2: deck builders
+Prompt or brief in; designed slides out.
 
-Length: 30 minutes total, including 2 hands-on exercises (~5 min each).
-8–12 slides.
+Examples: Gamma, Canva Magic Design, Beautiful.ai, Claude Design.
 
-Tone: editorial, third-person institutional. No exclamation marks, no emoji,
-no hype words ("amazing", "powerful"). One idea per slide.
+Useful for:
+- Fast visual drafts
+- Mood boards
+- Non-technical slide decks
 
-Output: a markdown outline with one h2 per slide title, followed by 2–4
-bullet points outlining slide content. Mark the 2 exercise slots clearly.
+::right::
 
-Source material:
-[paste your notes, README, paper here]
-```
+### Level 3: AI inside slide apps
+Stay where the final file already lives.
 
-Now Claude has the constraints it needs. The output will still need an edit pass, but the structure will be usable.
+Examples: PowerPoint Copilot, Gemini in Slides, Canva AI.
 
----
+Useful for:
+- Required templates
+- Existing decks
+- Last-mile rewriting and layout help
 
-# Prompt 2 — expanding a section
-
-Once the outline lands, expand one section at a time:
-
-```text
-Expand section 3 ("Rebasing vs. merging") into 3 slides:
-- Slide 1: the visual model (mermaid commit graph for both).
-- Slide 2: the command differences (side by side, code blocks).
-- Slide 3: a common pitfall + how to recover.
-
-Constraints: editorial tone, no emoji, code blocks must be runnable bash.
-```
-
-One section at a time keeps the output focused and prevents the model from drifting back into generic-mode.
-
----
-
-# Prompt 3 — iteration
-
-The first answer is rarely the final answer. Push back specifically:
-
-- "Shorter — the second bullet should be one sentence, not three."
-- "Replace the metaphor; we don't use 'magic' in CTP voice."
-- "Add a mermaid diagram instead of a paragraph for slide 4."
-- "Convert the bash to PowerShell-compatible commands; our audience is mixed-OS."
-
-<CtpCallout label="Trick" tone="accent">
-Treat the AI like a junior co-author. Specific feedback works; "make it better" doesn't.
+<CtpCallout label="Trade-off" tone="accent">
+These tools can produce something attractive quickly. The risk is that the real source of truth becomes trapped in a visual file that is harder to review, diff, reuse, or ask another AI tool to edit precisely.
 </CtpCallout>
 
 ---
@@ -253,26 +260,33 @@ layout: section
 ::number::
 PART A · 04
 
-# Editorial review
+# Level 4: agentic workflows
 
 ::subtitle::
-What to check before accepting AI output into your deck.
+When AI edits the actual presentation source.
 
 ---
 
-# The five-point check
+# Three ways to use AI with source
 
-Before pasting AI output into `slides.md`, verify:
+### Best: agentic editor
+Codex, Cursor, Claude Code, or similar edits `slides.md`, runs the preview, checks the build, and iterates with you.
 
-1. **Facts.** Click every link the model wrote. Run every code block. Check every dependency version. **AI hallucinates technical details confidently.**
-2. **Voice.** Does it sound like you? CTP voice is third-person institutional ("The Marine Sciences facility supports…"), never marketing ("Discover the amazing power of…").
-3. **Brand adherence.** Strip every emoji, every exclamation mark, every "leverage / unlock / empower" word. The design system explicitly bans these.
-4. **One-idea-per-slide.** AI loves cramming bullets. Split slides where it does.
-5. **Signal-to-noise.** Cut any bullet that doesn't earn its line. AI pads more than humans do.
+### Good fallback: chat interface
+Paste `slides.md` into ChatGPT, Claude, or Gemini and ask for revised Markdown or patch-style changes. Less interactive, but still works.
 
-<CtpCallout label="If you skip the review">
-Your audience will notice. AI prose has a tell: vague verbs ("supports", "enables") with no specific noun, lots of bullets that each say the same thing slightly differently, and the words "comprehensive" and "robust" appearing at least once per slide. Edit it out.
+### Least ideal: manual recreation
+Generate a visual draft elsewhere, then recreate it by hand in the final tool. Useful for inspiration, expensive for maintenance.
+
+<CtpCallout label="Key shift" tone="accent">
+Agentic tools are strongest when the deck has source files. They can edit structure, not just pixels.
 </CtpCallout>
+
+<!--
+Name Codex, Cursor, and Claude Code as examples, but keep the category
+tool-agnostic. Also make the fallback explicit: people without agentic tools can
+still use a chat interface to revise the Markdown source.
+-->
 
 ---
 layout: section
@@ -281,24 +295,49 @@ layout: section
 ::number::
 PART A · 05
 
-# Hand-off to Slidev
+# The source of truth
 
 ::subtitle::
-Getting from AI chat to a running deck.
+One portable artifact, many possible outputs.
 
 ---
 
-# The five-step bridge
+# One brief can feed many tools
 
-1. **Accept the reviewed outline** as your final structure. Don't tinker further in the AI chat — switch tools.
-2. **Scaffold a fresh Slidev deck** (`pnpm new-workshop my-topic` if it's part of the series, or follow the standalone walkthrough in `ctp-templates/slidev/README.md`).
-3. **Paste content slide by slide** into `slides.md`. Insert `---` between slides as you go.
-4. **Run `pnpm dev`** as soon as you have the first three slides. Don't wait until you're done — Slidev's hot reload means you see results in seconds, and the visual feedback shapes what you write next.
-5. **Polish in the editor**, not in the chat. Once you're in Slidev, the deck has stopped being "an AI draft" and started being "your deck". Treat AI as a tool you used in Step 1, not as a collaborator throughout.
+```text
+raw material
+  -> chat assistant
+    -> presentation-brief.md
+      -> Slidev / slides.md
+      -> HTML or PDF
+      -> LaTeX / Beamer
+      -> PowerPoint or Canva draft
+      -> Claude Design or other visual tools
+      -> another AI editing pass
+```
 
-<CtpCallout label="Why this order matters" tone="accent">
-The chat loses fidelity on long iterations — the model forgets earlier constraints. Each round of editing in chat costs context. Editing in your code editor + a live preview is faster and the changes stick.
+Keep edits flowing back to the Markdown source, or the workflow splits into disconnected copies.
+
+<CtpCallout label="Working principle" tone="accent">
+The durable source is the text you can review, version, reuse, and ask AI to change. The rendered deck is one output of that source.
 </CtpCallout>
+
+---
+
+# Why Slidev next?
+
+For the rest of the workshop, Slidev gives us a concrete version of this workflow:
+
+- One source file: `slides.md`
+- Live preview while editing
+- CTP theme and reusable components
+- Export to PDF, static web, and other formats
+- Works well with agentic tools because the deck is text
+
+<!--
+This is the bridge. The point is not that Slidev is the only destination; it is
+the hands-on destination for this workshop because it makes the source visible.
+-->
 
 ---
 layout: section
@@ -310,12 +349,11 @@ PART B
 # To Polished Deck
 
 ::subtitle::
-From AI-drafted outline to a published Slidev presentation.
+From portable Markdown source to a published Slidev presentation.
 
 <!--
-Big-chapter divider. The break between Part A and Part B is a natural breather
-point in a 60-min workshop. If you're running long, this is where to cut Part B
-short rather than rush through both halves.
+Big-chapter divider. Part A gave the 20-minute workflow map. Part B is the
+hands-on implementation: turn the source-of-truth idea into a running Slidev deck.
 -->
 
 ---
