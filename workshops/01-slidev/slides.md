@@ -1,11 +1,11 @@
 ---
-# Workshop 01 — How to use Slidev
+# Workshop 01 — AI-Assisted Presentations with Slidev: From Prompt to Polished Deck
 # This deck is itself made with Slidev, using the CTP theme. So the slides
 # you're watching are the lesson AND the demo.
 theme: ctp
-title: How to use Slidev
+title: "AI-Assisted Presentations with Slidev: From Prompt to Polished Deck"
 info: |
-  CTP Upscaling Workshop 01 — How to use Slidev.
+  CTP Upscaling Workshop 01 — AI-Assisted Presentations with Slidev: From Prompt to Polished Deck.
 
   Markdown-driven presentations: install, author, theme, and publish a
   deck end to end using the CTP slidev theme.
@@ -19,10 +19,10 @@ mdc: true
 layout: cover
 ---
 
-# How to use Slidev
+# AI-Assisted Presentations with Slidev
 
 ::eyebrow::
-<span class="ctp-tag ctp-tag--accent">Workshop 01</span>
+<span class="ctp-tag ctp-tag--accent">Workshop 01 · From Prompt to Polished Deck</span>
 
 ::meta::
 Core Technology Platforms · NYU Abu Dhabi

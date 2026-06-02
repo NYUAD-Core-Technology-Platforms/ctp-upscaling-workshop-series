@@ -2,7 +2,7 @@
   "name": "ctp-ws01-slidev",
   "version": "0.1.0",
   "private": true,
-  "description": "Workshop 01 — How to use Slidev, taught with Slidev. Part of the CTP at NYUAD upscaling workshop series.",
+  "description": "Workshop 01 — AI-Assisted Presentations with Slidev: From Prompt to Polished Deck. Part of the CTP at NYUAD upscaling workshop series.",
   "scripts": {
     "dev": "slidev --open",
     "build": "slidev build",

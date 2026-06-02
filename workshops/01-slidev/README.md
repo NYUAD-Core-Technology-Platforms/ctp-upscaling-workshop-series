@@ -1,4 +1,4 @@
-# Workshop 01 — How to use Slidev
+# Workshop 01 — AI-Assisted Presentations with Slidev: From Prompt to Polished Deck
 
 The first session in the CTP Upscaling Workshop Series. This deck **is itself made with Slidev** using the CTP theme — so the workshop and a worked example of the tool it teaches are the same artifact. Open `slides.md` to see how it's authored.
 

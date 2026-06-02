@@ -16,6 +16,7 @@ A repository holding the **Core Technology Platforms (CTP) at NYU Abu Dhabi** up
 - [How theme changes propagate](#how-theme-changes-propagate) — the link: mechanism explained
 - [Workshops index](#workshops-index)
 - [Command reference](#command-reference) — every command, what it does
+- [For AI agents](#for-ai-agents) — `AGENTS.md` files and what's in them
 
 ---
 
@@ -24,7 +25,7 @@ A repository holding the **Core Technology Platforms (CTP) at NYU Abu Dhabi** up
 ```
 .
 ├── workshops/
-│   └── 01-slidev/            # Workshop 01 — "How to use Slidev"
+│   └── 01-slidev/            # Workshop 01 — "AI-Assisted Presentations with Slidev"
 ├── scripts/
 │   └── new-workshop.mjs      # Scaffolds a new minimal workshop folder
 ├── pnpm-workspace.yaml
@@ -300,7 +301,7 @@ If you've already given workshop 01 and don't want a future theme change to alte
 
 | # | Title | Status |
 |---|-------|--------|
-| 01 | How to use Slidev | Draft |
+| 01 | AI-Assisted Presentations with Slidev: From Prompt to Polished Deck | Draft |
 
 When you add a new workshop, add it to this table.
 
@@ -328,6 +329,18 @@ Every command this repo uses, in one place. Run them from the repo root unless n
 - `--filter ./workshops/NN-<name>` — pnpm only runs the command inside that one folder. Without this flag, pnpm would try to run the command in every workspace package at once.
 - `-D` (or `--save-dev`) — install the package as a devDependency rather than a regular dependency. devDependencies aren't installed when someone consumes your package via npm, but they are installed locally — fine for tools used only during development/build.
 - `-g` (or `--global`) — install the package globally (available everywhere on your machine, not just in one project). Used during one-time pnpm install (`npm install -g pnpm`).
+
+---
+
+## For AI agents
+
+If you're an AI coding agent (Claude Code, Cursor, etc.) or you're working in this repo with one, read these first:
+
+- [`AGENTS.md`](AGENTS.md) — repo-level rules: cross-repo wiring, the `link:` protocol, hard rules, gotchas (`--base ./`, npm vs pnpm, Windows symlinks), commands, coordination with `ctp-templates`.
+- [`workshops/AGENTS.md`](workshops/AGENTS.md) — slide-authoring conventions: frontmatter, layouts, snippets (and the `<<<` import gotcha for `.md` files), speaker notes, dark-background contrast, test checklist.
+- In the sibling repo: [`ctp-templates/AGENTS.md`](https://github.com/NYUAD-Core-Technology-Platforms/ctp-templates/blob/main/AGENTS.md) — theme-level rules, Slidev internals gotchas (`@slidev/types`, nested `<h1>` demotion, scoped CSS slot content), design-system enforcement.
+
+These three files cover everything an agent needs to know to work productively across both repos. Update them when you discover a new gotcha — that's how the institutional memory grows.
 
 ---
 
