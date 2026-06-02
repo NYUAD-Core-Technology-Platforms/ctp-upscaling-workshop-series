@@ -50,18 +50,30 @@ workshops/01-slidev/
 
 ---
 
-## Outline (60 min total)
+## Outline (~60 min total)
 
-| Part | Topic | ~ time |
-|------|-------|--------|
-| 01 | Why Slidev? | 5 min |
-| 02 | Install & run locally | 10 min |
-| 03 | Authoring in Markdown | 20 min + exercise |
-| 04 | Theming with the CTP template | 10 min + exercise |
-| 05 | Export & publish | 10 min + exercise |
-| 06 | Wrap up & Q&A | 5 min |
+### Part A — From Prompt (~30 min, AI-assisted authoring)
 
-Pair the workshop with `exercises/README.md` — three short hands-on exercises that attendees do on their own laptops.
+| Section | Topic | ~ time |
+|---------|-------|--------|
+| A · 01 | Why AI for drafting? (trade-offs) | 5 min |
+| A · 02 | Tools that work well | 5 min |
+| A · 03 | Prompt patterns that produce real outlines | 10 min |
+| A · 04 | Editorial review checklist | 5 min |
+| A · 05 | Hand-off to Slidev | 5 min |
+
+### Part B — To Polished Deck (~30 min, Slidev)
+
+| Section | Topic | ~ time |
+|---------|-------|--------|
+| B · 01 | Why Slidev? | 5 min |
+| B · 02 | Install & run locally | 5 min |
+| B · 03 | Authoring in Markdown | 10 min + exercise |
+| B · 04 | Theming with the CTP template | 5 min + exercise |
+| B · 05 | Export & publish | 5 min + exercise |
+| B · 06 | Wrap up & Q&A | — |
+
+Pair the workshop with `exercises/README.md` — three short hands-on exercises that attendees do on their own laptops. The exercises live in Part B; Part A is currently teaching only (no hands-on AI prompting exercise yet — easy to add one later if attendees want it).
 
 ---
 

@@ -40,20 +40,27 @@ layout: default
 
 # What you'll leave with
 
-By the end of this hour you will be able to:
+The workshop is in **two halves**, mirroring the title.
 
-1. Spin up a Slidev deck on your laptop from zero.
-2. Write slides in Markdown — including code, images, columns, and components.
-3. Apply the **CTP theme** so your deck matches the rest of the series.
-4. Export the result to PDF, a static site, or GitHub Pages.
+**Part A — From Prompt** (AI-assisted authoring)
+1. Pick the right AI tool for drafting presentation content.
+2. Write prompts that produce a structured slide outline, not generic mush.
+3. Edit AI output for accuracy, voice, and brand fit.
+
+**Part B — To Polished Deck** (Slidev)
+4. Spin up a Slidev deck on your laptop from zero.
+5. Write slides in Markdown — including code, images, columns, and components.
+6. Apply the CTP theme so your deck matches the rest of the series.
+7. Export the result to PDF, a static site, or GitHub Pages.
 
 <CtpCallout label="Format" tone="accent">
-Roughly 45 min of slides + 15 min of hands-on. Three short exercises in <code>exercises/README.md</code> — feel free to do them as we go.
+Two halves, ~30 min each, plus three hands-on exercises in <code>exercises/README.md</code> — feel free to do them as we go.
 </CtpCallout>
 
 <!--
-Read the goals out loud — anchors expectations. Mention that the exercises are
-self-paced; if you finish early, jump ahead.
+Read the goals out loud — anchors expectations for the two-part structure.
+Mention that Part A teaches the AI side and Part B is the Slidev side, and that
+exercises are self-paced.
 -->
 
 ---
@@ -61,7 +68,262 @@ layout: section
 ---
 
 ::number::
-PART 01
+PART A
+
+# From Prompt
+
+::subtitle::
+Drafting a presentation with AI before writing a line of Slidev.
+
+<!--
+Big-chapter divider. Set the framing: Part A is the AI side — how to use Claude,
+ChatGPT, and friends to do the heavy lifting on structure and first-draft content.
+Mention that Part B (the Slidev half) comes after the break.
+-->
+
+---
+layout: section
+---
+
+::number::
+PART A · 01
+
+# Why AI for drafting?
+
+::subtitle::
+What you trade by handing the first draft to a language model.
+
+---
+layout: two-cols-header
+---
+
+# The trade-offs
+
+::left::
+
+### What AI is good at
+- **Structure.** An outline in 30 seconds vs. 30 minutes.
+- **Breaking the blank page.** Anything beats staring.
+- **Variations.** "Now do the same as a 5-min lightning talk."
+- **Code scaffolding** the dev server lifts to runnable.
+
+::right::
+
+### What AI is bad at
+- **Domain facts** in your specific field — it hallucinates confidently.
+- **Voice.** Generic-academic by default; reads like every other deck.
+- **Following the brand.** It will sprinkle emoji and exclamation marks unless told not to.
+- **Knowing when to stop.** It pads.
+
+<CtpCallout label="Net effect" tone="accent">
+You spend less time drafting and more time editing. The edit pass is non-optional — never present an AI's first answer.
+</CtpCallout>
+
+---
+layout: section
+---
+
+::number::
+PART A · 02
+
+# Tools that work well
+
+::subtitle::
+Pick the one that fits the task; don't shop for the "best" in the abstract.
+
+---
+layout: two-cols-header
+---
+
+# Pick by task
+
+::left::
+
+### Long-form drafting
+- **Claude.ai** (this workshop's primary tool) — strong reasoning, good at following long format instructions, accepts large source documents.
+- **ChatGPT** — similar use cases, slightly different prose style. Use whichever you have a subscription to.
+
+### Visual mockups
+- **Claude.ai design** — the [interactive mockup tool](https://claude.ai/design). Used to generate the CTP design system that this very theme runs on.
+
+::right::
+
+### In the editor
+- **Claude Code** / **Cursor** — paste an outline, get a `slides.md` scaffold. Iterates side-by-side with your terminal and Slidev's hot reload.
+
+### Specialized
+- **Perplexity** — when you need cited facts (research methodology, recent papers). Not for slide structure.
+
+<CtpCallout label="Rule of thumb">
+Reach for the tool that takes your input in the format you already have. Outline in a Notion doc? Claude.ai handles that. Outline already in a code editor? Claude Code or Cursor saves the copy-paste step.
+</CtpCallout>
+
+---
+layout: section
+---
+
+::number::
+PART A · 03
+
+# Prompt patterns that produce real outlines
+
+::subtitle::
+The shape of the prompt matters more than which model you use.
+
+---
+
+# Prompt 1 — the outline request
+
+Five things every outline prompt needs:
+
+1. **Audience.** "Grad students who use Linux daily but have never touched git."
+2. **Length / format.** "8–12 slides, ~30 min including 2 exercises."
+3. **Tone.** "Editorial, third-person institutional. No exclamation marks, no emoji."
+4. **Output format.** "Use h2 for section headings, bullets for body, plain text — no markdown rendering of headings."
+5. **Source material.** Paste the existing notes / paper / repo README the talk is based on.
+
+Without all five, you get generic mush. With all five, you get a usable skeleton in one shot.
+
+<!--
+Walk through this slowly. Point at past prompts you wrote that DIDN'T include
+audience and got useless output as a result.
+-->
+
+---
+
+# Prompt 1 — example
+
+```text
+You are drafting a workshop outline.
+
+Audience: grad students at NYU Abu Dhabi who already write Python and Bash
+daily, but have never used git collaboratively.
+
+Length: 30 minutes total, including 2 hands-on exercises (~5 min each).
+8–12 slides.
+
+Tone: editorial, third-person institutional. No exclamation marks, no emoji,
+no hype words ("amazing", "powerful"). One idea per slide.
+
+Output: a markdown outline with one h2 per slide title, followed by 2–4
+bullet points outlining slide content. Mark the 2 exercise slots clearly.
+
+Source material:
+[paste your notes, README, paper here]
+```
+
+Now Claude has the constraints it needs. The output will still need an edit pass, but the structure will be usable.
+
+---
+
+# Prompt 2 — expanding a section
+
+Once the outline lands, expand one section at a time:
+
+```text
+Expand section 3 ("Rebasing vs. merging") into 3 slides:
+- Slide 1: the visual model (mermaid commit graph for both).
+- Slide 2: the command differences (side by side, code blocks).
+- Slide 3: a common pitfall + how to recover.
+
+Constraints: editorial tone, no emoji, code blocks must be runnable bash.
+```
+
+One section at a time keeps the output focused and prevents the model from drifting back into generic-mode.
+
+---
+
+# Prompt 3 — iteration
+
+The first answer is rarely the final answer. Push back specifically:
+
+- "Shorter — the second bullet should be one sentence, not three."
+- "Replace the metaphor; we don't use 'magic' in CTP voice."
+- "Add a mermaid diagram instead of a paragraph for slide 4."
+- "Convert the bash to PowerShell-compatible commands; our audience is mixed-OS."
+
+<CtpCallout label="Trick" tone="accent">
+Treat the AI like a junior co-author. Specific feedback works; "make it better" doesn't.
+</CtpCallout>
+
+---
+layout: section
+---
+
+::number::
+PART A · 04
+
+# Editorial review
+
+::subtitle::
+What to check before accepting AI output into your deck.
+
+---
+
+# The five-point check
+
+Before pasting AI output into `slides.md`, verify:
+
+1. **Facts.** Click every link the model wrote. Run every code block. Check every dependency version. **AI hallucinates technical details confidently.**
+2. **Voice.** Does it sound like you? CTP voice is third-person institutional ("The Marine Sciences facility supports…"), never marketing ("Discover the amazing power of…").
+3. **Brand adherence.** Strip every emoji, every exclamation mark, every "leverage / unlock / empower" word. The design system explicitly bans these.
+4. **One-idea-per-slide.** AI loves cramming bullets. Split slides where it does.
+5. **Signal-to-noise.** Cut any bullet that doesn't earn its line. AI pads more than humans do.
+
+<CtpCallout label="If you skip the review">
+Your audience will notice. AI prose has a tell: vague verbs ("supports", "enables") with no specific noun, lots of bullets that each say the same thing slightly differently, and the words "comprehensive" and "robust" appearing at least once per slide. Edit it out.
+</CtpCallout>
+
+---
+layout: section
+---
+
+::number::
+PART A · 05
+
+# Hand-off to Slidev
+
+::subtitle::
+Getting from AI chat to a running deck.
+
+---
+
+# The five-step bridge
+
+1. **Accept the reviewed outline** as your final structure. Don't tinker further in the AI chat — switch tools.
+2. **Scaffold a fresh Slidev deck** (`pnpm new-workshop my-topic` if it's part of the series, or follow the standalone walkthrough in `ctp-templates/slidev/README.md`).
+3. **Paste content slide by slide** into `slides.md`. Insert `---` between slides as you go.
+4. **Run `pnpm dev`** as soon as you have the first three slides. Don't wait until you're done — Slidev's hot reload means you see results in seconds, and the visual feedback shapes what you write next.
+5. **Polish in the editor**, not in the chat. Once you're in Slidev, the deck has stopped being "an AI draft" and started being "your deck". Treat AI as a tool you used in Step 1, not as a collaborator throughout.
+
+<CtpCallout label="Why this order matters" tone="accent">
+The chat loses fidelity on long iterations — the model forgets earlier constraints. Each round of editing in chat costs context. Editing in your code editor + a live preview is faster and the changes stick.
+</CtpCallout>
+
+---
+layout: section
+---
+
+::number::
+PART B
+
+# To Polished Deck
+
+::subtitle::
+From AI-drafted outline to a published Slidev presentation.
+
+<!--
+Big-chapter divider. The break between Part A and Part B is a natural breather
+point in a 60-min workshop. If you're running long, this is where to cut Part B
+short rather than rush through both halves.
+-->
+
+---
+layout: section
+---
+
+::number::
+PART B · 01
 
 # Why Slidev?
 
@@ -118,7 +380,7 @@ layout: section
 ---
 
 ::number::
-PART 02
+PART B · 02
 
 # Install &amp; run locally
 
@@ -224,7 +486,7 @@ layout: section
 ---
 
 ::number::
-PART 03
+PART B · 03
 
 # Authoring in Markdown
 
@@ -520,7 +782,7 @@ layout: section
 ---
 
 ::number::
-PART 04
+PART B · 04
 
 # Theming with the CTP template
 
@@ -649,7 +911,7 @@ layout: section
 ---
 
 ::number::
-PART 05
+PART B · 05
 
 # Export &amp; publish
 
@@ -741,7 +1003,7 @@ layout: section
 ---
 
 ::number::
-PART 06
+PART B · 06
 
 # Wrap up
 
