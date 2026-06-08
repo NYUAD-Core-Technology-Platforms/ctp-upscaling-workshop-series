@@ -275,6 +275,8 @@ There are also shorthand aliases in the root `package.json` for workshop 01: `pn
 
 ## Publish all decks (GitHub Pages + Releases)
 
+**🌐 Live site: https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/** — landing page with every workshop; each deck lives at `…/<NN-slug>/` with a `slides.pdf` beside it.
+
 Two GitHub Actions workflows publish every workshop automatically. They live in `.github/workflows/` and both build through `scripts/ci-build.mjs`, which auto-discovers every `workshops/NN-*` folder — you never edit the workflow when you add a workshop.
 
 **`deploy-pages.yml` — on every push to `main`.** Builds the combined site and deploys it to GitHub Pages:
@@ -333,11 +335,11 @@ If you've already given workshop 01 and don't want a future theme change to alte
 
 ## Workshops index
 
-| # | Title | Status |
-|---|-------|--------|
-| 01 | AI-Assisted Presentations with Slidev: From Prompt to Polished Deck | Draft |
+| # | Title | Status | Links |
+|---|-------|--------|-------|
+| 01 | AI-Assisted Presentations with Slidev: From Prompt to Polished Deck | Draft | [slides](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/) · [PDF](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/slides.pdf) |
 
-When you add a new workshop, add it to this table.
+When you add a new workshop, add it to this table. Its links follow the pattern `…github.io/ctp-upscaling-workshop-series/<NN-slug>/` (live slides) and `…/<NN-slug>/slides.pdf` (PDF).
 
 ---
 
