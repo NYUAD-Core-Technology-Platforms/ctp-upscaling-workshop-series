@@ -27,6 +27,8 @@ pnpm-debug.log*
 .env.local
 .env.*.local
 
-
 # Local environments
 *local*
+
+# FUSE leftover handles (mounted-folder artifact, safe to ignore)
+.fuse_hidden*
