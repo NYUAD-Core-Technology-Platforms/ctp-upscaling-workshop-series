@@ -102,7 +102,7 @@ cd ctp-upscaling-workshop-series
 pnpm install
 ```
 
-> `cd` moves into the repo. `pnpm install` reads each workshop's `package.json`, sees the line `"slidev-theme-ctp": "link:../../../ctp-templates/slidev"`, and creates a symlink under `node_modules/` pointing back to the theme folder in the sibling repo. It also downloads Slidev itself and every other dependency. First run takes 1–2 minutes; subsequent runs are seconds.
+> `cd` moves into the repo. `pnpm install` reads each workshop's `package.json`, sees the line `"slidev-theme-ctp": "file:../../../ctp-templates/slidev"`, and creates a symlink under `node_modules/` pointing back to the theme folder in the sibling repo. It also downloads Slidev itself and every other dependency. First run takes 1–2 minutes; subsequent runs are seconds. (`file:` rather than `link:` so the package.json also works under plain `npm install` — `link:` is a pnpm-only protocol that npm rejects.)
 
 When it finishes, every workshop is wired up and ready to run.
 
@@ -313,7 +313,7 @@ pnpm build:release    # per-deck PDF + html.zip -> release/
 Each workshop's `package.json` lists the theme as:
 
 ```json
-"slidev-theme-ctp": "link:../../../ctp-templates/slidev"
+"slidev-theme-ctp": "file:../../../ctp-templates/slidev"
 ```
 
 `link:` is a pnpm protocol that creates a **symlink** from `node_modules/slidev-theme-ctp` to the actual folder `ctp-templates/slidev/`. The consequences:

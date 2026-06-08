@@ -10,7 +10,7 @@
     "export:pdf": "slidev export --format pdf"
   },
   "dependencies": {
-    "slidev-theme-ctp": "link:../../../ctp-templates/slidev"
+    "slidev-theme-ctp": "file:../../../ctp-templates/slidev"
   },
   "devDependencies": {
     "@slidev/cli": "^0.49.0",

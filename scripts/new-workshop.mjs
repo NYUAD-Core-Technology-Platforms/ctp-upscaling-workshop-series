@@ -134,9 +134,10 @@ writeFileSync(
         'export:pdf': 'slidev export --format pdf',
       },
       dependencies: {
-        // link: protocol — symlinks to the sibling ctp-templates repo so
-        // theme edits hot-reload across both repos.
-        'slidev-theme-ctp': `link:${THEME_PKG_REL_FROM_WORKSHOP}`,
+        // file: protocol — symlinks to the sibling ctp-templates repo.
+        // Equivalent to `link:` in pnpm but works on both npm and pnpm,
+        // so consumer setups using either tool work without changes.
+        'slidev-theme-ctp': `file:${THEME_PKG_REL_FROM_WORKSHOP}`,
       },
       devDependencies: {
         '@slidev/cli': '^0.49.0',

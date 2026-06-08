@@ -19,7 +19,7 @@ This is a **pnpm workspace**. Each workshop is its own package with its own `pac
 Each workshop's `package.json` depends on the Slidev theme via:
 
 ```json
-"slidev-theme-ctp": "link:../../../ctp-templates/slidev"
+"slidev-theme-ctp": "file:../../../ctp-templates/slidev"
 ```
 
 `link:` is a pnpm protocol that creates a **symlink** rather than copying files. The two repos must be checked out as **siblings** under the same parent folder on disk. The expected layout:

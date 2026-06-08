@@ -30,7 +30,7 @@ jobs:
         working-directory: ctp-upscaling-workshop-series
     steps:
       # The deck theme (slidev-theme-ctp) lives in the sibling ctp-templates
-      # repo and is consumed via a `link:../../../ctp-templates/slidev`
+      # repo and is consumed via a `file:../../../ctp-templates/slidev`
       # dependency. CI must reproduce that sibling layout under the workspace:
       #   $GITHUB_WORKSPACE/
       #   ├── ctp-upscaling-workshop-series/   <-- this repo
