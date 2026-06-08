@@ -7,10 +7,16 @@
     "new-workshop": "node scripts/new-workshop.mjs",
     "dev:01": "pnpm --filter ./workshops/01-slidev dev",
     "build:01": "pnpm --filter ./workshops/01-slidev build",
-    "export:01": "pnpm --filter ./workshops/01-slidev export"
+    "export:01": "pnpm --filter ./workshops/01-slidev export",
+    "build:site": "node scripts/ci-build.mjs --mode pages",
+    "preview:site": "node scripts/ci-build.mjs --mode pages --no-pdf",
+    "build:release": "node scripts/ci-build.mjs --mode release"
   },
   "packageManager": "pnpm@9.0.0",
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "playwright-chromium": "^1.49.0"
   }
 }

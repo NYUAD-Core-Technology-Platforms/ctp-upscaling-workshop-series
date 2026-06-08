@@ -1,0 +1,90 @@
+name: Deploy slides to GitHub Pages
+
+# Publishes the combined workshop site on every push to main.
+# The live interactive deck for each workshop ends up at:
+#   https://<owner>.github.io/<repo>/<NN-slug>/
+# with a landing index at the site root and a downloadable PDF beside each deck.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+# Required for the GitHub Pages deployment.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one Pages deploy at a time; let a newer push cancel an in-flight one.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        # All commands run inside the main repo checkout.
+        working-directory: ctp-upscaling-workshop-series
+    steps:
+      # The deck theme (slidev-theme-ctp) lives in the sibling ctp-templates
+      # repo and is consumed via a `link:../../../ctp-templates/slidev`
+      # dependency. CI must reproduce that sibling layout under the workspace:
+      #   $GITHUB_WORKSPACE/
+      #   ├── ctp-upscaling-workshop-series/   <-- this repo
+      #   └── ctp-templates/                   <-- the theme
+      - name: Checkout workshop series
+        uses: actions/checkout@v4
+        with:
+          path: ctp-upscaling-workshop-series
+
+      - name: Checkout theme repo (ctp-templates)
+        uses: actions/checkout@v4
+        with:
+          repository: NYUAD-Core-Technology-Platforms/ctp-templates
+          ref: main
+          path: ctp-templates
+          # If ctp-templates is PRIVATE, the default GITHUB_TOKEN cannot read it.
+          # Create a PAT (or fine-grained token) with read access to that repo,
+          # add it as a repo secret named TEMPLATES_TOKEN, and uncomment:
+          # token: ${{ secrets.TEMPLATES_TOKEN }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: ctp-upscaling-workshop-series/pnpm-lock.yaml
+
+      - name: Install dependencies
+        # --no-frozen-lockfile because CI adds playwright-chromium for PDF export;
+        # run `pnpm install` locally and commit the lockfile to make this strict.
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Install Playwright Chromium (for PDF export)
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Build combined site
+        # Base path is derived from $GITHUB_REPOSITORY -> "/<repo>/".
+        run: node scripts/ci-build.mjs --mode pages
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ctp-upscaling-workshop-series/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

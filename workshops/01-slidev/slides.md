@@ -389,29 +389,82 @@ Just a markdown heading and some content.
 ```
 
 ---
+
+# Making a simple slides.md file
+
+The minimum a Slidev deck needs is a single Markdown file. Slides are separated by `---` on its own line, titles use `#` headings, and speaker notes go inside an HTML comment at the bottom of each slide.
+
+````md
+# Deck title
+Use markdown syntax here to add content
+- item 1
+- item 2
+- etc...
+<!--
+Notes 1
+-->
+---
+# the title for slide 2
+Some text
+<!--
+Notes for slide 2
+-->
+---
+# the title for slide 3
+Some text
+<!--
+Notes for slide 3
+-->
+````
+
+Save it as `slides.md`, run the dev server, and you have a working three-slide deck.
+
+---
 layout: two-cols-header
 ---
 
-# Why pick it over PowerPoint, Keynote, Reveal.js?
+# Running the deck
+
+`cd` into the folder where `slides.md` lives, install Slidev locally (pinned to `^0.49.0` — v52 has a Windows path bug), and start the dev server. Open `http://localhost:3030/` when it prints.
 
 ::left::
 
-### Strengths
-- **Diffable.** It's a text file — git tracks every change.
-- **Code looks great.** Real syntax highlighting, line focus, editable blocks.
-- **Reusable.** Themes and components compose across decks.
-- **Programmable.** Anything Vue can do, your slide can do.
+### Windows (PowerShell)
+
+**No Node yet?** Download LTS from [nodejs.org](https://nodejs.org), or:
+
+```powershell
+winget install OpenJS.NodeJS.LTS
+```
+
+Then in a **fresh** PowerShell window:
+
+```powershell
+cd C:\path\to\your\deck
+npm init -y
+npm install --save-dev "@slidev/cli@^0.49.0"
+npx slidev
+```
 
 ::right::
 
-### Trade-offs
-- **You're writing Markdown.** Not a drag-and-drop tool.
-- **Some learning curve** if you've never touched Node.
-- **Designers can't open it without setup.** PDF export bridges that gap.
+### macOS / Linux (Terminal)
 
-<CtpCallout label="When to reach for it" tone="accent">
-Code-heavy talks, technical workshops, anything you'll iterate on in version control. Reach for Keynote if your deck is mostly photographs.
-</CtpCallout>
+**No Node yet?** Download LTS from [nodejs.org](https://nodejs.org), or:
+
+```bash
+brew install node           # macOS
+sudo apt install nodejs npm # Debian / Ubuntu
+```
+
+Then in your deck folder:
+
+```bash
+cd /path/to/your/deck
+npm init -y
+npm install --save-dev "@slidev/cli@^0.49.0"
+npx slidev
+```
 
 ---
 layout: section

@@ -13,6 +13,7 @@ A repository holding the **Core Technology Platforms (CTP) at NYU Abu Dhabi** up
 - [Start a new workshop](#start-a-new-workshop) — one command, all set
 - [What you can use in your slides](#what-you-can-use-in-your-slides) — layouts, components, frontmatter
 - [Export to PDF or static site](#export-to-pdf-or-static-site)
+- [Publish all decks (GitHub Pages + Releases)](#publish-all-decks-github-pages--releases) — the CI pipeline
 - [How theme changes propagate](#how-theme-changes-propagate) — the link: mechanism explained
 - [Workshops index](#workshops-index)
 - [Command reference](#command-reference) — every command, what it does
@@ -269,6 +270,39 @@ Three modes summary:
 | `... export` | A single PDF | Emailing or attaching one file. |
 
 There are also shorthand aliases in the root `package.json` for workshop 01: `pnpm dev:01`, `pnpm build:01`, `pnpm export:01`. Same commands, less typing.
+
+---
+
+## Publish all decks (GitHub Pages + Releases)
+
+Two GitHub Actions workflows publish every workshop automatically. They live in `.github/workflows/` and both build through `scripts/ci-build.mjs`, which auto-discovers every `workshops/NN-*` folder — you never edit the workflow when you add a workshop.
+
+**`deploy-pages.yml` — on every push to `main`.** Builds the combined site and deploys it to GitHub Pages:
+
+- Landing page at the site root listing every workshop.
+- Each deck served at `https://<owner>.github.io/<repo>/<NN-slug>/` (correct `--base` set automatically).
+- A downloadable `slides.pdf` beside each deck, plus a `404.html` fallback so deep-link refreshes don't break.
+
+**`release.yml` — on a version tag (`v*`).** Builds a versioned archive and attaches it to a GitHub Release: per workshop, `<NN-slug>.pdf` and `<NN-slug>-html.zip` (an offline-openable copy of the slides, built with `--base ./`). Cut one with:
+
+```bash
+git tag v2026.05 && git push origin v2026.05
+```
+
+**So where do the PDF and HTML live?** The live HTML slides and a current PDF are on Pages (always matching `main`); immutable, versioned PDF + offline-HTML bundles are attached to each tagged Release. Pages = "the latest", Releases = "the edition we delivered on this date".
+
+**Two setup steps before the first run:**
+
+1. In the repo on GitHub: **Settings → Pages → Build and deployment → Source = GitHub Actions**.
+2. The theme lives in the sibling **ctp-templates** repo, which both workflows check out alongside this one. If `ctp-templates` is **private**, the default token can't read it — create a PAT with read access, add it as a repo secret named `TEMPLATES_TOKEN`, and uncomment the `token:` line in both workflows. If it's public, no action needed.
+
+You can run the same builds locally:
+
+```bash
+pnpm build:site       # combined Pages site -> dist/ (needs playwright-chromium for PDFs)
+pnpm preview:site     # same, but skips PDFs (faster); then: npx serve dist
+pnpm build:release    # per-deck PDF + html.zip -> release/
+```
 
 ---
 
