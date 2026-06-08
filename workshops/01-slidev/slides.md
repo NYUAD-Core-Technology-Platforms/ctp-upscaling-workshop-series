@@ -3,6 +3,7 @@
 # This deck is itself made with Slidev, using the CTP theme. So the slides
 # you're watching are the lesson AND the demo.
 theme: ctp
+routerMode: hash
 title: "AI-Assisted Presentations with Slidev: From Prompt to Polished Deck"
 info: |
   CTP Upscaling Workshop 01 — AI-Assisted Presentations with Slidev: From Prompt to Polished Deck.

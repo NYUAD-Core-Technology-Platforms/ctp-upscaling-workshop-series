@@ -153,6 +153,7 @@ writeFileSync(
   join(targetDir, 'slides.md'),
   `---
 theme: ctp
+routerMode: hash
 title: ${titleCase}
 author: CTP at NYUAD
 info: |
