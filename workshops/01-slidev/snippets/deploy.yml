@@ -1,4 +1,4 @@
-# .github/workflows/deploy.yml — publish the deck to GitHub Pages on every push to main
+# .github/workflows/deploy.yml, publish the deck to GitHub Pages on every push to main
 name: Deploy Slidev
 
 on:

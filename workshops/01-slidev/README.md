@@ -1,12 +1,12 @@
-# Workshop 01 — AI-Assisted Presentations with Slidev: From Prompt to Polished Deck
+# Workshop 01, AI-Assisted Presentations with Slidev: From Prompt to Polished Deck
 
-The first session in the CTP Upscaling Workshop Series. This deck **is itself made with Slidev** using the CTP theme — so the workshop and a worked example of the tool it teaches are the same artifact. Open `slides.md` to see how it's authored.
+The first session in the CTP Upscaling Workshop Series. This deck **is itself made with Slidev** using the CTP theme, so the workshop and a worked example of the tool it teaches are the same artifact. Open `slides.md` to see how it's authored.
 
 ---
 
 ## Run it locally
 
-This assumes you've already followed the **Prerequisites** and **First time you clone this repo** sections of the top-level [`README.md`](../../README.md). If not, do those first — you need `ctp-templates` checked out as a sibling and `pnpm install` to have been run from the repo root.
+This assumes you've already followed the **Prerequisites** and **First time you clone this repo** sections of the top-level [`README.md`](../../README.md). If not, do those first, you need `ctp-templates` checked out as a sibling and `pnpm install` to have been run from the repo root.
 
 From the workshop-series repo root:
 
@@ -32,7 +32,7 @@ For the **presenter view** (speaker notes, next-slide preview, timer): open `htt
 
 ```
 workshops/01-slidev/
-├── slides.md             # The deck — open this to edit
+├── slides.md             # The deck, open this to edit
 ├── package.json          # depends on slidev-theme-ctp via link:
 ├── README.md             # this file
 ├── components/           # workshop-specific Vue components (empty for now)
@@ -52,7 +52,7 @@ workshops/01-slidev/
 
 ## Outline (~60 min total)
 
-### Part A — From Prompt (20 min, AI-assisted workflows)
+### Part A, From Prompt (20 min, AI-assisted workflows)
 
 | Section | Topic | ~ time |
 |---------|-------|--------|
@@ -63,7 +63,7 @@ workshops/01-slidev/
 | A · 04 | Agentic/source-controlled workflows | 3 min |
 | A · 05 | Bridge to Slidev | 2 min |
 
-### Part B — To Polished Deck (~40 min, Slidev)
+### Part B, To Polished Deck (~40 min, Slidev)
 
 | Section | Topic | ~ time |
 |---------|-------|--------|
@@ -72,9 +72,9 @@ workshops/01-slidev/
 | B · 03 | Authoring in Markdown | 15 min + exercise |
 | B · 04 | Theming with the CTP template | 7 min + exercise |
 | B · 05 | Export & publish | 8 min + exercise |
-| B · 06 | Wrap up & Q&A | — |
+| B · 06 | Wrap up & Q&A |, |
 
-Pair the workshop with `exercises/README.md` — one short Part A prompting exercise plus three Slidev exercises that attendees do on their own laptops.
+Pair the workshop with `exercises/README.md`, one short Part A prompting exercise plus three Slidev exercises that attendees do on their own laptops.
 
 ---
 
@@ -86,7 +86,7 @@ These are run from the repo root.
 pnpm build:01
 ```
 
-> Shortcut for `pnpm --filter ./workshops/01-slidev build`. Runs `slidev build` inside this workshop's folder. The output is a self-contained website in `workshops/01-slidev/dist/` — HTML, CSS, JS, fonts, images, all ready to upload to any web host. **Use this when you want to publish the deck as a website** (GitHub Pages, Netlify, etc.).
+> Shortcut for `pnpm --filter ./workshops/01-slidev build`. Runs `slidev build` inside this workshop's folder. The output is a self-contained website in `workshops/01-slidev/dist/`, HTML, CSS, JS, fonts, images, all ready to upload to any web host. **Use this when you want to publish the deck as a website** (GitHub Pages, Netlify, etc.).
 >
 > **Gotcha:** `dist/index.html` will appear **blank** if you open it directly by double-clicking. Slidev's build defaults to absolute asset paths (`/_assets/...`), which only resolve when the deck is served from the root of a web server. To preview locally, run `npx serve workshops/01-slidev/dist` and open the URL it prints. To produce a `dist/` that works when opened directly from the filesystem, add `-- --base ./` to the build command: `pnpm --filter ./workshops/01-slidev build -- --base ./`.
 
@@ -102,7 +102,7 @@ PDF export needs a headless Chromium browser installed in the workshop. One-time
 pnpm --filter ./workshops/01-slidev add -D playwright-chromium
 ```
 
-> `add` installs a package. `-D` (or `--save-dev`) installs it as a *devDependency* — recorded in `package.json` under `devDependencies`, meaning it's needed during development/build but not by end users of the deck. `playwright-chromium` is a stripped-down Chromium browser (~150 MB) that Slidev drives behind the scenes to render slides for PDF capture.
+> `add` installs a package. `-D` (or `--save-dev`) installs it as a *devDependency*, recorded in `package.json` under `devDependencies`, meaning it's needed during development/build but not by end users of the deck. `playwright-chromium` is a stripped-down Chromium browser (~150 MB) that Slidev drives behind the scenes to render slides for PDF capture.
 
 After that one-time setup, `pnpm export:01` works without further configuration.
 
@@ -142,7 +142,7 @@ If you want to override a color or font for **just this workshop** (e.g. a guest
 }
 ```
 
-Reload the browser. The override applies to this deck only — every other workshop and the theme itself are untouched.
+Reload the browser. The override applies to this deck only, every other workshop and the theme itself are untouched.
 
 If the change should apply to **every** workshop, edit `ctp-templates/slidev/styles/tokens.css` instead, and also update `ctp-templates/shared/brand/colors_and_type.css` (the canonical source).
 
@@ -150,7 +150,7 @@ If the change should apply to **every** workshop, edit `ctp-templates/slidev/sty
 
 ## Author notes
 
-- **Speaker notes** are inside HTML comments at the bottom of each slide — open the presenter view at `/presenter` to see them while presenting.
+- **Speaker notes** are inside HTML comments at the bottom of each slide, open the presenter view at `/presenter` to see them while presenting.
 - **Long code samples** live in `snippets/` so they stay lintable. The deck pulls them in with `<<< @/snippets/file.ext`. This works for `.ts`, `.js`, `.vue`, `.yml` files; for `.md` snippets, inline as a literal code block instead (Slidev's `<<<` doesn't wrap markdown imports cleanly).
 - **All visual styling** comes from `slidev-theme-ctp` in the sibling `ctp-templates` repo. Don't add visual rules to this workshop unless they're truly deck-specific.
 

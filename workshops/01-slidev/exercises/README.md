@@ -1,8 +1,8 @@
-# Workshop 01 — Exercises
+# Workshop 01, Exercises
 
-One short Part A prompt exercise plus three Slidev exercises that pair with the slides. Each one stands alone — skip any that isn't relevant.
+One short Part A prompt exercise plus three Slidev exercises that pair with the slides. Each one stands alone, skip any that isn't relevant.
 
-## Exercise A — Create a Markdown presentation brief (5 min)
+## Exercise A, Create a Markdown presentation brief (5 min)
 
 Use ChatGPT, Claude, Gemini, or any similar chat assistant. If you have your own non-confidential source material, use that. Otherwise, use the fallback source text below.
 
@@ -48,18 +48,18 @@ Result: you should have a `presentation-brief.md`-style outline that could feed 
 
 **Stretch:** ask the assistant to revise the brief for a different audience, such as first-year graduate students or external collaborators.
 
-## Exercise 1 — Your first deck (5 min)
+## Exercise 1, Your first deck (5 min)
 
 1. Make a new folder and `cd` into it.
 2. Run `npm init slidev@latest` and accept the defaults.
 3. `npm install`
 4. `npm run dev`
 5. Open the URL it prints. You should see the default Slidev intro deck.
-6. Edit `slides.md` — change the title, add a new slide. Save. Watch the browser reload.
+6. Edit `slides.md`, change the title, add a new slide. Save. Watch the browser reload.
 
 **Stretch:** add a code block and a two-column layout (`layout: two-cols`).
 
-## Exercise 2 — Use the CTP theme (10 min)
+## Exercise 2, Use the CTP theme (10 min)
 
 1. In your `slides.md`, change the frontmatter to use the CTP theme:
    ```yaml
@@ -69,13 +69,13 @@ Result: you should have a `presentation-brief.md`-style outline that could feed 
    author: Your name
    ---
    ```
-2. Inside this repo the theme is wired up for you via a `link:` dependency to the sibling `ctp-templates` repo — no install command needed. In your own project elsewhere you'd `npm install slidev-theme-ctp` once it's published.
+2. Inside this repo the theme is wired up for you via a `link:` dependency to the sibling `ctp-templates` repo, no install command needed. In your own project elsewhere you'd `npm install slidev-theme-ctp` once it's published.
 3. Add a cover slide with `layout: cover`, a section divider with `layout: section`, and a `<CtpCallout label="Tip">` somewhere.
 4. Toggle dark mode by pressing <kbd>d</kbd>. Notice the palette swap.
 
 **Stretch:** override one CSS variable in a local `style.css` to change the accent color just for your deck.
 
-## Exercise 3 — Publish (10 min)
+## Exercise 3, Publish (10 min)
 
 Pick one:
 

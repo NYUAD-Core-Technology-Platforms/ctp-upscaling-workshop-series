@@ -1,4 +1,4 @@
-<!-- components/Counter.vue — a tiny interactive component for slides -->
+<!-- components/Counter.vue, a tiny interactive component for slides -->
 <template>
   <button class="counter" @click="count++">
     Clicked {{ count }} time{{ count === 1 ? '' : 's' }}

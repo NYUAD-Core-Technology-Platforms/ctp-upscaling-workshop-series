@@ -1,12 +1,12 @@
 ---
-# Workshop 01 — AI-Assisted Presentations with Slidev: From Prompt to Polished Deck
+# Workshop 01: AI-Assisted Presentations with Slidev: From Prompt to Polished Deck
 # This deck is itself made with Slidev, using the CTP theme. So the slides
 # you're watching are the lesson AND the demo.
 theme: ctp
 routerMode: hash
 title: "AI-Assisted Presentations with Slidev: From Prompt to Polished Deck"
 info: |
-  CTP Upscaling Workshop 01 — AI-Assisted Presentations with Slidev: From Prompt to Polished Deck.
+  CTP Upscaling Workshop 01. AI-Assisted Presentations with Slidev: From Prompt to Polished Deck.
 
   Markdown-driven presentations: install, author, theme, and publish a
   deck end to end using the CTP slidev theme.
@@ -30,7 +30,7 @@ Core Technology Platforms · NYU Abu Dhabi
 12 May 2026
 
 <!--
-Welcome people in. Mention the deck they're watching is itself a Slidev deck — so
+Welcome people in. Mention the deck they're watching is itself a Slidev deck, so
 everything you see is achievable with the tools we'll teach in the next hour.
 -->
 
@@ -43,14 +43,14 @@ layout: default
 
 The workshop is in **two halves**, mirroring the title.
 
-**Part A — From Prompt** (AI-assisted authoring)
+**Part A. From Prompt** (AI-assisted authoring)
 1. Map the main types of AI tools that can help create presentations.
 2. Turn raw source material into a structured Markdown presentation brief.
 3. Choose when to stay in chat, when to use visual deck tools, and when to use an agentic workflow.
 
-**Part B — To Polished Deck** (Slidev)
+**Part B. To Polished Deck** (Slidev)
 4. Spin up a Slidev deck on your laptop from zero.
-5. Write slides in Markdown — including code, images, columns, and components.
+5. Write slides in Markdown, including code, images, columns, and components.
 6. Apply the CTP theme so your deck matches the rest of the series.
 7. Export the result to PDF, a static site, or GitHub Pages.
 
@@ -59,7 +59,7 @@ Part A is a 20-minute map of AI-assisted presentation workflows, including one s
 </CtpCallout>
 
 <!--
-Read the goals out loud — anchors expectations for the two-part structure.
+Read the goals out loud; that anchors expectations for the two-part structure.
 Mention that Part A teaches how to think about the tool landscape without turning
 the workshop into a tool catalog. Part B is where everyone starts building.
 -->
@@ -426,7 +426,7 @@ layout: two-cols-header
 
 # Running the deck
 
-`cd` into the folder where `slides.md` lives, install Slidev locally (pinned to `^0.49.0` — v52 has a Windows path bug), and start the dev server. Open `http://localhost:3030/` when it prints.
+`cd` into the folder where `slides.md` lives, install Slidev locally (pinned to `^0.49.0` because v52 has a Windows path bug), and start the dev server. Open `http://localhost:3030/` when it prints.
 
 ::left::
 
@@ -471,7 +471,7 @@ npx slidev
 layout: two-cols-header
 ---
 
-# Start your own deck — one command
+# Start your own deck: one command
 
 After the manual setup above works once, the **CTP templates repo** ships a scaffold script so you never repeat those steps. Clone [`ctp-templates`](https://github.com/NYUAD-Core-Technology-Platforms/ctp-templates) once as a sibling of where you keep code, then:
 
@@ -511,7 +511,7 @@ The manual flow has six steps and three places where you can typo a relative pat
 
 # When the CTP template changes
 
-Your deck depends on the theme via `file:../ctp-templates/slidev` — a **symlink**, not a copy. So when the brand or layout evolves, you don't reinstall anything.
+Your deck depends on the theme via `file:../ctp-templates/slidev`, a **symlink** rather than a copy. So when the brand or layout evolves, you don't reinstall anything.
 
 ### To get the latest theme
 
@@ -524,7 +524,7 @@ That's it. Your next browser reload (or your next `npx slidev build` / `export`)
 
 ### When a breaking change ships
 
-Rare, but possible — a layout slot rename, a removed CSS variable. The templates repo's [`AGENTS.md`](https://github.com/NYUAD-Core-Technology-Platforms/ctp-templates/blob/main/AGENTS.md) and `slidev/README.md` document any breaking change. If a slide stops rendering correctly after a pull, check those files first; usually it's a one-line fix in your `slides.md`.
+Rare, but possible: a layout slot rename, a removed CSS variable. The templates repo's [`AGENTS.md`](https://github.com/NYUAD-Core-Technology-Platforms/ctp-templates/blob/main/AGENTS.md) and `slidev/README.md` document any breaking change. If a slide stops rendering correctly after a pull, check those files first; usually it's a one-line fix in your `slides.md`.
 
 <CtpCallout label="Decks you've already shipped" tone="accent">
 PDFs and static builds are frozen at the moment you ran <code>npx slidev export</code> / <code>build</code>. Template updates don't retroactively change a file you've already produced. Only running dev servers and future builds see the new theme.

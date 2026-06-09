@@ -7,17 +7,17 @@ A repository holding the **Core Technology Platforms (CTP) at NYU Abu Dhabi** up
 ## Table of contents
 
 - [What's in this repo](#whats-in-this-repo)
-- [Prerequisites — set up your machine](#prerequisites--set-up-your-machine) — one-time, do this first
-- [First time you clone this repo](#first-time-you-clone-this-repo) — install dependencies
+- [Prerequisites, set up your machine](#prerequisites--set-up-your-machine), one-time, do this first
+- [First time you clone this repo](#first-time-you-clone-this-repo), install dependencies
 - [Run a workshop locally](#run-a-workshop-locally)
-- [Start a new workshop](#start-a-new-workshop) — one command, all set
-- [What you can use in your slides](#what-you-can-use-in-your-slides) — layouts, components, frontmatter
+- [Start a new workshop](#start-a-new-workshop), one command, all set
+- [What you can use in your slides](#what-you-can-use-in-your-slides), layouts, components, frontmatter
 - [Export to PDF or static site](#export-to-pdf-or-static-site)
-- [Publish all decks (GitHub Pages + Releases)](#publish-all-decks-github-pages--releases) — the CI pipeline
-- [How theme changes propagate](#how-theme-changes-propagate) — the link: mechanism explained
+- [Publish all decks (GitHub Pages + Releases)](#publish-all-decks-github-pages--releases), the CI pipeline
+- [How theme changes propagate](#how-theme-changes-propagate), the link: mechanism explained
 - [Workshops index](#workshops-index)
-- [Command reference](#command-reference) — every command, what it does
-- [For AI agents](#for-ai-agents) — `AGENTS.md` files and what's in them
+- [Command reference](#command-reference), every command, what it does
+- [For AI agents](#for-ai-agents), `AGENTS.md` files and what's in them
 
 ---
 
@@ -26,7 +26,7 @@ A repository holding the **Core Technology Platforms (CTP) at NYU Abu Dhabi** up
 ```
 .
 ├── workshops/
-│   └── 01-slidev/            # Workshop 01 — "AI-Assisted Presentations with Slidev"
+│   └── 01-slidev/            # Workshop 01, "AI-Assisted Presentations with Slidev"
 ├── scripts/
 │   └── new-workshop.mjs      # Scaffolds a new minimal workshop folder
 ├── pnpm-workspace.yaml
@@ -35,11 +35,11 @@ A repository holding the **Core Technology Platforms (CTP) at NYU Abu Dhabi** up
 └── README.md
 ```
 
-The look-and-feel (layouts, components, fonts, colors) is **not in this repo** — it lives in the sibling [`ctp-templates`](https://github.com/NYUAD-Core-Technology-Platforms/ctp-templates) repository, specifically the `slidev/` folder there. Each workshop's `package.json` declares a `link:` dependency on that folder, which means pnpm creates a symlink and the theme is loaded from disk. No publish step required.
+The look-and-feel (layouts, components, fonts, colors) is **not in this repo**, it lives in the sibling [`ctp-templates`](https://github.com/NYUAD-Core-Technology-Platforms/ctp-templates) repository, specifically the `slidev/` folder there. Each workshop's `package.json` declares a `link:` dependency on that folder, which means pnpm creates a symlink and the theme is loaded from disk. No publish step required.
 
 ---
 
-## Prerequisites — set up your machine
+## Prerequisites, set up your machine
 
 You need three things installed once (skip whichever you already have):
 
@@ -102,7 +102,7 @@ cd ctp-upscaling-workshop-series
 pnpm install
 ```
 
-> `cd` moves into the repo. `pnpm install` reads each workshop's `package.json`, sees the line `"slidev-theme-ctp": "file:../../../ctp-templates/slidev"`, and creates a symlink under `node_modules/` pointing back to the theme folder in the sibling repo. It also downloads Slidev itself and every other dependency. First run takes 1–2 minutes; subsequent runs are seconds. (`file:` rather than `link:` so the package.json also works under plain `npm install` — `link:` is a pnpm-only protocol that npm rejects.)
+> `cd` moves into the repo. `pnpm install` reads each workshop's `package.json`, sees the line `"slidev-theme-ctp": "file:../../../ctp-templates/slidev"`, and creates a symlink under `node_modules/` pointing back to the theme folder in the sibling repo. It also downloads Slidev itself and every other dependency. First run takes 1–2 minutes; subsequent runs are seconds. (`file:` rather than `link:` so the package.json also works under plain `npm install`, `link:` is a pnpm-only protocol that npm rejects.)
 
 When it finishes, every workshop is wired up and ready to run.
 
@@ -116,7 +116,7 @@ When it finishes, every workshop is wired up and ready to run.
 pnpm --filter ./workshops/01-slidev dev
 ```
 
-> Breaks down as: `pnpm` (the package manager) `--filter ./workshops/01-slidev` (only do this for the package in that folder) `dev` (run the script named "dev" defined in that package's `package.json`). The "dev" script is `slidev --open`, which starts a local web server and opens your browser to it. This is the **authoring mode** — edits to `slides.md` and components hot-reload in the browser as you save. The server stays running until you press `Ctrl-C`.
+> Breaks down as: `pnpm` (the package manager) `--filter ./workshops/01-slidev` (only do this for the package in that folder) `dev` (run the script named "dev" defined in that package's `package.json`). The "dev" script is `slidev --open`, which starts a local web server and opens your browser to it. This is the **authoring mode**, edits to `slides.md` and components hot-reload in the browser as you save. The server stays running until you press `Ctrl-C`.
 
 After a few seconds Slidev prints:
 
@@ -144,20 +144,20 @@ pnpm dev:01
 pnpm new-workshop git-basics
 ```
 
-> Runs `node scripts/new-workshop.mjs git-basics`. The script picks the next workshop number (looks at existing folder names in `workshops/`, finds the highest, adds one), creates a folder `workshops/NN-git-basics/`, generates a minimal `slides.md`, generates a `package.json` already wired to the sibling theme, and copies the NYUAD logo from `ctp-templates`. Replace `git-basics` with whatever topic name you want — it has to be lowercase letters, digits, and hyphens.
+> Runs `node scripts/new-workshop.mjs git-basics`. The script picks the next workshop number (looks at existing folder names in `workshops/`, finds the highest, adds one), creates a folder `workshops/NN-git-basics/`, generates a minimal `slides.md`, generates a `package.json` already wired to the sibling theme, and copies the NYUAD logo from `ctp-templates`. Replace `git-basics` with whatever topic name you want, it has to be lowercase letters, digits, and hyphens.
 
 What the script does step by step:
 
 1. Scans `workshops/` to find the highest existing number, then picks the next one (`02`, `03`, …).
 2. Creates `workshops/NN-<slug>/` with:
    - `package.json` already pointing at the sibling theme via `link:`.
-   - A minimal `slides.md` — cover + outline + one section + end. Replace with your content.
+   - A minimal `slides.md`, cover + outline + one section + end. Replace with your content.
    - `public/brand/nyuad-logo.png` copied from `ctp-templates/shared/brand/` so `<CtpLogo />` resolves.
    - `snippets/`, `components/`, `public/img/`, `exercises/` scaffolded with placeholders.
    - A short `README.md` for the workshop.
 3. Prints the next two commands to run.
 
-The script **aborts early** if `ctp-templates` isn't checked out as a sibling — that's a safety net so you don't end up with a workshop that has a broken `link:` pointer.
+The script **aborts early** if `ctp-templates` isn't checked out as a sibling, that's a safety net so you don't end up with a workshop that has a broken `link:` pointer.
 
 After scaffolding:
 
@@ -179,11 +179,11 @@ Then open `workshops/02-git-basics/slides.md` in your editor and start writing.
 
 ## What you can use in your slides
 
-`slides.md` is the entire deck. The top of the file is YAML "frontmatter" — settings for the whole deck:
+`slides.md` is the entire deck. The top of the file is YAML "frontmatter", settings for the whole deck:
 
 ```yaml
 ---
-theme: ctp                              # always — pulls in the CTP look
+theme: ctp                              # always, pulls in the CTP look
 title: Your Workshop Title              # shows in the browser tab + footer
 author: Your Name                       # shows in the footer
 info: |
@@ -217,15 +217,15 @@ PART 01
 |------|-----------|------------|
 | `cover` | Title slide | `eyebrow`, `meta` |
 | `section` | Full-bleed divider between major parts | `number`, `subtitle` |
-| `default` | Everyday content slide | — |
+| `default` | Everyday content slide |, |
 | `two-cols-header` | Header + two columns underneath | `left`, `right` |
 | `end` | Closing thanks/contact slide | `meta` |
 
 ### Available components (use them directly in `.md`)
 
-- `<CtpCallout label="Tip" tone="violet|accent|sand">body</CtpCallout>` — labeled note box.
-- `<CtpKbd>K</CtpKbd>` — keyboard key chip.
-- `<CtpLogo />` — NYUAD lockup (pass `white` for dark backgrounds).
+- `<CtpCallout label="Tip" tone="violet|accent|sand">body</CtpCallout>`, labeled note box.
+- `<CtpKbd>K</CtpKbd>`, keyboard key chip.
+- `<CtpLogo />`, NYUAD lockup (pass `white` for dark backgrounds).
 
 For the full reference (every layout slot, every component prop, every CSS variable you can override), see [`ctp-templates/slidev/README.md`](https://github.com/NYUAD-Core-Technology-Platforms/ctp-templates/blob/main/slidev/README.md). Workshop 01's `slides.md` is also a worked example using all of them.
 
@@ -239,10 +239,10 @@ From the repo root:
 pnpm --filter ./workshops/01-slidev build
 ```
 
-> Runs the `build` script in workshop 01's `package.json`, which is `slidev build`. Takes your deck and produces a self-contained **static website** in `workshops/01-slidev/dist/`. The `dist/` folder contains HTML, CSS, JS, fonts, and images — everything needed to serve the deck from any web host (Netlify, GitHub Pages, S3, a corporate NGINX). The folder is self-contained: no Slidev or Node.js needed at the host end.
+> Runs the `build` script in workshop 01's `package.json`, which is `slidev build`. Takes your deck and produces a self-contained **static website** in `workshops/01-slidev/dist/`. The `dist/` folder contains HTML, CSS, JS, fonts, and images, everything needed to serve the deck from any web host (Netlify, GitHub Pages, S3, a corporate NGINX). The folder is self-contained: no Slidev or Node.js needed at the host end.
 
-> **Gotcha — `dist/index.html` looks blank if you open it directly.** Slidev's default build assumes the site lives at the root of a domain (`/`), so it writes asset paths as absolute (`/_assets/...`). When you open `index.html` from `file:///` on your computer, the browser can't resolve those paths and renders nothing. Two workarounds:
-> - **Preview locally with a web server:** `npx serve workshops/01-slidev/dist`. It prints a URL like `http://localhost:3000` — open that and the deck loads correctly.
+> **Gotcha, `dist/index.html` looks blank if you open it directly.** Slidev's default build assumes the site lives at the root of a domain (`/`), so it writes asset paths as absolute (`/_assets/...`). When you open `index.html` from `file:///` on your computer, the browser can't resolve those paths and renders nothing. Two workarounds:
+> - **Preview locally with a web server:** `npx serve workshops/01-slidev/dist`. It prints a URL like `http://localhost:3000`, open that and the deck loads correctly.
 > - **Build with relative paths so the file works opened directly:** `pnpm --filter ./workshops/01-slidev build -- --base ./`. The `-- --base ./` passes the `--base ./` flag through to `slidev build`. With relative paths, `dist/index.html` works when double-clicked or when hosted at a non-root URL.
 >
 > When deploying to GitHub Pages, the `snippets/deploy.yml` workflow already passes the right `--base` for you.
@@ -275,17 +275,17 @@ There are also shorthand aliases in the root `package.json` for workshop 01: `pn
 
 ## Publish all decks (GitHub Pages + Releases)
 
-**🌐 Live site: https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/** — landing page with every workshop; each deck lives at `…/<NN-slug>/` with a `slides.pdf` beside it.
+**🌐 Live site: https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/**, landing page with every workshop; each deck lives at `…/<NN-slug>/` with a `slides.pdf` beside it.
 
-Two GitHub Actions workflows publish every workshop automatically. They live in `.github/workflows/` and both build through `scripts/ci-build.mjs`, which auto-discovers every `workshops/NN-*` folder — you never edit the workflow when you add a workshop.
+Two GitHub Actions workflows publish every workshop automatically. They live in `.github/workflows/` and both build through `scripts/ci-build.mjs`, which auto-discovers every `workshops/NN-*` folder, you never edit the workflow when you add a workshop.
 
-**`deploy-pages.yml` — on every push to `main`.** Builds the combined site and deploys it to GitHub Pages:
+**`deploy-pages.yml`, on every push to `main`.** Builds the combined site and deploys it to GitHub Pages:
 
 - Landing page at the site root listing every workshop.
 - Each deck served at `https://<owner>.github.io/<repo>/<NN-slug>/` (correct `--base` set automatically).
 - A downloadable `slides.pdf` beside each deck, plus a `404.html` fallback so deep-link refreshes don't break.
 
-**`release.yml` — on a version tag (`v*`).** Builds a versioned archive and attaches it to a GitHub Release: per workshop, `<NN-slug>.pdf` and `<NN-slug>-html.zip` (an offline-openable copy of the slides, built with `--base ./`). Cut one with:
+**`release.yml`, on a version tag (`v*`).** Builds a versioned archive and attaches it to a GitHub Release: per workshop, `<NN-slug>.pdf` and `<NN-slug>-html.zip` (an offline-openable copy of the slides, built with `--base ./`). Cut one with:
 
 ```bash
 git tag v2026.05 && git push origin v2026.05
@@ -296,7 +296,7 @@ git tag v2026.05 && git push origin v2026.05
 **Two setup steps before the first run:**
 
 1. In the repo on GitHub: **Settings → Pages → Build and deployment → Source = GitHub Actions**.
-2. The theme lives in the sibling **ctp-templates** repo, which both workflows check out alongside this one. If `ctp-templates` is **private**, the default token can't read it — create a PAT with read access, add it as a repo secret named `TEMPLATES_TOKEN`, and uncomment the `token:` line in both workflows. If it's public, no action needed.
+2. The theme lives in the sibling **ctp-templates** repo, which both workflows check out alongside this one. If `ctp-templates` is **private**, the default token can't read it, create a PAT with read access, add it as a repo secret named `TEMPLATES_TOKEN`, and uncomment the `token:` line in both workflows. If it's public, no action needed.
 
 You can run the same builds locally:
 
@@ -319,7 +319,7 @@ Each workshop's `package.json` lists the theme as:
 `link:` is a pnpm protocol that creates a **symlink** from `node_modules/slidev-theme-ctp` to the actual folder `ctp-templates/slidev/`. The consequences:
 
 - Edit anything inside `ctp-templates/slidev/` (a layout, a component, `tokens.css`), save it, and **every workshop dev server picks it up on the next reload**. No reinstall step.
-- The link is local-only — pnpm doesn't copy files, it points at them.
+- The link is local-only, pnpm doesn't copy files, it points at them.
 
 This is what you want during active design: one brand, propagated everywhere.
 
@@ -362,9 +362,9 @@ Every command this repo uses, in one place. Run them from the repo root unless n
 
 ### The flag explanations
 
-- `--filter ./workshops/NN-<name>` — pnpm only runs the command inside that one folder. Without this flag, pnpm would try to run the command in every workspace package at once.
-- `-D` (or `--save-dev`) — install the package as a devDependency rather than a regular dependency. devDependencies aren't installed when someone consumes your package via npm, but they are installed locally — fine for tools used only during development/build.
-- `-g` (or `--global`) — install the package globally (available everywhere on your machine, not just in one project). Used during one-time pnpm install (`npm install -g pnpm`).
+- `--filter ./workshops/NN-<name>`, pnpm only runs the command inside that one folder. Without this flag, pnpm would try to run the command in every workspace package at once.
+- `-D` (or `--save-dev`), install the package as a devDependency rather than a regular dependency. devDependencies aren't installed when someone consumes your package via npm, but they are installed locally, fine for tools used only during development/build.
+- `-g` (or `--global`), install the package globally (available everywhere on your machine, not just in one project). Used during one-time pnpm install (`npm install -g pnpm`).
 
 ---
 
@@ -372,11 +372,11 @@ Every command this repo uses, in one place. Run them from the repo root unless n
 
 If you're an AI coding agent (Claude Code, Cursor, etc.) or you're working in this repo with one, read these first:
 
-- [`AGENTS.md`](AGENTS.md) — repo-level rules: cross-repo wiring, the `link:` protocol, hard rules, gotchas (`--base ./`, npm vs pnpm, Windows symlinks), commands, coordination with `ctp-templates`.
-- [`workshops/AGENTS.md`](workshops/AGENTS.md) — slide-authoring conventions: frontmatter, layouts, snippets (and the `<<<` import gotcha for `.md` files), speaker notes, dark-background contrast, test checklist.
-- In the sibling repo: [`ctp-templates/AGENTS.md`](https://github.com/NYUAD-Core-Technology-Platforms/ctp-templates/blob/main/AGENTS.md) — theme-level rules, Slidev internals gotchas (`@slidev/types`, nested `<h1>` demotion, scoped CSS slot content), design-system enforcement.
+- [`AGENTS.md`](AGENTS.md), repo-level rules: cross-repo wiring, the `link:` protocol, hard rules, gotchas (`--base ./`, npm vs pnpm, Windows symlinks), commands, coordination with `ctp-templates`.
+- [`workshops/AGENTS.md`](workshops/AGENTS.md), slide-authoring conventions: frontmatter, layouts, snippets (and the `<<<` import gotcha for `.md` files), speaker notes, dark-background contrast, test checklist.
+- In the sibling repo: [`ctp-templates/AGENTS.md`](https://github.com/NYUAD-Core-Technology-Platforms/ctp-templates/blob/main/AGENTS.md), theme-level rules, Slidev internals gotchas (`@slidev/types`, nested `<h1>` demotion, scoped CSS slot content), design-system enforcement.
 
-These three files cover everything an agent needs to know to work productively across both repos. Update them when you discover a new gotcha — that's how the institutional memory grows.
+These three files cover everything an agent needs to know to work productively across both repos. Update them when you discover a new gotcha, that's how the institutional memory grows.
 
 ---
 

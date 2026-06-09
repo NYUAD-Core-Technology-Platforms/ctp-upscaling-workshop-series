@@ -19,7 +19,7 @@ A short guide for adding to the workshop series.
   -->
   ```
 - **Images** live in the deck's `public/img/` folder and are referenced as `/img/file.png`. Shared brand assets live in `/shared/brand/`.
-- **Don't hard-code colors** — use the CSS variables defined in the theme's `styles/tokens.css` (over in `ctp-templates/slidev/styles/tokens.css` — `--ctp-color-accent`, etc.). That's how re-skinning works.
+- **Don't hard-code colors**, use the CSS variables defined in the theme's `styles/tokens.css` (over in `ctp-templates/slidev/styles/tokens.css`, `--ctp-color-accent`, etc.). That's how re-skinning works.
 
 ## Repo conventions
 
@@ -38,10 +38,10 @@ pnpm --filter ./workshops/01-slidev export         # PDF export
 
 ## When to touch the theme vs. this repo
 
-The Slidev theme lives in the **sibling `ctp-templates` repo** — not here. Decide where a change belongs:
+The Slidev theme lives in the **sibling `ctp-templates` repo**, not here. Decide where a change belongs:
 
 - Brand changes (colors, fonts, logo): edit `ctp-templates/slidev/styles/tokens.css`, `ctp-templates/slidev/components/`, or the brand assets under `ctp-templates/shared/brand/`.
 - New layout used by multiple workshops: add it to `ctp-templates/slidev/layouts/`.
 - Workshop-specific tweaks: keep them in `workshops/NN-.../components/` or a local `style.css` in the workshop folder. Do **not** push workshop-specific things into the theme.
 
-Theme changes in `ctp-templates` propagate to every workshop via the `link:` dependency — no install step required.
+Theme changes in `ctp-templates` propagate to every workshop via the `link:` dependency, no install step required.

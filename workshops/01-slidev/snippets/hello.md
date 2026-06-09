@@ -1,5 +1,5 @@
 ---
-# slides.md — your very first slide
+# slides.md, your very first slide
 theme: ctp
 title: My First Deck
 ---

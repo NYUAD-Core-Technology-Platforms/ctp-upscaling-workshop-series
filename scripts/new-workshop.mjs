@@ -126,7 +126,7 @@ writeFileSync(
       name: pkgName,
       version: '0.1.0',
       private: true,
-      description: `CTP Upscaling workshop — ${titleCase}.`,
+      description: `CTP Upscaling workshop, ${titleCase}.`,
       scripts: {
         dev: 'slidev --open',
         build: 'slidev build',
@@ -134,7 +134,7 @@ writeFileSync(
         'export:pdf': 'slidev export --format pdf',
       },
       dependencies: {
-        // file: protocol — symlinks to the sibling ctp-templates repo.
+        // file: protocol, symlinks to the sibling ctp-templates repo.
         // Equivalent to `link:` in pnpm but works on both npm and pnpm,
         // so consumer setups using either tool work without changes.
         'slidev-theme-ctp': `file:${THEME_PKG_REL_FROM_WORKSHOP}`,
@@ -158,7 +158,7 @@ routerMode: hash
 title: ${titleCase}
 author: CTP at NYUAD
 info: |
-  CTP Upscaling Workshop ${numStr} — ${titleCase}.
+  CTP Upscaling Workshop ${numStr}, ${titleCase}.
 
   Short description; appears in the presenter view and PDF metadata.
 highlighter: shiki
@@ -228,7 +228,7 @@ Questions? Drop them in the CTP Upscaling channel.
 
 writeFileSync(
   join(targetDir, 'README.md'),
-  `# Workshop ${numStr} — ${titleCase}
+  `# Workshop ${numStr}, ${titleCase}
 
 ## Run locally
 
@@ -245,12 +245,12 @@ pnpm --filter ./workshops/${dirName} export      # PDF
 
 ## Structure
 
-- \`slides.md\` — the deck (edit this)
-- \`snippets/\` — code samples the deck imports
-- \`public/img/\` — workshop-specific images
-- \`public/brand/\` — NYUAD lockup (mirrored from /shared/brand/)
-- \`exercises/\` — hands-on exercises that pair with the deck
-- \`components/\` — workshop-specific Vue components (optional)
+- \`slides.md\`, the deck (edit this)
+- \`snippets/\`, code samples the deck imports
+- \`public/img/\`, workshop-specific images
+- \`public/brand/\`, NYUAD lockup (mirrored from /shared/brand/)
+- \`exercises/\`, hands-on exercises that pair with the deck
+- \`components/\`, workshop-specific Vue components (optional)
 
 See \`ctp-templates/slidev/README.md\` (sibling repo) for the full theme reference (layouts, components, tokens).
 `,
@@ -262,13 +262,13 @@ writeFileSync(join(targetDir, 'public', 'img', '.gitkeep'), '')
 
 writeFileSync(
   join(targetDir, 'exercises', 'README.md'),
-  `# Workshop ${numStr} — Exercises
+  `# Workshop ${numStr}, Exercises
 
 Add hands-on exercises here as the workshop content takes shape.
 
 Suggested format:
 
-## Exercise 1 — title (~5 min)
+## Exercise 1, title (~5 min)
 
 1. Step one.
 2. Step two.
