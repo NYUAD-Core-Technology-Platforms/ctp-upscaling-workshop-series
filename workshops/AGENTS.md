@@ -125,8 +125,48 @@ These are auto-imported by Slidev from the theme. Use directly in `.md`:
 - `<CtpCallout label="Tip" tone="violet|accent|sand">body</CtpCallout>`, labeled note box.
 - `<CtpKbd>K</CtpKbd>`, keyboard key chip.
 - `<CtpLogo />`, NYUAD lockup. Pass `white` for dark backgrounds.
+- `<AutoFit>…</AutoFit>`, scales a slide body down so it can't overflow the canvas (safety net; see "Fit every slide" below).
 
 Anything else you need that's specific to one deck goes in that deck's `components/` folder.
+
+### Interactive demo components (client-side, no data file)
+
+Some components are pure interaction: they compute and draw live in the browser with no external data. First example: `01-slidev/components/LeastSquaresDemo.vue`, an ordinary-least-squares regression where buttons change the data-generating parameters (true slope, noise sigma, sample size) and the fitted line plus R squared update live.
+
+Conventions that keep these consistent and dependency-free:
+
+- **No charting library.** Draw with inline `<svg>` and reactive `computed` geometry (map data coords to pixels with small `sx()` / `sy()` helpers). This ships nothing extra in the static build, same spirit as the data components.
+- **Use theme tokens for everything visual:** `--ctp-color-violet` for the primary line, `--ctp-color-accent` for secondary marks, `--fg1/--fg2/--border/--hairline` for axes and text, the `--s-*` / `--r-*` / `--t-*` scales for spacing, radius, and type. No hard-coded hex.
+- **Buttons follow the `EquipmentList` pattern:** `@click.stop` handlers (so clicks don't advance the slide), violet fill, `--r-2` radius.
+- **Seeded RNG for reproducibility.** Use a small deterministic generator (Mulberry32) keyed off a `seed` ref so changing one parameter isolates that parameter's effect on the result; a "Resample" button bumps the seed for a fresh draw. Keep the math (the fit, the statistic) in plain JS computed properties so it is easy to read and verify.
+
+---
+
+## Fit every slide to the canvas (no overlap), MANDATORY
+
+A Slidev slide is a **fixed canvas (about 980 x 552 px, 16:9)**. Content does NOT reflow to a second page, anything taller than the canvas overlaps the footer or is clipped. Every slide must fit. This has bitten this deck repeatedly; treat it as a hard requirement, not a nicety.
+
+### Budget per slide
+
+After the title (~90px) and footer (~40px), the body has **roughly 400px of height** (about 10-12 lines of text, or a ~330px-tall figure plus a line or two). Design to that. The fix for "too much" is almost always **another slide**, not smaller text.
+
+### Rules
+
+1. **One idea per slide** (restated here because it is the root cause of overflow). Split before you shrink.
+2. **Any custom component must cap its own height.** Give charts/SVGs a fixed pixel height (e.g. `height: 300px`), not `height: auto` inside a flexible column, where they scale to the column width and blow past the canvas. Long lists must **paginate** (see `EquipmentList.vue`: fixed rows + Prev/Next) rather than render all rows.
+3. **Keep intros to 1-2 lines** when a slide also holds a component, callout, or code block. Move the rich explanation into speaker notes (`<!-- ... -->`).
+4. **Two stacked blocks max** below a heading (e.g. a component + a callout often overflows; pick one, push the other to notes).
+5. When content is genuinely variable or borderline, wrap the body in **`<AutoFit>…</AutoFit>`** (theme component) as a safety net, it scales the body down to fit. Don't use it to justify cramming; a 0.6x slide is unreadable from the back of the room.
+
+### Verify before declaring done
+
+Overflow is invisible in the Markdown, you must look at the rendered slide. For any slide with a component, code block, long list, or more than a few lines of body:
+
+- Run `pnpm --filter ./workshops/NN-name dev`, open the slide, and confirm nothing touches or crosses the footer, at the deck's normal zoom.
+- If editing in an environment without a live browser, build and screenshot: `pnpm --filter ./workshops/NN-name export --format png --output /tmp/ws` (or `slidev export`), then open the PNG for that slide and check it visually.
+- Re-check after content changes (a longer equipment list, a new bullet) can push a previously-fine slide over.
+
+Do not consider a slide finished until you have seen it render within the canvas.
 
 ---
 
@@ -210,6 +250,10 @@ Slidev's static build uses absolute asset paths. Opening `dist/index.html` from 
 
 - `npx serve workshops/NN-name/dist` and open the URL it prints.
 - Or rebuild with `pnpm --filter ./workshops/NN-name build -- --base ./` for a `dist/` that works opened directly.
+
+### Don't put block tags in a component's comments
+
+In a custom Vue component, never write the literal `<script>`, `</script>`, `<template>`, or `<style>` inside a comment or string. Slidev counts those tags to locate the script block and inject its `$slidev` context; a stray one in a comment causes a double injection and the dev server crashes with `Identifier '$slidev' has already been declared`. Write "script-setup" (no angle brackets) in prose. Also avoid passing a top-level ref through a template handler, template refs auto-unwrap to plain values, so the handler mutates a number and nothing happens; mutate the ref from a script-scope function and use `@click.stop` on interactive buttons.
 
 ### Stop the dev server before exporting
 

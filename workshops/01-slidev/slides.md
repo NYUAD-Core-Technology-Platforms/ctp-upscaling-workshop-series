@@ -601,20 +601,37 @@ publishable + verified, interactive = real data viz for scientific talks.
 
 # Live data: lab equipment from Booked
 
-The CTP labs run on **Booked** for reservations. A build-time script calls its Web Services API (`GET /Resources/`) with our API ID and key, writes the names to `equipment.json`, and this slide renders them. No credentials ship in the published deck.
+Pulled live from the CTP **Booked** system at build time. Page through the full catalog:
 
 <EquipmentList />
 
-<CtpCallout label="Why bake it at build time?" tone="sand">
-Booked sits behind the NYU VPN, so run `npm run data` from your laptop while connected, then commit `equipment.json`. The cloud build just publishes the baked-in list, never touching the API or your key.
-</CtpCallout>
+<!--
+The whole list is real data baked into equipment.json by scripts/fetch-equipment.mjs
+(GET /Services/Resources/ with X-Booked-ApiId / X-Booked-ApiKey headers). Booked is
+behind the NYU VPN, so the fetch runs on the self-hosted MEG Workstation runner
+(refresh-equipment.yml) or locally via `npm run data`, then the names are committed.
+No credentials ship in the published deck. Use the Prev/Next buttons to page through
+~300 resources; mention the count to show the scale of the CTP facility.
+-->
+
+---
+
+# Interactive math: least-squares regression
+
+Slides are web pages, so this stats demo is **live**: least squares fits points drawn from `y = slope·x + 2 + noise`. Change the parameters and watch the fit and **R²** update.
+
+<LeastSquaresDemo />
 
 <!--
-This is the "real data" payoff for the interactive point on the previous slide.
-Flow: scripts/fetch-equipment.mjs (X-Booked-SessionToken + X-Booked-UserId
-headers on GET /Resources/) -> equipment.json -> the EquipmentList component.
-Pre-issued token/key, build-time only, so the static site carries no secret.
-If the token expires, re-run npm run data on the VPN and recommit.
+Try it live: raise Noise sigma and watch R squared fall; grow the sample size and
+the fitted slope settles closer to the true slope; hit Resample for a fresh draw
+from the same parameters.
+
+The point: this is real computation in the slide, not a screenshot. The OLS
+slope/intercept are computed in JS (closed form) and R squared updates live.
+A seeded RNG keeps the data fixed when you change one parameter, so each button
+isolates one effect; Resample bumps the seed for a new draw. Component lives in
+components/LeastSquaresDemo.vue. Tie back to the "interactive by design" slide.
 -->
 
 ---
