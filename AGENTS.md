@@ -76,7 +76,8 @@ These are non-negotiable unless you have a strong reason and the user has agreed
 3. **Don't add workshop-specific styling to the theme.** Per-deck overrides go in `workshops/NN-name/style.css` (a local file Slidev auto-loads). Theme-level changes go in `ctp-templates`.
 4. **Don't commit `node_modules/`, `dist/`, `slides-export.pdf`, or any build artifacts.** The `.gitignore` already covers these — if you find yourself adding one, ask why.
 5. **Don't break the `workshops/NN-name/` naming convention.** The scaffold script and shortcut aliases (`dev:01`, etc.) depend on it.
-6. **Workshop folders use `link:` to the theme, never `workspace:*`** — the theme isn't in this repo's workspace anymore. If you see `workspace:*`, it's a stale lockfile entry; regenerate with `pnpm install`.
+6. **Workshop folders use `file:` to the theme, never `workspace:*` or `link:`.** The theme isn't in this repo's workspace anymore (so `workspace:*` won't resolve), and `link:` is a pnpm-only protocol that npm rejects with `EUNSUPPORTEDPROTOCOL`. `file:` symlinks correctly under both tools. If you see `workspace:*` or `link:` in a workshop's `package.json`, it's stale; replace with `file:../../../ctp-templates/slidev`.
+7. **No em dashes (`—`, U+2014) in any generated content.** Slides, READMEs, code comments, commit messages, scaffolded `package.json` descriptions — all of it. Use a period, comma, semicolon, parentheses, or a regular hyphen (`-`) instead. Em dashes are one of the strongest LLM-generated-text tells; their presence makes institutional copy read as AI output. Quoting source material that contains them is fine; producing new text with them is not.
 
 ---
 
