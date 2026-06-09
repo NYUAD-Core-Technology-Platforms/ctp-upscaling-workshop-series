@@ -393,7 +393,7 @@ Just a markdown heading and some content.
 
 # Making a simple slides.md file
 
-The minimum a Slidev deck needs is a single Markdown file. Slides are separated by `---` on its own line, titles use `#` headings, and speaker notes go inside an HTML comment at the bottom of each slide.
+The minimum a Slidev deck needs is a single Markdown file `slides.md`, minimal example below:
 
 ````md
 # Deck Test
@@ -405,7 +405,7 @@ Use markdown syntax here to add content
 - etc...
 
 <!--
-Test test
+Speaker notes here
 -->
 
 ---
@@ -419,7 +419,6 @@ Notes for slide 2
 -->
 ````
 
-Save it as `slides.md`, run the dev server, and you have a working three-slide deck.
 
 ---
 layout: two-cols-header
