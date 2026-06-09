@@ -41,27 +41,60 @@ layout: default
 
 # What you'll leave with
 
-The workshop is in **two halves**, mirroring the title.
+<div class="agenda">
+  <section class="ag-card ag-card--watch">
+    <div class="ag-head">
+      <span class="ag-eyebrow">Part A</span>
+      <div class="ag-title">Watch</div>
+      <p class="ag-lede">A tour of the AI tools that help build a deck.</p>
+    </div>
+    <ul class="ag-list">
+      <li>The AI tool landscape</li>
+      <li>From chat to a brief</li>
+      <li>Visual, in-app, agentic</li>
+      <li>Where the source lives</li>
+    </ul>
+    <div class="ag-foot"><span class="ag-chip">~20 min</span></div>
+  </section>
 
-**Part A. From Prompt** (AI-assisted authoring)
-1. Map the main types of AI tools that can help create presentations.
-2. Turn raw source material into a structured Markdown presentation brief.
-3. Choose when to stay in chat, when to use visual deck tools, and when to use an agentic workflow.
+  <div class="ag-arrow">&rarr;</div>
 
-**Part B. To Polished Deck** (Slidev)
-4. Spin up a Slidev deck on your laptop from zero.
-5. Write slides in Markdown, including code, images, columns, and components.
-6. Apply the CTP theme so your deck matches the rest of the series.
-7. Export the result to PDF, a static site, or GitHub Pages.
+  <section class="ag-card ag-card--build">
+    <div class="ag-head">
+      <span class="ag-eyebrow">Part B</span>
+      <div class="ag-title">Build</div>
+      <p class="ag-lede">A polished CTP deck, live with Codex.</p>
+    </div>
+    <ul class="ag-list">
+      <li>Slidev from zero</li>
+      <li>Authoring in Markdown</li>
+      <li>The CTP theme</li>
+      <li>Export and publish</li>
+    </ul>
+    <div class="ag-foot"><span class="ag-chip ag-chip--solid">~40 min &middot; hands-on</span></div>
+  </section>
+</div>
 
-<CtpCallout label="Format" tone="accent">
-Part A is a 20-minute map of AI-assisted presentation workflows, including one short prompt exercise. Part B is the hands-on Slidev build.
-</CtpCallout>
+<style scoped>
+.agenda { display:flex; align-items:stretch; flex:1 1 auto; min-height:0; margin:16px 0 4px; }
+.ag-card { flex:1; display:flex; flex-direction:column; border:1px solid var(--hairline); border-radius:var(--r-2); padding:24px 30px; }
+.ag-card--watch { background:var(--violet-050); border-color:var(--violet-100); }
+.ag-card--build { background:var(--white); }
+.ag-eyebrow { font-family:var(--font-sans); font-size:var(--t-eyebrow); font-weight:600; text-transform:uppercase; letter-spacing:var(--tracked); color:var(--nyu-violet); }
+.ag-title { font-family:var(--font-serif); font-size:40px; font-weight:700; line-height:var(--lh-tight); color:var(--fg1); margin-top:4px; }
+.ag-lede { font-family:var(--font-serif); font-size:var(--t-body-lg); color:var(--fg2); margin-top:10px; max-width:26ch; }
+.ag-list { list-style:none; padding:0; margin:18px 0 0; }
+.ag-list li { position:relative; padding-left:22px; font-size:17px; color:var(--fg1); line-height:1.85; }
+.ag-list li::before { content:""; position:absolute; left:0; top:0.72em; width:8px; height:8px; background:var(--nyu-violet); }
+.ag-foot { margin-top:auto; padding-top:16px; }
+.ag-chip { display:inline-block; font-family:var(--font-sans); font-size:var(--t-caption); font-weight:600; letter-spacing:var(--tracked-sm); text-transform:uppercase; padding:0.3em 0.85em; border-radius:var(--r-pill); border:1px solid var(--nyu-violet); color:var(--nyu-violet); }
+.ag-chip--solid { background:var(--nyu-violet); color:var(--white); border-color:var(--nyu-violet); }
+.ag-arrow { display:flex; align-items:center; padding:0 20px; color:var(--violet-300); font-size:34px; flex:none; }
+</style>
 
 <!--
-Read the goals out loud; that anchors expectations for the two-part structure.
-Mention that Part A teaches how to think about the tool landscape without turning
-the workshop into a tool catalog. Part B is where everyone starts building.
+First content slide, so make it land: Part A you watch, Part B you build, and A leads into
+B. Point at the two words "Watch" and "Build" rather than reading the lists.
 -->
 
 ---
@@ -74,270 +107,280 @@ PART A
 # From Prompt
 
 ::subtitle::
-AI-assisted workflows before writing a line of Slidev.
+A quick tour of the AI tools that help build a deck. Just watch &mdash; the hands-on is Part B.
 
 <!--
-Big-chapter divider. Set the framing: Part A is a 20-minute map of AI-assisted
-presentation workflows. We are not ranking tools. We are asking what kind of
-work each tool is good at, and where the durable source of truth should live.
+Big chapter divider. Frame it: a ~20-minute map, not a tool catalog and not a follow-along.
+Laptops stay closed until Part B. The throughline is where the source of truth lives.
 -->
 
 ---
-layout: section
+layout: default
 ---
 
-::number::
-PART A · 01
+# The work comes before the tool
 
-# Start with the workflow
+<div class="flow">
+  <div class="flow__step">
+    <div class="flow__k">Source</div>
+    <div class="flow__v">Papers, notes, data, an old deck</div>
+  </div>
+  <div class="flow__arrow">&rarr;</div>
+  <div class="flow__step">
+    <div class="flow__k">Thinking</div>
+    <div class="flow__v">Audience, structure, the claims that matter</div>
+  </div>
+  <div class="flow__arrow">&rarr;</div>
+  <div class="flow__step flow__step--last">
+    <div class="flow__k">Tool</div>
+    <div class="flow__v">Chosen last, once the thinking holds</div>
+  </div>
+</div>
 
-::subtitle::
-The hard part is not opening a slide app.
+<p class="lede">Pick the tool last. Everything before it is portable.</p>
 
----
-layout: two-cols-header
----
-
-# The work before the deck
-
-::left::
-
-### Source material
-- Papers
-- Websites
-- Reports
-- Notes
-- Existing decks
-- Data summaries
-
-::right::
-
-### Presentation work
-- Understand the material.
-- Decide the audience journey.
-- Pick the claims and evidence.
-- Shape slide-by-slide structure.
-- Then choose a tool to render it.
-
-<CtpCallout label="Framing" tone="accent">
-The goal is not to find the one perfect AI presentation tool. The goal is to keep the thinking portable enough that many tools can help without trapping the work.
-</CtpCallout>
+<style scoped>
+.flow { display:flex; align-items:stretch; gap:16px; margin-top:48px; }
+.flow__step { flex:1; border:1px solid var(--hairline); border-radius:var(--r-2); padding:22px 24px; }
+.flow__step--last { border-color:var(--nyu-violet); }
+.flow__k { font-family:var(--font-sans); font-weight:700; text-transform:uppercase; letter-spacing:var(--tracked-sm); font-size:13px; color:var(--nyu-violet); margin-bottom:10px; }
+.flow__v { font-size:15px; color:var(--fg2); line-height:var(--lh-snug); }
+.flow__arrow { display:flex; align-items:center; color:var(--ink-300); font-size:26px; }
+.lede { margin-top:40px; font-family:var(--font-serif); font-size:var(--t-body-lg); color:var(--fg1); }
+</style>
 
 <!--
-Use this slide to slow down the "AI makes slides" instinct. The first decision is
-not Gamma vs. PowerPoint vs. Slidev; it is where the structure of the talk lives.
+Slow the "AI makes slides" instinct. The first decision is where the structure of the
+talk lives, not which app to open. Keep it fast; it sets up the ladder next.
 -->
 
 ---
-layout: section
+layout: default
 ---
 
-::number::
-PART A · 02
+# Four ways AI can touch your deck
 
-# Level 1: chat tools
+<div class="rung-cap">Reaches deeper into the deck &rarr;</div>
 
-::subtitle::
-Turn source material into a structured brief.
+<div class="ladder">
+  <div class="rung">
+    <div class="rung__n">1</div>
+    <div class="rung__b"><div class="rung__t">Chat</div><div class="rung__d">Draft the structure and a portable brief</div></div>
+    <div class="rung__bar"><span style="width:25%"></span></div>
+  </div>
+  <div class="rung">
+    <div class="rung__n">2</div>
+    <div class="rung__b"><div class="rung__t">Visual generators</div><div class="rung__d">Designed slides from a prompt</div></div>
+    <div class="rung__bar"><span style="width:50%"></span></div>
+  </div>
+  <div class="rung">
+    <div class="rung__n">3</div>
+    <div class="rung__b"><div class="rung__t">In-app copilots</div><div class="rung__d">Help inside the slide app you already use</div></div>
+    <div class="rung__bar"><span style="width:75%"></span></div>
+  </div>
+  <div class="rung">
+    <div class="rung__n">4</div>
+    <div class="rung__b"><div class="rung__t">Agentic</div><div class="rung__d">Edits the deck&rsquo;s source files directly</div></div>
+    <div class="rung__bar"><span style="width:100%"></span></div>
+  </div>
+</div>
+
+<style scoped>
+.rung-cap { font-family:var(--font-sans); font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:var(--tracked-sm); color:var(--ink-400); text-align:right; margin-bottom:10px; }
+.ladder { display:flex; flex-direction:column; gap:12px; }
+.rung { display:flex; align-items:center; gap:22px; border:1px solid var(--hairline); border-radius:var(--r-2); padding:14px 20px; }
+.rung__n { font-family:var(--font-serif); font-weight:700; font-size:30px; color:var(--nyu-violet); width:30px; text-align:center; flex:none; }
+.rung__b { flex:1; }
+.rung__t { font-weight:600; font-size:18px; color:var(--fg1); }
+.rung__d { font-size:14px; color:var(--fg2); }
+.rung__bar { width:120px; height:6px; background:var(--ink-100); border-radius:var(--r-pill); flex:none; overflow:hidden; }
+.rung__bar span { display:block; height:100%; background:var(--nyu-violet); border-radius:var(--r-pill); }
+</style>
+
+<!--
+The backbone of Part A. Each level after this is a quick visual stop, mostly shown live
+in the actual tool. The bars encode the order: how deeply the AI reaches into the deck.
+-->
 
 ---
-layout: two-cols-header
+layout: default
 ---
 
-# From raw material to a brief
+# Level 1 &middot; Chat
 
-::left::
+<span class="ctp-eyebrow">Raw material &rarr; a portable brief</span>
 
-### Inputs
-- A PDF or paper
-- A website
-- Lab notes
-- A project README
-- A half-written abstract
-
-Examples: ChatGPT, Claude, Gemini, Copilot Chat.
-
-::right::
-
-### Output
-- Audience and goal
-- Learning objectives
-- Slide-by-slide outline
-- Key claims and evidence
-- Draft speaker notes
-- Asset ideas
-
-Call this file `presentation-brief.md`.
-
-<CtpCallout label="Why Markdown now?" tone="accent">
-Markdown shows up after the need is clear: it is plain text with structure. Humans can read it, AI can edit it, and many presentation tools can consume it.
-</CtpCallout>
-
----
-
-# Hands-on: make the brief
-
-Use ChatGPT or any chat assistant. Give it source material and ask for a Markdown presentation brief.
+Paste source material into ChatGPT, Claude, or Gemini and ask for a structured Markdown brief. Running this live:
 
 ```text
 Turn the source material below into a Markdown presentation brief.
 
-Audience: [who will attend]
-Goal: [what they should be able to do after]
-Length: 6-8 slides, 10 minutes.
+Audience: NYUAD researchers and staff new to the Core Technology Platforms.
+Goal: they understand what the platforms offer and how to start a project with one.
+Length: 6-8 slides, about 10 minutes.
 Tone: clear, technical, no hype, no emoji.
 
-Output:
-- title
-- audience
-- learning objectives
-- one h2 per slide
-- 2-4 bullets per slide
-- speaker notes for each slide
-- questions or facts to verify
+Return Markdown with: title, audience, learning objectives,
+one H2 heading per slide, 2-4 bullets per slide, speaker notes,
+and a short list of facts to verify before presenting.
 
 Source material:
-PASTE NOTES, ABSTRACT, WEBSITE TEXT, OR PAPER EXCERPT HERE
+PASTE NOTES, ABSTRACT, WEBSITE TEXT, OR A PAPER EXCERPT HERE
 ```
 
-Five minutes. The goal is a reusable brief, not a polished deck.
-
 <!--
-This is the one Part A hands-on moment. Attendees can use their own source
-material or the fallback excerpt in exercises/README.md. Keep it moving: the
-point is that the first durable artifact is the brief.
+Run this live in ChatGPT on the org account. The copy button on the code block makes it
+easy to grab. The output is a Markdown brief, which the next slide unpacks.
 -->
-
----
-layout: section
----
-
-::number::
-PART A · 03
-
-# Levels 2 and 3
-
-::subtitle::
-When the tool starts making slides.
 
 ---
 layout: two-cols-header
 ---
 
-# Visual-first tools
+# The brief is just Markdown
 
 ::left::
 
-### Level 2: deck builders
-Prompt or brief in; designed slides out.
+```md
+# Title
 
-Examples: Gamma, Canva Magic Design, Beautiful.ai, Claude Design.
+## A slide
+- one point
+- another point
 
-Useful for:
-- Fast visual drafts
-- Mood boards
-- Non-technical slide decks
+<!-- speaker notes -->
+```
 
 ::right::
 
-### Level 3: AI inside slide apps
-Stay where the final file already lives.
-
-Examples: PowerPoint Copilot, Gemini in Slides, Canva AI.
-
-Useful for:
-- Required templates
-- Existing decks
-- Last-mile rewriting and layout help
-
-<CtpCallout label="Trade-off" tone="accent">
-These tools can produce something attractive quickly. The risk is that the real source of truth becomes trapped in a visual file that is harder to review, diff, reuse, or ask another AI tool to edit precisely.
-</CtpCallout>
-
----
-layout: section
----
-
-::number::
-PART A · 04
-
-# Level 4: agentic workflows
-
-::subtitle::
-When AI edits the actual presentation source.
-
----
-
-# Three ways to use AI with source
-
-### Best: agentic editor
-Codex, Cursor, Claude Code, or similar edits `slides.md`, runs the preview, checks the build, and iterates with you.
-
-### Good fallback: chat interface
-Paste `slides.md` into ChatGPT, Claude, or Gemini and ask for revised Markdown or patch-style changes. Less interactive, but still works.
-
-### Least ideal: manual recreation
-Generate a visual draft elsewhere, then recreate it by hand in the final tool. Useful for inspiration, expensive for maintenance.
-
-<CtpCallout label="Key shift" tone="accent">
-Agentic tools are strongest when the deck has source files. They can edit structure, not just pixels.
-</CtpCallout>
+- Plain text, with structure
+- People read it, AI edits it
+- Any tool can open it
 
 <!--
-Name Codex, Cursor, and Claude Code as examples, but keep the category
-tool-agnostic. Also make the fallback explicit: people without agentic tools can
-still use a chat interface to revise the Markdown source.
+This is why Markdown shows up now, not earlier: the brief from Level 1 is plain text you
+can read, version, and hand to any tool. It is the through-line for the rest of Part A.
 -->
 
 ---
-layout: section
+layout: two-cols-header
 ---
 
-::number::
-PART A · 05
+# Level 2 &middot; Visual generators
 
-# The source of truth
+::left::
 
-::subtitle::
-One portable artifact, many possible outputs.
+<div style="display:flex; align-items:center; justify-content:center; height:100%;">
+  <img src="/img/claude.png" alt="Claude" style="max-width:82%; max-height:110px; object-fit:contain;" />
+</div>
 
----
+::right::
 
-# One brief can feed many tools
+- Prompt in, designed deck out
+- Refine it by chatting
+- A real, editable artifact
 
-```text
-raw material
-  -> chat assistant
-    -> presentation-brief.md
-      -> Slidev / slides.md
-      -> HTML or PDF
-      -> LaTeX / Beamer
-      -> PowerPoint or Canva draft
-      -> Claude Design or other visual tools
-      -> another AI editing pass
-```
-
-Keep edits flowing back to the Markdown source, or the workflow splits into disconnected copies.
-
-<CtpCallout label="Working principle" tone="accent">
-The durable source is the text you can review, version, reuse, and ask AI to change. The rendered deck is one output of that source.
+<CtpCallout label="Live demo" tone="violet">
+Into Claude Design now. Gamma and Canva do similar things.
 </CtpCallout>
 
+<!--
+Switch to Claude Design: show a prompt, the generated deck, and one iteration by asking
+for a change. Name Gamma/Canva once; the concept is what matters, not a tour.
+-->
+
+---
+layout: two-cols-header
 ---
 
-# Why Slidev next?
+# Level 3 &middot; Copilots in the app
 
-For the rest of the workshop, Slidev gives us a concrete version of this workflow:
+::left::
 
-- One source file: `slides.md`
-- Live preview while editing
-- CTP theme and reusable components
-- Export to PDF, static web, and other formats
-- Works well with agentic tools because the deck is text
+<div style="display:flex; align-items:center; justify-content:center; height:100%;">
+  <img src="/img/powerpoint.png" alt="PowerPoint" style="max-width:82%; max-height:170px; object-fit:contain;" />
+</div>
+
+::right::
+
+- Lives inside PowerPoint / Slides
+- Stays in your template
+- Best for last-mile polish
+
+<CtpCallout label="Live demo" tone="violet">
+Into PowerPoint with the Claude plugin.
+</CtpCallout>
 
 <!--
-This is the bridge. The point is not that Slidev is the only destination; it is
-the hands-on destination for this workshop because it makes the source visible.
+Switch to PowerPoint and use the Claude plugin live. The point: help inside an existing
+deck or a mandated template, where the file itself is the constraint.
+-->
+
+---
+layout: two-cols-header
+---
+
+# Level 4 &middot; Agentic
+
+::left::
+
+<div style="display:flex; align-items:center; justify-content:center; height:100%;">
+  <img src="/img/codex.png" alt="Codex" style="max-width:82%; max-height:170px; object-fit:contain;" />
+</div>
+
+::right::
+
+- Edits your source files directly
+- Runs the preview, iterates
+- Structure, not just pixels
+
+<CtpCallout label="That is Part B" tone="accent">
+We do this live with Codex and Slidev next.
+</CtpCallout>
+
+<!--
+Don't demo here, just name it and point forward. This whole level is Part B, performed
+live right after this.
+-->
+
+---
+layout: default
+---
+
+# One source, many outputs
+
+<div class="hub">
+  <div class="hub__src">
+    <code>presentation-brief.md</code>
+    <span>the source of truth</span>
+  </div>
+  <div class="hub__arrow">&rarr;</div>
+  <div class="hub__grid">
+    <div>Slidev deck</div>
+    <div>PDF / web</div>
+    <div>PowerPoint</div>
+    <div>Claude Design</div>
+    <div>LaTeX / Beamer</div>
+    <div>Another AI pass</div>
+  </div>
+</div>
+
+<p class="hub__note">Keep edits flowing back to the text. Any tool &mdash; including the agent in Part B &mdash; picks up from there.</p>
+
+<style scoped>
+.hub { display:flex; align-items:center; justify-content:center; gap:48px; margin-top:40px; }
+.hub__src { border:1px solid var(--nyu-violet); border-radius:var(--r-2); padding:26px 30px; flex:none; }
+.hub__src code { font-family:var(--font-mono); font-size:18px; color:var(--nyu-violet); background:transparent; border:0; padding:0; }
+.hub__src span { display:block; margin-top:8px; font-size:12px; color:var(--fg2); text-transform:uppercase; letter-spacing:var(--tracked-sm); }
+.hub__arrow { color:var(--ink-300); font-size:30px; flex:none; }
+.hub__grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.hub__grid div { border:1px solid var(--hairline); border-radius:var(--r-2); padding:12px 20px; font-size:15px; color:var(--fg1); }
+.hub__note { margin-top:40px; text-align:center; font-family:var(--font-serif); font-size:var(--t-body-lg); color:var(--fg1); }
+</style>
+
+<!--
+The payoff and the close of Part A. Whatever tool you used, the durable thing is the text
+you can review, version, reuse, and hand to the next AI. Then move into Part B.
 -->
 
 ---

@@ -1,0 +1,6 @@
+/* Workshop 01 — deck-local CSS overrides. Slidev auto-loads this file.
+   Use it for tweaks that should apply to THIS deck only (e.g. override a brand
+   token for a guest co-presenter). It is intentionally empty right now:
+   the full-bleed section divider fix and its gold rule now live in the shared
+   theme (ctp-templates/slidev/layouts/section.vue), and the Level 2/3/4 logos
+   are styled inline on their slides. */
