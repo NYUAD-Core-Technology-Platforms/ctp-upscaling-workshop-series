@@ -9,6 +9,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch: {}
+  # Fired by the ctp-templates repo when the theme changes, so decks
+  # rebuild against the latest theme. See ctp-templates notify-workshops.yml.
+  repository_dispatch:
+    types: [theme-updated]
 
 # Required for the GitHub Pages deployment.
 permissions:

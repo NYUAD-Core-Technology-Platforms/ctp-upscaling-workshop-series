@@ -485,11 +485,7 @@ pnpm install         # one-time
 pnpm new-deck my-talk
 ```
 
-It creates `../my-talk/` next door with:
-- `slides.md` (minimal cover + section + end)
-- `package.json` wired to the theme via `file:`
-- `nyuad-logo.png` copied into `public/brand/`
-- `README.md` + `.gitignore`
+It creates `../my-talk/` next door to `/ctp-templates/`
 
 ::right::
 
@@ -503,9 +499,7 @@ npx slidev
 
 Edit `slides.md` and the browser hot-reloads.
 
-<CtpCallout label="Why the scaffold" tone="accent">
-The manual flow has six steps and three places where you can typo a relative path. The script does them all and pins Slidev to a Windows-safe version.
-</CtpCallout>
+
 
 ---
 
@@ -526,9 +520,7 @@ That's it. Your next browser reload (or your next `npx slidev build` / `export`)
 
 Rare, but possible: a layout slot rename, a removed CSS variable. The templates repo's [`AGENTS.md`](https://github.com/NYUAD-Core-Technology-Platforms/ctp-templates/blob/main/AGENTS.md) and `slidev/README.md` document any breaking change. If a slide stops rendering correctly after a pull, check those files first; usually it's a one-line fix in your `slides.md`.
 
-<CtpCallout label="Decks you've already shipped" tone="accent">
-PDFs and static builds are frozen at the moment you ran <code>npx slidev export</code> / <code>build</code>. Template updates don't retroactively change a file you've already produced. Only running dev servers and future builds see the new theme.
-</CtpCallout>
+
 
 ---
 layout: end
