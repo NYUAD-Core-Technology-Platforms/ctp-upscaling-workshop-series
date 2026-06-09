@@ -169,6 +169,39 @@ When designing a new layout with a dark background (in the theme repo), follow t
 
 ---
 
+## Pulling live data into a slide (build-time bake)
+
+When a slide needs real data from an external system (e.g. the **Booked** reservation system for CTP lab equipment), fetch it at **build time** and bake it into a committed JSON file. Never fetch from the browser at runtime: that leaks API credentials into the published static site and hits CORS.
+
+Pattern, first used in `01-slidev`:
+
+```
+workshops/NN-name/
+├── scripts/fetch-<thing>.mjs   # Node script: calls the API, writes the JSON
+├── <thing>.json                # generated data, COMMITTED (names are not secret)
+├── components/<Thing>List.vue  # imports the JSON, renders it (no network at runtime)
+└── .env.example                # documents the required env vars
+```
+
+Wire-up:
+
+- Add an npm script: `"data": "node scripts/fetch-<thing>.mjs"`.
+- The component imports the JSON directly (`import data from '../<thing>.json'`), Vite parses it. Pure display, so the built site carries no secret.
+- Credentials come from env vars loaded from `.env` (already gitignored at repo root). Commit only `.env.example`.
+
+**Booked specifics** (the equipment example): it's a Booked Scheduler instance. Auth is a pre-issued ID + key sent as headers `X-Booked-UserId` and `X-Booked-SessionToken` on `GET {BOOKED_API_URL}/Resources/`; the response is `{ resources: [{ name, ... }] }`. (Alternative: POST username/password to `/Authentication/Authenticate` for a session token.)
+
+**VPN gotcha:** Booked (`corelabs.abudhabi.nyu.edu`) is behind the **NYU VPN**, so GitHub-*hosted* runners cannot reach it. Two ways to refresh the data:
+
+1. Run `npm run data` locally while on the VPN, then commit the refreshed JSON.
+2. Run it on a **self-hosted runner on the NYU network**. This repo does exactly that: `.github/workflows/refresh-equipment.yml` runs `npm run data` on `runs-on: [MEG Workstation]` (a Windows runner, `shell: pwsh`), reading `BOOKED_API_ID` / `BOOKED_API_KEY` from org-level secrets, and commits `equipment.json` if the list changed. The commit to `main` then triggers `deploy-pages.yml` to republish. (The same runner powers the lab's `neurowaves-lab-documentation/.github/workflows/sync-gcal.yml`.)
+
+Either way the fetch script must **fail soft** (leave the existing JSON untouched) so a build never breaks when the API is unreachable or the token expired. Keep a sensible sample in the committed JSON as the fallback.
+
+**Booked API specifics (confirmed working):** the Web Services root is the host plus `/Services` (this Booked version uses clean URLs, no `index.php`, it tells you so if you get it wrong). Auth is **API-key**: send headers `X-Booked-ApiId` and `X-Booked-ApiKey` on every request (NOT `X-Booked-UserId`/`SessionToken`, those are for the username/password session flow and 401 here). The Id/Key are the lab's `BOOKED_API_ID` / `BOOKED_API_KEY`, found in Booked under Profile > API Access. The full equipment catalog is `GET /Services/Resources/` -> `{ resources: [{ name, ... }] }`. The lab also exposes an **ICS feed** (`/export/ical-subscribe.php?...&icskey=...`) used by `sync-gcal.py`, but that only surfaces resources that currently have bookings, so it's a fallback, not the catalog.
+
+---
+
 ## Build / preview gotchas
 
 ### `dist/index.html` looks blank when opened directly

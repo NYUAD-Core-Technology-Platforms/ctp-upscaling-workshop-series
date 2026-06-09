@@ -502,10 +502,50 @@ Edit `slides.md` and the browser hot-reloads.
 
 
 ---
+layout: two-cols-header
+---
+
+# Published automatically, online
+
+Push to `main` and a GitHub Action rebuilds every deck and republishes the site. The same build reruns when the CTP theme changes, so every deck stays current. No manual export, no uploading files.
+
+::left::
+
+### Live site and landing page
+- The landing page lists every workshop and links to each deck.
+- Each deck is live at `/<NN-slug>/`, with a downloadable PDF beside it.
+
+Live now:
+- [Landing page](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/)
+- [Workshop 01](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/)
+
+::right::
+
+### Versioned releases
+Tag a version and a second workflow attaches per-deck archives to a GitHub Release:
+
+```bash
+git tag v2026.05 && git push origin v2026.05
+```
+
+- `<NN-slug>.pdf`, the exported PDF
+- `<NN-slug>-html.zip`, an offline copy of the slides
+
+<!--
+Point at this live site as proof: the deck on screen is published exactly this
+way. Two workflows do it: deploy-pages.yml (Pages site on every push) and
+release.yml (versioned PDF + HTML archives on a tag), both via scripts/ci-build.mjs.
+-->
+
+---
+layout: two-cols-header
+---
 
 # When the CTP template changes
 
-Your deck depends on the theme via `file:../ctp-templates/slidev`, a **symlink** rather than a copy. So when the brand or layout evolves, you don't reinstall anything.
+Your deck links the theme via `file:../ctp-templates/slidev`, a **symlink** not a copy, so you never reinstall when it evolves.
+
+::left::
 
 ### To get the latest theme
 
@@ -514,13 +554,68 @@ cd /path/to/ctp-templates
 git pull
 ```
 
-That's it. Your next browser reload (or your next `npx slidev build` / `export`) picks up the changes. Same applies to workshops in [`ctp-upscaling-workshop-series`](https://github.com/NYUAD-Core-Technology-Platforms/ctp-upscaling-workshop-series): one `git pull` in the templates repo, all decks reflect it.
+The next browser reload (or `npx slidev build` / `export`) picks up the changes.
 
-### When a breaking change ships
+::right::
 
-Rare, but possible: a layout slot rename, a removed CSS variable. The templates repo's [`AGENTS.md`](https://github.com/NYUAD-Core-Technology-Platforms/ctp-templates/blob/main/AGENTS.md) and `slidev/README.md` document any breaking change. If a slide stops rendering correctly after a pull, check those files first; usually it's a one-line fix in your `slides.md`.
+### Where it applies
+- **Locally:** `git pull` in [`ctp-templates`](https://github.com/NYUAD-Core-Technology-Platforms/ctp-templates), every deck reflects it.
+- **Online:** a theme change triggers an automatic rebuild and republish.
+
+<CtpCallout label="Check after a template change" tone="sand">
+A theme update can break or shift a slide. Always page through your deck afterward to confirm it still looks great.
+</CtpCallout>
 
 
+---
+layout: two-cols-header
+---
+
+# Why all this complexity?
+
+Plain text plus a few workflows buy you things a binary slide file simply cannot.
+
+::left::
+
+### It's just syntax
+Markdown is readable, reviewable, and portable. AI tools can edit it precisely, and it travels across formats (PDF, web, LaTeX).
+
+### Version control
+Git gives full history with push, pull, branches, and pull-request review. Roll back a bad change; collaborate without emailing files around.
+
+::right::
+
+### Automated testing
+CI builds every deck on each push, flags one that fails to render, and republishes the site. No manual export, no stale copies.
+
+### Interactive by design
+Slidev slides are web pages: live charts, components, and animations. For research, display scientific data interactively instead of pasting static screenshots.
+
+<!--
+This is the payoff slide. Tie each advantage back to a pain it removes:
+text = reviewable + AI-editable, git = history + collaboration, CI = always
+publishable + verified, interactive = real data viz for scientific talks.
+-->
+
+---
+
+# Live data: lab equipment from Booked
+
+The CTP labs run on **Booked** for reservations. A build-time script calls its Web Services API (`GET /Resources/`) with our API ID and key, writes the names to `equipment.json`, and this slide renders them. No credentials ship in the published deck.
+
+<EquipmentList />
+
+<CtpCallout label="Why bake it at build time?" tone="sand">
+Booked sits behind the NYU VPN, so run `npm run data` from your laptop while connected, then commit `equipment.json`. The cloud build just publishes the baked-in list, never touching the API or your key.
+</CtpCallout>
+
+<!--
+This is the "real data" payoff for the interactive point on the previous slide.
+Flow: scripts/fetch-equipment.mjs (X-Booked-SessionToken + X-Booked-UserId
+headers on GET /Resources/) -> equipment.json -> the EquipmentList component.
+Pre-issued token/key, build-time only, so the static site carries no secret.
+If the token expires, re-run npm run data on the VPN and recommit.
+-->
 
 ---
 layout: end

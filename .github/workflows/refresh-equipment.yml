@@ -1,0 +1,61 @@
+name: Refresh CTP equipment list
+
+# Pulls the current lab-equipment catalog from Booked (corelabs.abudhabi.nyu.edu,
+# behind the NYU VPN) and commits workshops/01-slidev/equipment.json so the deck
+# shows the live list. Runs on the SELF-HOSTED "MEG Workstation" runner because
+# Booked is only reachable from the NYU network; GitHub-hosted runners cannot
+# reach it. The commit to main then triggers the normal Pages deploy
+# (deploy-pages.yml) to republish the deck.
+#
+# Requires org-level secrets available to this repo:
+#   BOOKED_API_ID, BOOKED_API_KEY  (Booked > Profile > API Access)
+# BOOKED_API_URL is not secret, so it's set inline below.
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-equipment
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: [MEG Workstation]
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch equipment from Booked
+        working-directory: workshops/01-slidev
+        env:
+          BOOKED_API_URL: https://corelabs.abudhabi.nyu.edu/Services
+          BOOKED_API_ID: ${{ secrets.BOOKED_API_ID }}
+          BOOKED_API_KEY: ${{ secrets.BOOKED_API_KEY }}
+        run: node scripts/fetch-equipment.mjs
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add workshops/01-slidev/equipment.json
+          $staged = git status --porcelain workshops/01-slidev/equipment.json
+          if ($staged) {
+            git commit -m "chore: refresh CTP equipment list from Booked"
+            git push
+            Write-Host "Committed updated equipment.json"
+          } else {
+            Write-Host "No change in equipment.json"
+          }
