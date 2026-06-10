@@ -241,21 +241,32 @@ layout: two-cols-header
 
 ::left::
 
+<div style="display:inline-block;font-family:var(--font-mono);font-size:13px;color:var(--fg2);background:var(--bg2);border:1px solid var(--hairline);border-bottom:0;border-radius:2px 2px 0 0;padding:5px 12px;margin-bottom:-2px;">presentation-brief.md</div>
+
 ```md
-# Title
+# Orientation to the CTP
+audience: new researchers
+goal: start a project with a platform
 
-## A slide
-- one point
-- another point
+## What the platforms are
+- shared instruments + expert staff
 
-<!-- speaker notes -->
+## When to reach out
+- early, before you collect data
+
+<!-- speaker note: open with the why -->
 ```
 
 ::right::
 
-- Plain text, with structure
-- People read it, AI edits it
-- Any tool can open it
+<p style="font-family:var(--font-serif);font-size:var(--t-body-lg);color:var(--fg2);margin:0 0 18px;">One plain-text file. Every tool downstream can read it.</p>
+
+<ul style="list-style:none;padding:0;margin:0;">
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:17px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:7px;background:var(--nyu-violet);"></span><span><strong style="color:var(--nyu-violet);font-weight:700;">Readable</strong> &mdash; humans scan it at a glance</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:17px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:7px;background:var(--nyu-violet);"></span><span><strong style="color:var(--nyu-violet);font-weight:700;">Editable</strong> &mdash; AI rewrites it precisely</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:17px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:7px;background:var(--nyu-violet);"></span><span><strong style="color:var(--nyu-violet);font-weight:700;">Portable</strong> &mdash; feeds Slidev, PowerPoint, PDF, Claude</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:17px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:7px;background:var(--nyu-violet);"></span><span><strong style="color:var(--nyu-violet);font-weight:700;">Versionable</strong> &mdash; diff and track it like code</span></li>
+</ul>
 
 <!--
 This is why Markdown shows up now, not earlier: the brief from Level 1 is plain text you
@@ -276,9 +287,12 @@ layout: two-cols-header
 
 ::right::
 
-- Prompt in, designed deck out
-- Refine it by chatting
-- A real, editable artifact
+<ul style="list-style:none;padding:0;margin:0;">
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Prompt in, designed deck out</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Refine it by chatting</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>A real, editable artifact</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Export or keep iterating</span></li>
+</ul>
 
 <CtpCallout label="Live demo" tone="violet">
 Into Claude Design now. Gamma and Canva do similar things.
@@ -303,9 +317,12 @@ layout: two-cols-header
 
 ::right::
 
-- Lives inside PowerPoint / Slides
-- Stays in your template
-- Best for last-mile polish
+<ul style="list-style:none;padding:0;margin:0;">
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Lives inside PowerPoint / Slides</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Stays in your required template</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Best for last-mile polish</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>No new tool to learn</span></li>
+</ul>
 
 <CtpCallout label="Live demo" tone="violet">
 Into PowerPoint with the Claude plugin.
@@ -325,14 +342,17 @@ layout: two-cols-header
 ::left::
 
 <div style="display:flex; align-items:center; justify-content:center; height:100%;">
-  <img src="/img/codex.png" alt="Codex" style="max-width:82%; max-height:170px; object-fit:contain;" />
+  <img src="/img/codex.png" alt="Codex" style="max-width:94%; max-height:250px; object-fit:contain;" />
 </div>
 
 ::right::
 
-- Edits your source files directly
-- Runs the preview, iterates
-- Structure, not just pixels
+<ul style="list-style:none;padding:0;margin:0;">
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Edits your source files directly</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Runs the preview, iterates with you</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Changes structure, not just pixels</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Works because the deck is text</span></li>
+</ul>
 
 <CtpCallout label="That is Part B" tone="accent">
 We do this live with Codex and Slidev next.
@@ -399,18 +419,6 @@ From portable Markdown source to a published Slidev presentation.
 Big-chapter divider. Part A gave the 20-minute workflow map. Part B is the
 hands-on implementation: turn the source-of-truth idea into a running Slidev deck.
 -->
-
----
-layout: section
----
-
-::number::
-PART B · 01
-
-# Why Slidev?
-
-::subtitle::
-Markdown decks that feel like a real product.
 
 ---
 
