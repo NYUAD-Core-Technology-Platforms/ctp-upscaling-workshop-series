@@ -678,6 +678,72 @@ components/LeastSquaresDemo.vue. Tie back to the "interactive by design" slide.
 -->
 
 ---
+
+# The CTP facilities at NYU Abu Dhabi
+
+<a class="ctp-site-card" href="https://nyuad.nyu.edu/en/research/facilities-and-support/core-technology-platforms.html" target="_blank" rel="noopener noreferrer">
+  <span class="ctp-site-card__eyebrow">NYU Abu Dhabi · Research</span>
+  <span class="ctp-site-card__title">Core Technology Platforms ↗</span>
+  <span class="ctp-site-card__desc">Shared research facilities and instrumentation, the labs behind the live equipment list.</span>
+  <span class="ctp-site-card__url">nyuad.nyu.edu/en/research/facilities-and-support/core-technology-platforms</span>
+</a>
+
+A slide is a web page, so it can embed live sites. This institutional page blocks framing (`X-Frame-Options`), so we link out; an embeddable target like a dashboard, the published deck, or a chart would render inline.
+
+<style>
+.ctp-site-card {
+  display: block;
+  margin: var(--s-5) 0 var(--s-5);
+  padding: var(--s-6) var(--s-7);
+  border: 1px solid var(--hairline);
+  border-left: 4px solid var(--ctp-color-violet);
+  border-radius: var(--r-3);
+  background: var(--bg2);
+  text-decoration: none;
+  color: var(--fg1);
+  box-shadow: var(--sh-1);
+}
+.ctp-site-card:hover { background: var(--bg3); }
+.ctp-site-card__eyebrow {
+  display: block;
+  font-size: var(--t-eyebrow);
+  letter-spacing: var(--tracked-sm);
+  text-transform: uppercase;
+  color: var(--ctp-color-violet);
+  font-weight: 700;
+}
+.ctp-site-card__title {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: var(--t-h2);
+  margin: var(--s-2) 0;
+}
+.ctp-site-card__desc {
+  display: block;
+  font-size: var(--t-body);
+  color: var(--fg2);
+}
+.ctp-site-card__url {
+  display: block;
+  margin-top: var(--s-3);
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  color: var(--ctp-color-violet);
+  word-break: break-all;
+}
+</style>
+
+<!--
+The CTP facilities page sends X-Frame-Options/CSP and refuses to be framed (a live
+iframe just shows a broken-page icon), so we feature it as a branded link card.
+The teaching point still holds: a slide is a web page and CAN embed sites that
+allow it (dashboards, the published deck, Observable/Plotly charts); some
+institutional sites opt out of framing. To show a true inline embed, point an
+iframe at an embeddable URL instead.
+-->
+
+
+---
 layout: end
 ---
 
