@@ -787,14 +787,12 @@ iframe at an embeddable URL instead.
 
 This whole flowchart is a [Mermaid](https://mermaid.js.org) diagram written in the Markdown. The violet node is a live link, click it to open the booking system:
 
-```mermaid {scale: 0.72}
-flowchart TB
+```mermaid {scale: 0.5}
+flowchart LR
   P([Booking portal]):::portal --> F[Find instrument]
   F --> R[Request slot]
-  R --> Q{Approval needed?}
-  Q -- yes --> W[Staff approve]
-  Q -- no --> C[Confirmed, use it]
-  W --> C
+  R --> A[Staff approve]
+  A --> U[Confirmed, use it]
   click P "https://corelabs.abudhabi.nyu.edu/" "Open the CTP booking system" _blank
   classDef portal fill:#57068c,stroke:#330662,color:#ffffff,font-weight:bold;
 ```
