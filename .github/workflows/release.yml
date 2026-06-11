@@ -3,6 +3,7 @@ name: Release workshop archives
 # Cut a versioned archive of every workshop when you push a tag like v2026.05.
 # Attaches, per workshop, to the GitHub Release:
 #   <NN-slug>.pdf        the exported PDF
+#   <NN-slug>.pptx       the exported PowerPoint
 #   <NN-slug>-html.zip   an offline-openable copy of the interactive slides
 #
 # Usage:
@@ -65,5 +66,6 @@ jobs:
         with:
           files: |
             ctp-upscaling-workshop-series/release/*.pdf
+            ctp-upscaling-workshop-series/release/*.pptx
             ctp-upscaling-workshop-series/release/*-html.zip
           generate_release_notes: true

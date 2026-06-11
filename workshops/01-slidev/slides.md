@@ -522,7 +522,7 @@ npx slidev
 layout: two-cols-header
 ---
 
-# Start your own deck: one command
+# Start your own deck with CTP template:
 
 After the manual setup above works once, the **CTP templates repo** ships a scaffold script so you never repeat those steps. Clone [`ctp-templates`](https://github.com/NYUAD-Core-Technology-Platforms/ctp-templates) once as a sibling of where you keep code, then:
 
@@ -540,17 +540,38 @@ It creates `../my-talk/` next door to `/ctp-templates/`
 
 ::right::
 
-### Run
+### What you get
+A ready-to-edit deck next door at `../my-talk/`:
+- `slides.md`, your content
+- the CTP theme and components, already wired
+- `public/` for images
+
+Now run it (next slide).
+
+
+
+---
+
+# Run your new deck
+
+From the folder the scaffold just created, install once and start the live dev server. Open `http://localhost:3030/` when it prints.
 
 ```bash
 cd ../my-talk
-npm install
-npx slidev
+npm install        # first time only
+npx slidev         # live preview at http://localhost:3030
 ```
 
-Edit `slides.md` and the browser hot-reloads.
+<CtpCallout label="The editing loop" tone="accent">
+Edit `slides.md` and the browser hot-reloads instantly. The deck already uses the CTP theme and components, so it looks like this one from the first run, no extra setup.
+</CtpCallout>
 
-
+<!--
+The "now run it" payoff after scaffolding. Stress the loop: edit Markdown, see it
+live. The CTP theme is already wired (theme: ctp in the frontmatter). If port 3030
+is busy, Slidev picks the next free port. Mirrors the earlier "Running the deck"
+slide, but here it's the scaffolded deck specifically.
+-->
 
 ---
 layout: two-cols-header
@@ -558,13 +579,13 @@ layout: two-cols-header
 
 # Published automatically, online
 
-Push to `main` and a GitHub Action rebuilds every deck and republishes the site. The same build reruns when the CTP theme changes, so every deck stays current. No manual export, no uploading files.
+All workshops decks will be hosted online. Push to `main` and a GitHub Action rebuilds every deck and republishes the site. The same build reruns when the CTP theme changes, so every deck stays current. No manual export, no uploading files.
 
 ::left::
 
 ### Live site and landing page
 - The landing page lists every workshop and links to each deck.
-- Each deck is live at `/<NN-slug>/`, with a downloadable PDF beside it.
+- Each deck is live at `/<NN-slug>/`, with PDF and PowerPoint downloads beside it.
 
 Live now:
 - [Landing page](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/)
@@ -579,7 +600,7 @@ Tag a version and a second workflow attaches per-deck archives to a GitHub Relea
 git tag v2026.05 && git push origin v2026.05
 ```
 
-- `<NN-slug>.pdf`, the exported PDF
+- `<NN-slug>.pdf` and `<NN-slug>.pptx`, exported PDF and PowerPoint
 - `<NN-slug>-html.zip`, an offline copy of the slides
 
 <!--
@@ -660,29 +681,38 @@ Pulled live from the CTP **Booked** system at build time. Page through the full 
 The whole list is real data baked into equipment.json by scripts/fetch-equipment.mjs
 (GET /Services/Resources/ with X-Booked-ApiId / X-Booked-ApiKey headers). Booked is
 behind the NYU VPN, so the fetch runs on the self-hosted MEG Workstation runner
-(refresh-equipment.yml) or locally via `npm run data`, then the names are committed.
+(sync-booked-data.yml) or locally via `npm run data`, then the names are committed.
 No credentials ship in the published deck. Use the Prev/Next buttons to page through
 ~300 resources; mention the count to show the scale of the CTP facility.
 -->
 
 ---
 
-# Interactive math: least-squares regression
+# CTP by the numbers
 
-Slides are web pages, so this stats demo is **live**: least squares fits points drawn from `y = slope·x + 2 + noise`. Change the parameters and watch the fit and **R²** update.
+Real usage from the Booked reservation system, recomputed at every build:
 
-<LeastSquaresDemo />
+<StatCards />
 
 <!--
-Try it live: raise Noise sigma and watch R squared fall; grow the sample size and
-the fitted slope settles closer to the true slope; hit Resample for a fresh draw
-from the same parameters.
+KPI cards count up on load. Hours / reservations / researchers are aggregated
+from /Reservations over the last 12 months (stats.json via fetch-stats.mjs);
+catalog count is equipment.json. Aggregates only, no names or personal data.
+Numbers shown may be sample data until the stats fetch runs on the VPN/runner.
+-->
 
-The point: this is real computation in the slide, not a screenshot. The OLS
-slope/intercept are computed in JS (closed form) and R squared updates live.
-A seeded RNG keeps the data fixed when you change one parameter, so each button
-isolates one effect; Resample bumps the seed for a new draw. Component lives in
-components/LeastSquaresDemo.vue. Tie back to the "interactive by design" slide.
+---
+
+# Busiest instruments, by booked hours
+
+<UsageBars />
+
+Top 10 over the last 12 months. The long tail of ~300 resources keeps the facility busy beyond these.
+
+<!--
+Same source as the KPI slide (stats.json, topByHours). Horizontal bars because
+the instrument names are long. Point out the mix: microscopy, NMR, sequencing,
+fabrication, a one-slide portrait of what the facility actually does.
 -->
 
 ---
@@ -752,6 +782,26 @@ iframe at an embeddable URL instead.
 
 
 ---
+
+# Interactive math: least-squares regression
+
+Slides are web pages, so this stats demo is **live**: least squares fits points drawn from `y = slope·x + 2 + noise`. Change the parameters and watch the fit and **R²** update.
+
+<LeastSquaresDemo />
+
+<!--
+Try it live: raise Noise sigma and watch R squared fall; grow the sample size and
+the fitted slope settles closer to the true slope; hit Resample for a fresh draw
+from the same parameters.
+
+The point: this is real computation in the slide, not a screenshot. The OLS
+slope/intercept are computed in JS (closed form) and R squared updates live.
+A seeded RNG keeps the data fixed when you change one parameter, so each button
+isolates one effect; Resample bumps the seed for a new draw. Component lives in
+components/LeastSquaresDemo.vue. Tie back to the "interactive by design" slide.
+-->
+
+---
 layout: end
 ---
 
@@ -762,4 +812,3 @@ layout: end
 Questions? Drop them in the CTP Upscaling channel.
 
 Repo &nbsp;·&nbsp; [github.com/NYUAD-Core-Technology-Platforms/ctp-upscaling-workshop-series](https://github.com/NYUAD-Core-Technology-Platforms/ctp-upscaling-workshop-series)
-

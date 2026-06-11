@@ -1,11 +1,11 @@
-name: Refresh CTP equipment + usage stats
+name: Sync CTP data from Booked
 
-# Pulls the current lab-equipment catalog from Booked (corelabs.abudhabi.nyu.edu,
-# behind the NYU VPN) and commits workshops/01-slidev/equipment.json so the deck
-# shows the live list. Runs on the SELF-HOSTED "MEG Workstation" runner because
-# Booked is only reachable from the NYU network; GitHub-hosted runners cannot
-# reach it. The commit to main then triggers the normal Pages deploy
-# (deploy-pages.yml) to republish the deck.
+# Pulls the lab-equipment catalog and usage stats from Booked
+# (corelabs.abudhabi.nyu.edu, behind the NYU VPN) and commits
+# workshops/01-slidev/equipment.json and stats.json so the deck shows live data.
+# Runs on the SELF-HOSTED "MEG Workstation" runner because Booked is only
+# reachable from the NYU network; GitHub-hosted runners cannot reach it. The
+# commit to main then triggers the Pages deploy (deploy-pages.yml) to republish.
 #
 # Requires org-level secrets available to this repo:
 #   BOOKED_API_ID, BOOKED_API_KEY  (Booked > Profile > API Access)
@@ -20,11 +20,11 @@ permissions:
   contents: write
 
 concurrency:
-  group: refresh-equipment
+  group: sync-booked-data
   cancel-in-progress: true
 
 jobs:
-  refresh:
+  sync:
     runs-on: [MEG Workstation]
     defaults:
       run:
@@ -63,7 +63,7 @@ jobs:
           git add workshops/01-slidev/equipment.json workshops/01-slidev/stats.json
           $staged = git status --porcelain workshops/01-slidev/equipment.json workshops/01-slidev/stats.json
           if ($staged) {
-            git commit -m "chore: refresh CTP equipment + usage stats from Booked"
+            git commit -m "chore: sync CTP equipment + usage stats from Booked"
             git push
             Write-Host "Committed updated data"
           } else {

@@ -268,14 +268,17 @@ Three modes summary:
 | `... dev` | A live web server at `http://localhost:3030` | Authoring. Hot-reloads on save. |
 | `... build` | A folder `dist/` you upload to a web host | Publishing the deck as a website. |
 | `... export` | A single PDF | Emailing or attaching one file. |
+| `... export:pptx` | A single PowerPoint (`.pptx`) | When someone needs editable PowerPoint slides. |
 
-There are also shorthand aliases in the root `package.json` for workshop 01: `pnpm dev:01`, `pnpm build:01`, `pnpm export:01`. Same commands, less typing.
+> `slidev export --format pptx` puts each slide in as an image (so the text isn't editable), with the speaker notes carried over per slide. Needs the same `playwright-chromium` as PDF export.
+
+There are also shorthand aliases in the root `package.json` for workshop 01: `pnpm dev:01`, `pnpm build:01`, `pnpm export:01`, `pnpm export:01:pptx`. Same commands, less typing.
 
 ---
 
 ## Publish all decks (GitHub Pages + Releases)
 
-**🌐 Live site: https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/**, landing page with every workshop; each deck lives at `…/<NN-slug>/` with a `slides.pdf` beside it.
+**🌐 Live site: https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/**, landing page with every workshop; each deck lives at `…/<NN-slug>/` with `slides.pdf` and `slides.pptx` beside it.
 
 Two GitHub Actions workflows publish every workshop automatically. They live in `.github/workflows/` and both build through `scripts/ci-build.mjs`, which auto-discovers every `workshops/NN-*` folder, you never edit the workflow when you add a workshop.
 
@@ -283,15 +286,15 @@ Two GitHub Actions workflows publish every workshop automatically. They live in 
 
 - Landing page at the site root listing every workshop.
 - Each deck served at `https://<owner>.github.io/<repo>/<NN-slug>/` (correct `--base` set automatically).
-- A downloadable `slides.pdf` beside each deck, plus a `404.html` fallback so deep-link refreshes don't break.
+- Downloadable `slides.pdf` and `slides.pptx` beside each deck, plus a `404.html` fallback so deep-link refreshes don't break.
 
-**`release.yml`, on a version tag (`v*`).** Builds a versioned archive and attaches it to a GitHub Release: per workshop, `<NN-slug>.pdf` and `<NN-slug>-html.zip` (an offline-openable copy of the slides, built with `--base ./`). Cut one with:
+**`release.yml`, on a version tag (`v*`).** Builds a versioned archive and attaches it to a GitHub Release: per workshop, `<NN-slug>.pdf`, `<NN-slug>.pptx`, and `<NN-slug>-html.zip` (an offline-openable copy of the slides, built with `--base ./`). Cut one with:
 
 ```bash
 git tag v2026.05 && git push origin v2026.05
 ```
 
-**So where do the PDF and HTML live?** The live HTML slides and a current PDF are on Pages (always matching `main`); immutable, versioned PDF + offline-HTML bundles are attached to each tagged Release. Pages = "the latest", Releases = "the edition we delivered on this date".
+**So where do the downloads live?** The live HTML slides and current PDF + PowerPoint are on Pages (always matching `main`); immutable, versioned PDF + PPTX + offline-HTML bundles are attached to each tagged Release. Pages = "the latest", Releases = "the edition we delivered on this date".
 
 **Two setup steps before the first run:**
 
@@ -301,9 +304,9 @@ git tag v2026.05 && git push origin v2026.05
 You can run the same builds locally:
 
 ```bash
-pnpm build:site       # combined Pages site -> dist/ (needs playwright-chromium for PDFs)
-pnpm preview:site     # same, but skips PDFs (faster); then: npx serve dist
-pnpm build:release    # per-deck PDF + html.zip -> release/
+pnpm build:site       # combined Pages site -> dist/ (needs playwright-chromium for PDF+PPTX)
+pnpm preview:site     # same, but skips PDF+PPTX (faster); then: npx serve dist
+pnpm build:release    # per-deck PDF + PPTX + html.zip -> release/
 ```
 
 ---
@@ -337,9 +340,9 @@ If you've already given workshop 01 and don't want a future theme change to alte
 
 | # | Title | Status | Links |
 |---|-------|--------|-------|
-| 01 | AI-Assisted Presentations with Slidev: From Prompt to Polished Deck | Draft | [slides](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/) · [PDF](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/slides.pdf) |
+| 01 | AI-Assisted Presentations with Slidev: From Prompt to Polished Deck | Draft | [slides](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/) · [PDF](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/slides.pdf) · [PPTX](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/slides.pptx) |
 
-When you add a new workshop, add it to this table. Its links follow the pattern `…github.io/ctp-upscaling-workshop-series/<NN-slug>/` (live slides) and `…/<NN-slug>/slides.pdf` (PDF).
+When you add a new workshop, add it to this table. Its links follow the pattern `…github.io/ctp-upscaling-workshop-series/<NN-slug>/` (live slides), `…/<NN-slug>/slides.pdf` (PDF), and `…/<NN-slug>/slides.pptx` (PowerPoint).
 
 ---
 

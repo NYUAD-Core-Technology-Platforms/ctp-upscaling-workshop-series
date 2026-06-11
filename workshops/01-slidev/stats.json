@@ -1,0 +1,108 @@
+{
+  "source": "Booked (Web Services /Reservations/)",
+  "fetchedAt": "2026-06-11T10:22:21.202Z",
+  "windowStart": "2025-06-11",
+  "windowEnd": "2026-06-11",
+  "totals": {
+    "reservations": 10085,
+    "bookedHours": 120382,
+    "distinctUsers": 381,
+    "instrumentsUsed": 247
+  },
+  "topByHours": [
+    {
+      "name": "3D Nano Printing System – Nanoscribe Quantum X Bio",
+      "hours": 4642
+    },
+    {
+      "name": "600 MHz wide bore NMR Spectrometer - Bruker 600 MHz Aeon",
+      "hours": 3958
+    },
+    {
+      "name": "600 MHz NMR Spectrometer - Bruker 600 MHz Ascend UHD",
+      "hours": 3881
+    },
+    {
+      "name": "EVOQ Tandem Quad LC-MS",
+      "hours": 3198
+    },
+    {
+      "name": "3D Printer- BMF S240",
+      "hours": 3034
+    },
+    {
+      "name": "Incucyte SX5-Sartorius",
+      "hours": 2831
+    },
+    {
+      "name": "X-ray Powder Diffraction (Reflection Mode) Empyrean 2",
+      "hours": 2537
+    },
+    {
+      "name": "Kinesis Workspace",
+      "hours": 2494
+    },
+    {
+      "name": "3D Nano Printer - Nanoscribe Photonic Professional GT",
+      "hours": 2467
+    },
+    {
+      "name": "IGAsorp - vapor sorption analyzer",
+      "hours": 2341
+    }
+  ],
+  "monthlyHours": [
+    {
+      "month": "2025-05",
+      "hours": 312
+    },
+    {
+      "month": "2025-06",
+      "hours": 13470
+    },
+    {
+      "month": "2025-07",
+      "hours": 13063
+    },
+    {
+      "month": "2025-08",
+      "hours": 9544
+    },
+    {
+      "month": "2025-09",
+      "hours": 9079
+    },
+    {
+      "month": "2025-10",
+      "hours": 7549
+    },
+    {
+      "month": "2025-11",
+      "hours": 9838
+    },
+    {
+      "month": "2025-12",
+      "hours": 7782
+    },
+    {
+      "month": "2026-01",
+      "hours": 13012
+    },
+    {
+      "month": "2026-02",
+      "hours": 11369
+    },
+    {
+      "month": "2026-03",
+      "hours": 3945
+    },
+    {
+      "month": "2026-04",
+      "hours": 6401
+    },
+    {
+      "month": "2026-05",
+      "hours": 15018
+    }
+  ]
+}

@@ -15,11 +15,13 @@
  *       dist/index.html              landing page linking to each deck
  *       dist/<NN-slug>/              the interactive Slidev SPA build
  *       dist/<NN-slug>/slides.pdf    downloadable PDF (best-effort)
+ *       dist/<NN-slug>/slides.pptx   downloadable PowerPoint (best-effort)
  *       dist/<NN-slug>/404.html      SPA fallback (prevents refresh 404s)
  *       dist/.nojekyll               stop GitHub Pages running Jekyll
  *
  *   --mode release             Per-deck artifacts for a GitHub Release:
  *       release/<NN-slug>.pdf        PDF export
+ *       release/<NN-slug>.pptx       PowerPoint export
  *       release/<NN-slug>-html.zip   offline-openable HTML site (base "./")
  *
  * Options
@@ -27,6 +29,7 @@
  *   --base <path>   Override the Pages base. Default "/<repo>/" derived from
  *                   $GITHUB_REPOSITORY, falling back to the repo folder name.
  *   --no-pdf        Skip PDF export (use when playwright-chromium isn't installed).
+ *   --no-pptx       Skip PPTX export (same reason; both need playwright-chromium).
  *
  * Examples
  * --------
@@ -63,6 +66,7 @@ const getOpt = (name, fallback) => {
 
 const mode = getOpt('--mode', 'pages')
 const noPdf = getFlag('--no-pdf')
+const noPptx = getFlag('--no-pptx')
 
 const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1] || basename(root)
 let base = getOpt('--base', `/${repoName}/`)
@@ -142,6 +146,20 @@ function exportPdf(name, outFile) {
   }
 }
 
+function exportPptx(name, outFile) {
+  if (noPptx) {
+    console.log(`  (skipping PPTX for ${name} -- --no-pptx)`)
+    return
+  }
+  try {
+    console.log(`-> Exporting PPTX: ${name}`)
+    slidev(name, ['export', 'slides.md', '--format', 'pptx', '--output', outFile])
+  } catch (err) {
+    // Best-effort, like PDF: a single deck's failure shouldn't sink the publish.
+    console.warn(`  ! PPTX export failed for ${name}: ${err.message}`)
+  }
+}
+
 // ----- Mode: pages -----------------------------------------------------------
 
 function buildPages() {
@@ -162,7 +180,15 @@ function buildPages() {
     const pdfPath = join(outDir, 'slides.pdf')
     exportPdf(name, pdfPath)
 
-    cards.push({ name, title: deckTitle(name), hasPdf: existsSync(pdfPath) })
+    const pptxPath = join(outDir, 'slides.pptx')
+    exportPptx(name, pptxPath)
+
+    cards.push({
+      name,
+      title: deckTitle(name),
+      hasPdf: existsSync(pdfPath),
+      hasPptx: existsSync(pptxPath),
+    })
   }
 
   writeFileSync(join(distRoot, '.nojekyll'), '')
@@ -178,7 +204,10 @@ function landingPage(cards) {
           <span class="num">${c.name.match(/^\d+/)?.[0] ?? ''}</span>
           <span class="title">${escapeHtml(c.title)}</span>
         </a>
-        ${c.hasPdf ? `<a class="pdf" href="./${c.name}/slides.pdf" download>PDF</a>` : ''}
+        <span class="downloads">
+          ${c.hasPdf ? `<a class="btn" href="./${c.name}/slides.pdf" download title="Download PDF">PDF</a>` : ''}
+          ${c.hasPptx ? `<a class="btn" href="./${c.name}/slides.pptx" download title="Download PowerPoint">PPTX</a>` : ''}
+        </span>
       </li>`,
     )
     .join('\n')
@@ -205,8 +234,9 @@ function landingPage(cards) {
     .deck:hover { border-color:var(--violet); transform: translateY(-1px); }
     .num { font-variant-numeric: tabular-nums; font-weight:700; color:var(--violet); background:#f1ecf7; border-radius:8px; padding:.35rem .6rem; font-size:.95rem; }
     .title { font-weight:600; }
-    .pdf { display:flex; align-items:center; padding:0 1rem; background:#fff; border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--violet); font-weight:600; font-size:.85rem; }
-    .pdf:hover { border-color:var(--violet); }
+    .downloads { display:flex; gap:.5rem; }
+    .btn { display:flex; align-items:center; padding:0 1rem; background:#fff; border:1px solid var(--line); border-radius:12px; text-decoration:none; color:var(--violet); font-weight:600; font-size:.85rem; white-space:nowrap; }
+    .btn:hover { border-color:var(--violet); }
     footer { color:var(--muted); font-size:.8rem; padding:0 1.5rem 3rem; }
   </style>
 </head>
@@ -215,7 +245,7 @@ function landingPage(cards) {
     <div class="wrap">
       <p class="eyebrow">Core Technology Platforms &middot; NYU Abu Dhabi</p>
       <h1>Upscaling Workshop Series</h1>
-      <p>Interactive slides for each workshop. Open a deck to present in the browser, or grab the PDF.</p>
+      <p>Interactive slides for each workshop. Open a deck to present in the browser, or download it as PDF or PowerPoint.</p>
     </div>
   </header>
   <main class="wrap">
@@ -251,6 +281,7 @@ function buildRelease() {
     console.log(`-> Zipping HTML: ${name}`)
     execFileSync('zip', ['-r', '-q', zipPath, '.'], { cwd: htmlDir, stdio: 'inherit' })
     exportPdf(name, join(releaseRoot, `${name}.pdf`))
+    exportPptx(name, join(releaseRoot, `${name}.pptx`))
   }
 
   rmSync(tmpRoot, { recursive: true, force: true })

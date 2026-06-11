@@ -8,7 +8,10 @@
     "build": "slidev build",
     "export": "slidev export",
     "export:pdf": "slidev export --format pdf",
-    "data": "node scripts/fetch-equipment.mjs"
+    "export:pptx": "slidev export --format pptx",
+    "data": "node scripts/fetch-equipment.mjs",
+    "data:stats": "node scripts/fetch-stats.mjs",
+    "data:all": "node scripts/fetch-equipment.mjs && node scripts/fetch-stats.mjs"
   },
   "dependencies": {
     "slidev-theme-ctp": "file:../../../ctp-templates/slidev"

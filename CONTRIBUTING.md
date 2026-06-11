@@ -34,6 +34,7 @@ pnpm install                                       # once
 pnpm --filter ./workshops/01-slidev dev            # run a deck
 pnpm --filter ./workshops/01-slidev build          # static build
 pnpm --filter ./workshops/01-slidev export         # PDF export
+pnpm --filter ./workshops/01-slidev export:pptx    # PowerPoint export
 ```
 
 ## When to touch the theme vs. this repo

@@ -173,9 +173,9 @@ The theme is at v0.x with no stable API yet. Breaking changes happen, when you m
 
 The workshop site is published to GitHub Pages automatically. Key facts for agents:
 
-- `scripts/ci-build.mjs` builds every `workshops/NN-*` deck. `--mode pages` writes the combined `dist/` (landing page, per-deck SPA, `slides.pdf`, `.nojekyll`); `--mode release` writes per-deck `<NN-slug>.pdf` and `<NN-slug>-html.zip`. It auto-discovers workshops, so adding a deck needs no workflow change.
-- `.github/workflows/deploy-pages.yml` runs on push to `main`, on manual `workflow_dispatch`, and on `repository_dispatch` (type `theme-updated`) sent by the ctp-templates repo. It checks out ctp-templates as a sibling (`path: ctp-templates`) so the theme dependency resolves, installs with `--no-frozen-lockfile`, installs playwright-chromium for PDF export, then builds and deploys.
-- `.github/workflows/release.yml` runs on tags `v*` and attaches the per-deck PDF and html.zip to a GitHub Release.
+- `scripts/ci-build.mjs` builds every `workshops/NN-*` deck. `--mode pages` writes the combined `dist/` (landing page, per-deck SPA, `slides.pdf`, `slides.pptx`, `.nojekyll`); `--mode release` writes per-deck `<NN-slug>.pdf`, `<NN-slug>.pptx`, and `<NN-slug>-html.zip`. Both exports are best-effort and can be skipped with `--no-pdf` / `--no-pptx`. It auto-discovers workshops, so adding a deck needs no workflow change.
+- `.github/workflows/deploy-pages.yml` runs on push to `main`, on manual `workflow_dispatch`, and on `repository_dispatch` (type `theme-updated`) sent by the ctp-templates repo. It checks out ctp-templates as a sibling (`path: ctp-templates`) so the theme dependency resolves, installs with `--no-frozen-lockfile`, installs playwright-chromium for PDF/PPTX export, then builds and deploys.
+- `.github/workflows/release.yml` runs on tags `v*` and attaches the per-deck PDF, PPTX, and html.zip to a GitHub Release.
 - pnpm version is pinned in the workflows (`version: 9`). The repo is checked out into a subdirectory, so `pnpm/action-setup` cannot read `packageManager` from the workspace root.
 - Decks must set `routerMode: hash` in headmatter. GitHub Pages has no per-folder 404 fallback, so history-mode deep links (e.g. `/01-slidev/2`) return 404 on refresh; hash mode keeps the slide index after `#`. The `new-workshop` scaffold sets this automatically.
 - One-time setup already done on GitHub: Pages Source = GitHub Actions. ctp-templates is public, so its checkout needs no token.
