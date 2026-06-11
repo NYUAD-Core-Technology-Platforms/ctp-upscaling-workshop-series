@@ -40,6 +40,7 @@
 
 import {
   existsSync,
+  statSync,
   mkdirSync,
   readdirSync,
   readFileSync,
@@ -132,6 +133,15 @@ function buildSpa(name, deckBase, outDir) {
   slidev(name, ['build', 'slides.md', '--base', deckBase, '--out', outDir])
 }
 
+/** True only if the path exists and is a non-empty file. */
+function nonEmpty(p) {
+  try {
+    return existsSync(p) && statSync(p).size > 0
+  } catch {
+    return false
+  }
+}
+
 function exportPdf(name, outFile) {
   if (noPdf) {
     console.log(`  (skipping PDF for ${name} -- --no-pdf)`)
@@ -158,6 +168,29 @@ function exportPptx(name, outFile) {
     // Best-effort, like PDF: a single deck's failure shouldn't sink the publish.
     console.warn(`  ! PPTX export failed for ${name}: ${err.message}`)
   }
+
+  // Some Slidev versions ignore --output for pptx and drop the file in the deck
+  // folder (e.g. slides-export.pptx). If the target is missing, recover it from
+  // the known fallback locations so the served path always has the file.
+  if (!nonEmpty(outFile)) {
+    const deckDir = join(workshopsDir, name)
+    const candidates = [
+      join(deckDir, basename(outFile)),
+      join(deckDir, 'slides-export.pptx'),
+      join(deckDir, 'slides.pptx'),
+      join(root, basename(outFile)),
+      join(root, 'slides-export.pptx'),
+    ]
+    const found = candidates.find((p) => nonEmpty(p))
+    if (found) {
+      mkdirSync(dirname(outFile), { recursive: true })
+      copyFileSync(found, outFile)
+      if (resolve(found) !== resolve(outFile)) rmSync(found, { force: true })
+      console.log(`   (recovered PPTX from ${found})`)
+    }
+  }
+
+  console.log(`   PPTX ${nonEmpty(outFile) ? 'ready' : 'MISSING'} -> ${outFile}`)
 }
 
 // ----- Mode: pages -----------------------------------------------------------
@@ -186,8 +219,8 @@ function buildPages() {
     cards.push({
       name,
       title: deckTitle(name),
-      hasPdf: existsSync(pdfPath),
-      hasPptx: existsSync(pptxPath),
+      hasPdf: nonEmpty(pdfPath),
+      hasPptx: nonEmpty(pptxPath),
     })
   }
 

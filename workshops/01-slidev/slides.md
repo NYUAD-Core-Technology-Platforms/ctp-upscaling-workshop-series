@@ -783,6 +783,64 @@ iframe at an embeddable URL instead.
 
 ---
 
+# Diagrams from text: a CTP project flow
+
+Write a [Mermaid](https://mermaid.js.org) diagram in a fenced code block and Slidev renders it, no drawing tool, and it diffs like any text.
+
+```mermaid {scale: 0.62}
+flowchart LR
+  Q[Research question] --> C[Consult CTP staff]
+  C --> B[Book instrument in Booked]
+  B --> R[Run sample on platform]
+  R --> D[(Raw data)]
+  D --> A[Analysis and QC]
+  A --> P[Publication and IP]
+  A -->|needs more data| B
+```
+
+<!--
+Mermaid ships with Slidev: a ```mermaid fenced block becomes an SVG diagram, so
+flows/sequence/ER diagrams live in the same text file as the slide and version
+like code. The `{scale: ...}` tweaks size to fit. Tie it to the audience: this is
+how a project actually moves through the CTP, and the loop back to Booked is real.
+-->
+
+---
+layout: two-cols-header
+---
+
+# Complex math, typeset with LaTeX
+
+Inline like $\nabla\cdot\mathbf{E} = \rho/\varepsilon_0$, or full display blocks, all rendered by KaTeX:
+
+::left::
+
+### Maxwell's equations
+$$
+\begin{aligned}
+\nabla\cdot\mathbf{E} &= \frac{\rho}{\varepsilon_0} &
+\nabla\cdot\mathbf{B} &= 0 \\[6pt]
+\nabla\times\mathbf{E} &= -\frac{\partial \mathbf{B}}{\partial t} &
+\nabla\times\mathbf{B} &= \mu_0\mathbf{J} + \mu_0\varepsilon_0\frac{\partial \mathbf{E}}{\partial t}
+\end{aligned}
+$$
+
+::right::
+
+### Spectroscopy and fits
+$$ \hat{f}(\xi) = \int_{-\infty}^{\infty} f(x)\, e^{-2\pi i x \xi}\, dx $$
+
+$$ \hat{\boldsymbol\beta} = (\mathbf{X}^{\top}\mathbf{X})^{-1}\mathbf{X}^{\top}\mathbf{y} $$
+
+<!--
+KaTeX renders math from plain TeX: inline with single $...$, display with $$...$$.
+Left is an aligned multi-equation block (Maxwell); right pairs the Fourier
+transform (the math behind NMR/IR spectroscopy here) with the ordinary
+least-squares normal equations (the closed form behind the next slide's demo).
+-->
+
+---
+
 # Interactive math: least-squares regression
 
 Slides are web pages, so this stats demo is **live**: least squares fits points drawn from `y = slope·x + 2 + noise`. Change the parameters and watch the fit and **R²** update.
