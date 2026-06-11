@@ -163,7 +163,17 @@ function exportPptx(name, outFile) {
   }
   try {
     console.log(`-> Exporting PPTX: ${name}`)
-    slidev(name, ['export', 'slides.md', '--format', 'pptx', '--output', outFile])
+    // --per-slide + a longer timeout make big decks export reliably in CI;
+    // --no-with-clicks gives one image per slide (pptx defaults to one per click
+    // step, which is slow, huge, and the usual cause of a failed/absent pptx).
+    slidev(name, [
+      'export', 'slides.md',
+      '--format', 'pptx',
+      '--output', outFile,
+      '--per-slide',
+      '--no-with-clicks',
+      '--timeout', '90000',
+    ])
   } catch (err) {
     // Best-effort, like PDF: a single deck's failure shouldn't sink the publish.
     console.warn(`  ! PPTX export failed for ${name}: ${err.message}`)

@@ -787,16 +787,14 @@ iframe at an embeddable URL instead.
 
 This whole flowchart is a [Mermaid](https://mermaid.js.org) diagram written in the Markdown. The violet node is a live link, click it to open the booking system:
 
-```mermaid {scale: 0.58}
-flowchart TD
-  P([Open the CTPSS booking portal]):::portal --> L[Log in with NYU credentials]
-  L --> F[Find your instrument or platform]
-  F --> S[Check the live schedule]
-  S --> R[Request a reservation]
-  R --> Q{Needs staff approval?}
-  Q -- yes --> W[Platform staff approve] --> C[Confirmed]
-  Q -- no --> C
-  C --> U[Use it, hours log automatically]
+```mermaid {scale: 0.72}
+flowchart TB
+  P([Booking portal]):::portal --> F[Find instrument]
+  F --> R[Request slot]
+  R --> Q{Approval needed?}
+  Q -- yes --> W[Staff approve]
+  Q -- no --> C[Confirmed, use it]
+  W --> C
   click P "https://corelabs.abudhabi.nyu.edu/" "Open the CTP booking system" _blank
   classDef portal fill:#57068c,stroke:#330662,color:#ffffff,font-weight:bold;
 ```
