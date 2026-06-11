@@ -783,26 +783,30 @@ iframe at an embeddable URL instead.
 
 ---
 
-# Diagrams from text: a CTP project flow
+# Book an instrument: the CTPSS flow
 
-Write a [Mermaid](https://mermaid.js.org) diagram in a fenced code block and Slidev renders it, no drawing tool, and it diffs like any text.
+This whole flowchart is a [Mermaid](https://mermaid.js.org) diagram written in the Markdown. The violet node is a live link, click it to open the booking system:
 
-```mermaid {scale: 0.62}
-flowchart LR
-  Q[Research question] --> C[Consult CTP staff]
-  C --> B[Book instrument in Booked]
-  B --> R[Run sample on platform]
-  R --> D[(Raw data)]
-  D --> A[Analysis and QC]
-  A --> P[Publication and IP]
-  A -->|needs more data| B
+```mermaid {scale: 0.58}
+flowchart TD
+  P([Open the CTPSS booking portal]):::portal --> L[Log in with NYU credentials]
+  L --> F[Find your instrument or platform]
+  F --> S[Check the live schedule]
+  S --> R[Request a reservation]
+  R --> Q{Needs staff approval?}
+  Q -- yes --> W[Platform staff approve] --> C[Confirmed]
+  Q -- no --> C
+  C --> U[Use it, hours log automatically]
+  click P "https://corelabs.abudhabi.nyu.edu/" "Open the CTP booking system" _blank
+  classDef portal fill:#57068c,stroke:#330662,color:#ffffff,font-weight:bold;
 ```
 
 <!--
-Mermaid ships with Slidev: a ```mermaid fenced block becomes an SVG diagram, so
-flows/sequence/ER diagrams live in the same text file as the slide and version
-like code. The `{scale: ...}` tweaks size to fit. Tie it to the audience: this is
-how a project actually moves through the CTP, and the loop back to Booked is real.
+Mermaid ships with Slidev: a ```mermaid block becomes an SVG, versioned with the
+slide. The click directive on the portal node opens corelabs.abudhabi.nyu.edu in a
+new tab (enabled by setup/mermaid.ts, securityLevel 'loose'). In PDF/PPTX exports
+the diagram is a static image, so say the URL out loud. Walk the path: log in,
+find the instrument, check availability, request, approval if needed, then use.
 -->
 
 ---

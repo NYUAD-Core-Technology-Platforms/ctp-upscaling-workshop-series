@@ -127,6 +127,8 @@ These are auto-imported by Slidev from the theme. Use directly in `.md`:
 - `<CtpLogo />`, NYUAD lockup. Pass `white` for dark backgrounds.
 - `<AutoFit>…</AutoFit>`, scales a slide body down so it can't overflow the canvas (safety net; see "Fit every slide" below).
 
+**Mermaid & math (Slidev built-ins).** A ```mermaid fenced block renders to SVG; size it with `{scale: N}` in the info string and prefer `flowchart TD` for the 16:9 canvas (LR runs wide and clips). KaTeX renders `$inline$` and `$$display$$` math. For a **clickable Mermaid node** (e.g. a link to the booking portal) use a `click <id> "<url>" "<tip>" _blank` directive, it only works because `setup/mermaid.ts` sets `securityLevel: 'loose'`; without that file Mermaid sanitizes the link away. Clicks are live in the HTML deck only; PDF/PPTX exports are static images.
+
 Anything else you need that's specific to one deck goes in that deck's `components/` folder.
 
 ### Interactive demo components (client-side, no data file)
