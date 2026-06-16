@@ -673,7 +673,7 @@ publishable + verified, interactive = real data viz for scientific talks.
 
 # Live data: lab equipment from Booked
 
-Pulled live from the CTP **Booked** system at build time. Page through the full catalog:
+Pulled from **Booked** at build time; re-syncs online every Monday, or run `npm run data` locally (NYU VPN).
 
 <EquipmentList />
 
@@ -690,7 +690,7 @@ No credentials ship in the published deck. Use the Prev/Next buttons to page thr
 
 # CTP by the numbers
 
-Real usage from the Booked reservation system, recomputed at every build:
+Real usage from **Booked**, recomputed at every build; re-syncs online every Monday, or run `npm run data:stats` locally (NYU VPN).
 
 <StatCards />
 
@@ -707,7 +707,7 @@ Numbers shown may be sample data until the stats fetch runs on the VPN/runner.
 
 <UsageBars />
 
-Top 10 over the last 12 months. The long tail of ~300 resources keeps the facility busy beyond these.
+Top 10 over the last 12 months. Re-syncs online every Monday, or run `npm run data:stats` locally (NYU VPN).
 
 <!--
 Same source as the KPI slide (stats.json, topByHours). Horizontal bars because
@@ -782,13 +782,17 @@ iframe at an embeddable URL instead.
 
 
 ---
+layout: two-cols-header
+---
 
 # Book an instrument: the CTPSS flow
 
-This whole flowchart is a [Mermaid](https://mermaid.js.org) diagram written in the Markdown. The violet node is a live link, click it to open the booking system:
+::left::
 
-```mermaid {scale: 0.5}
-flowchart LR
+A [Mermaid](https://mermaid.js.org) diagram, rendered straight from the Markdown. The violet **Booking portal** node is a live link to [corelabs.abudhabi.nyu.edu](https://corelabs.abudhabi.nyu.edu/).
+
+```mermaid {scale: 0.6}
+flowchart TD
   P([Booking portal]):::portal --> F[Find instrument]
   F --> R[Request slot]
   R --> A[Staff approve]
@@ -797,12 +801,29 @@ flowchart LR
   classDef portal fill:#57068c,stroke:#330662,color:#ffffff,font-weight:bold;
 ```
 
+::right::
+
+### It is just text
+
+No drawing app, no image to keep in sync. The whole chart is this block in `slides.md`; edit the text and the SVG re-renders on save:
+
+````md
+```mermaid
+flowchart TD
+  P([Booking portal]) --> F[Find instrument]
+  F --> R[Request slot]
+  R --> A[Staff approve]
+  A --> U[Confirmed, use it]
+```
+````
+
 <!--
-Mermaid ships with Slidev: a ```mermaid block becomes an SVG, versioned with the
-slide. The click directive on the portal node opens corelabs.abudhabi.nyu.edu in a
-new tab (enabled by setup/mermaid.ts, securityLevel 'loose'). In PDF/PPTX exports
-the diagram is a static image, so say the URL out loud. Walk the path: log in,
-find the instrument, check availability, request, approval if needed, then use.
+Mermaid ships with Slidev: a mermaid block becomes an SVG, versioned with the
+slide. Showing the source next to the render is the point: input on the right,
+output on the left, both from the same Markdown. The click directive on the portal
+node opens corelabs.abudhabi.nyu.edu in a new tab (setup/mermaid.ts, securityLevel
+'loose'). In PDF/PPTX exports the diagram is a static image, so say the URL out
+loud. Walk the path: log in, find the instrument, request, approval, then use.
 -->
 
 ---
