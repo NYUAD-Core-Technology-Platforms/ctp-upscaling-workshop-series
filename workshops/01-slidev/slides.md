@@ -816,17 +816,15 @@ flowchart TD
 
 ### It is just text
 
-No drawing app, no image to keep in sync. The whole chart is this block in `slides.md`; edit the text and the SVG re-renders on save:
+No drawing app, no image to keep in sync. The whole chart is one `mermaid` fence in `slides.md`; edit the text and the SVG re-renders on save:
 
-````md
-```mermaid
+```text
 flowchart TD
   P([Booking portal]) --> F[Find instrument]
   F --> R[Request slot]
   R --> A[Staff approve]
   A --> U[Confirmed, use it]
 ```
-````
 
 <!--
 Mermaid ships with Slidev: a mermaid block becomes an SVG, versioned with the
@@ -836,6 +834,18 @@ node opens corelabs.abudhabi.nyu.edu in a new tab (setup/mermaid.ts, securityLev
 'loose'). In PDF/PPTX exports the diagram is a static image, so say the URL out
 loud. Walk the path: log in, find the instrument, request, approval, then use.
 -->
+
+<style>
+/* Center the flowchart in the empty space below the left-column intro.
+   Non-scoped on purpose: it must reach the .mermaid element the layout
+   renders. Only this two-cols slide pairs a left column with a diagram. */
+.ctp-two-cols__col:not(.ctp-two-cols__col--right) .mermaid {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>
 
 ---
 layout: two-cols-header
