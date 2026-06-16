@@ -262,10 +262,10 @@ goal: start a project with a platform
 <p style="font-family:var(--font-serif);font-size:var(--t-body-lg);color:var(--fg2);margin:0 0 18px;">One plain-text file. Every tool downstream can read it.</p>
 
 <ul style="list-style:none;padding:0;margin:0;">
-  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:17px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:7px;background:var(--nyu-violet);"></span><span><strong style="color:var(--nyu-violet);font-weight:700;">Readable</strong> &mdash; humans scan it at a glance</span></li>
-  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:17px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:7px;background:var(--nyu-violet);"></span><span><strong style="color:var(--nyu-violet);font-weight:700;">Editable</strong> &mdash; AI rewrites it precisely</span></li>
-  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:17px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:7px;background:var(--nyu-violet);"></span><span><strong style="color:var(--nyu-violet);font-weight:700;">Portable</strong> &mdash; feeds Slidev, PowerPoint, PDF, Claude</span></li>
-  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:17px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:7px;background:var(--nyu-violet);"></span><span><strong style="color:var(--nyu-violet);font-weight:700;">Versionable</strong> &mdash; diff and track it like code</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:17px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:7px;background:var(--nyu-violet);"></span><span><strong style="color:var(--nyu-violet);font-weight:700;">Readable</strong>: humans scan it at a glance</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:17px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:7px;background:var(--nyu-violet);"></span><span><strong style="color:var(--nyu-violet);font-weight:700;">Editable</strong>: AI rewrites it precisely</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:17px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:7px;background:var(--nyu-violet);"></span><span><strong style="color:var(--nyu-violet);font-weight:700;">Portable</strong>: feeds Slidev, PowerPoint, PDF, Claude</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:17px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:7px;background:var(--nyu-violet);"></span><span><strong style="color:var(--nyu-violet);font-weight:700;">Versionable</strong>: diff and track it like code</span></li>
 </ul>
 
 <!--
@@ -387,7 +387,7 @@ layout: default
 </svg>
 </div>
 
-<p class="hub__note">Keep edits flowing back to the text. Any tool &mdash; including the agent in Part B &mdash; picks up from there.</p>
+<p class="hub__note">Keep edits flowing back to the text. Any tool, including the agent in Part B, picks up from there.</p>
 
 <style scoped>
 .hub-wrap { margin-top: 6px; }
@@ -582,6 +582,49 @@ The "now run it" payoff after scaffolding. Stress the loop: edit Markdown, see i
 live. The CTP theme is already wired (theme: ctp in the frontmatter). If port 3030
 is busy, Slidev picks the next free port. Mirrors the earlier "Running the deck"
 slide, but here it's the scaffolded deck specifically.
+-->
+
+---
+layout: two-cols-header
+---
+
+# One file, every agent: AGENTS.md
+
+::left::
+
+<div style="display:inline-block;font-family:var(--font-mono);font-size:13px;color:var(--fg2);background:var(--bg2);border:1px solid var(--hairline);border-bottom:0;border-radius:2px 2px 0 0;padding:5px 12px;margin-bottom:-2px;">AGENTS.md</div>
+
+```md
+# AGENTS.md
+
+## What this repo is
+Slidev decks for the CTP workshop series.
+
+## Hard rules
+- Never edit the theme from this repo.
+- No em dashes in generated content.
+
+## Commands
+pnpm install
+pnpm dev:01
+```
+
+::right::
+
+<p style="font-family:var(--font-serif);font-size:var(--t-body-lg);color:var(--fg2);margin:0 0 18px;">A README for AI agents. Independent of the tool you use.</p>
+
+<ul style="list-style:none;padding:0;margin:0;">
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Codex, Cursor, Copilot, Aider all read it</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Conventions, commands, and guardrails in one place</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Point your agent here first</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Codex picks it up automatically in this repo</span></li>
+</ul>
+
+<!--
+The "how do you steer the agent" beat. AGENTS.md is plain Markdown at the repo root that
+any agent reads first, so the repo is independent of which tool you use. Point Codex at the
+repo and it reads this automatically. Mention CLAUDE.md verbally: same idea, Claude Code's
+own flavor; the open AGENTS.md works across all of them, so we keep just one.
 -->
 
 ---
