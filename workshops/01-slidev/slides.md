@@ -107,7 +107,7 @@ PART A
 # From Prompt
 
 ::subtitle::
-A quick tour of the AI tools that help build a deck. Just watch &mdash; the hands-on is Part B.
+A quick tour of the AI tools that help build a deck.
 
 <!--
 Big chapter divider. Frame it: a ~20-minute map, not a tool catalog and not a follow-along.
@@ -369,33 +369,44 @@ layout: default
 
 # One source, many outputs
 
-<div class="hub">
-  <div class="hub__src">
-    <code>presentation-brief.md</code>
-    <span>the source of truth</span>
-  </div>
-  <div class="hub__arrow">&rarr;</div>
-  <div class="hub__grid">
-    <div>Slidev deck</div>
-    <div>PDF / web</div>
-    <div>PowerPoint</div>
-    <div>Claude Design</div>
-    <div>LaTeX / Beamer</div>
-    <div>Another AI pass</div>
-  </div>
+<div class="hub-wrap">
+<svg class="hub-svg" viewBox="0 0 920 340" style="width:100%; max-height:332px; height:auto; display:block; margin:0 auto;">
+  <path class="line" style="animation-delay:0.30s" d="M280,170 C 470,170 470,35 615,35"/>
+  <path class="line" style="animation-delay:0.48s" d="M280,170 C 470,170 470,89 615,89"/>
+  <path class="line" style="animation-delay:0.66s" d="M280,170 C 470,170 470,143 615,143"/>
+  <path class="line" style="animation-delay:0.84s" d="M280,170 C 470,170 470,197 615,197"/>
+  <path class="line" style="animation-delay:1.02s" d="M280,170 C 470,170 470,251 615,251"/>
+  <path class="line" style="animation-delay:1.20s" d="M280,170 C 470,170 470,305 615,305"/>
+  <g class="src" style="animation-delay:0.10s"><rect class="src-box" x="30" y="130" width="250" height="80" rx="4"/><text class="src-t1" x="155" y="166" text-anchor="middle">presentation-brief.md</text><text class="src-t2" x="155" y="190" text-anchor="middle">THE SOURCE OF TRUTH</text></g>
+  <g class="out" style="animation-delay:0.72s"><rect class="out-box" x="615" y="15" width="275" height="40" rx="4"/><text class="out-t" x="634" y="36" dominant-baseline="middle">Slidev deck</text></g>
+  <g class="out" style="animation-delay:0.90s"><rect class="out-box" x="615" y="69" width="275" height="40" rx="4"/><text class="out-t" x="634" y="90" dominant-baseline="middle">PDF / web</text></g>
+  <g class="out" style="animation-delay:1.08s"><rect class="out-box" x="615" y="123" width="275" height="40" rx="4"/><text class="out-t" x="634" y="144" dominant-baseline="middle">PowerPoint</text></g>
+  <g class="out" style="animation-delay:1.26s"><rect class="out-box" x="615" y="177" width="275" height="40" rx="4"/><text class="out-t" x="634" y="198" dominant-baseline="middle">Claude Design</text></g>
+  <g class="out" style="animation-delay:1.44s"><rect class="out-box" x="615" y="231" width="275" height="40" rx="4"/><text class="out-t" x="634" y="252" dominant-baseline="middle">LaTeX / Beamer</text></g>
+  <g class="out" style="animation-delay:1.62s"><rect class="out-box" x="615" y="285" width="275" height="40" rx="4"/><text class="out-t" x="634" y="306" dominant-baseline="middle">Another AI pass</text></g>
+</svg>
 </div>
 
 <p class="hub__note">Keep edits flowing back to the text. Any tool &mdash; including the agent in Part B &mdash; picks up from there.</p>
 
 <style scoped>
-.hub { display:flex; align-items:center; justify-content:center; gap:48px; margin-top:40px; }
-.hub__src { border:1px solid var(--nyu-violet); border-radius:var(--r-2); padding:26px 30px; flex:none; }
-.hub__src code { font-family:var(--font-mono); font-size:18px; color:var(--nyu-violet); background:transparent; border:0; padding:0; }
-.hub__src span { display:block; margin-top:8px; font-size:12px; color:var(--fg2); text-transform:uppercase; letter-spacing:var(--tracked-sm); }
-.hub__arrow { color:var(--ink-300); font-size:30px; flex:none; }
-.hub__grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.hub__grid div { border:1px solid var(--hairline); border-radius:var(--r-2); padding:12px 20px; font-size:15px; color:var(--fg1); }
-.hub__note { margin-top:40px; text-align:center; font-family:var(--font-serif); font-size:var(--t-body-lg); color:var(--fg1); }
+.hub-wrap { margin-top: 6px; }
+.hub__note { margin-top: 16px; text-align:center; font-family:var(--font-serif); font-size:var(--t-body-lg); color:var(--fg1); }
+
+.src-box { fill: var(--nyu-violet); }
+.src-t1 { fill: var(--white); font-family: var(--font-mono); font-size: 17px; }
+.src-t2 { fill: var(--violet-100); font-family: var(--font-sans); font-size: 10px; letter-spacing: 0.14em; }
+
+.out-box { fill: var(--white); stroke: var(--ink-200); stroke-width: 1; }
+.out-t   { fill: var(--ink-900); font-family: var(--font-sans); font-size: 15px; }
+
+.line { fill: none; stroke: var(--violet-300); stroke-width: 2; stroke-dasharray: 560; stroke-dashoffset: 560; animation: hubDraw 0.6s ease forwards; }
+.src  { opacity: 0; animation: hubFade 0.5s ease forwards; }
+.out  { opacity: 0; animation: hubSlide 0.5s ease forwards; }
+
+@keyframes hubDraw  { to { stroke-dashoffset: 0; } }
+@keyframes hubFade  { to { opacity: 1; } }
+@keyframes hubSlide { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
 </style>
 
 <!--
