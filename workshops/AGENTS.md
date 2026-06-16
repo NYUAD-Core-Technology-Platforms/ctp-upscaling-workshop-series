@@ -159,6 +159,8 @@ After the title (~90px) and footer (~40px), the body has **roughly 400px of heig
 3. **Keep intros to 1-2 lines** when a slide also holds a component, callout, or code block. Move the rich explanation into speaker notes (`<!-- ... -->`).
 4. **Two stacked blocks max** below a heading (e.g. a component + a callout often overflows; pick one, push the other to notes).
 5. When content is genuinely variable or borderline, wrap the body in **`<AutoFit>…</AutoFit>`** (theme component) as a safety net, it scales the body down to fit. Don't use it to justify cramming; a 0.6x slide is unreadable from the back of the room.
+6. **Titles must fit on one line.** The ~90px title budget above assumes a single line. A long `# Heading` wraps to two lines on the narrow canvas and silently costs ~70px, which is the single most common cause of the bottom element clashing with the footer. Keep H1s short (roughly 5 words), or if a two-line title is unavoidable, remove a row or two from the body to pay for it. This has recurred more than once; it is not theoretical.
+7. **Stacked bordered rows are a footer-clash trap.** Vertical lists of bordered, padded rows (roadmaps, card lists, "step" lists) add up fast: each row is its content plus padding plus border plus the gap. Under a one-line title and a one-line lede, about **5 rows is the ceiling** at default sizing. If you need more, tighten padding/gap/font, drop the lede, or split across two slides. Never trust the count by eye; render it and look at the last row against the footer.
 
 ### Verify before declaring done
 

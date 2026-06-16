@@ -39,6 +39,95 @@ everything you see is achievable with the tools we'll teach in the next hour.
 layout: default
 ---
 
+# We asked the CTP team what they want
+
+<p class="cap">What people want to learn, by number of selections (survey, n = 21)</p>
+
+<svg viewBox="0 0 900 320" style="width:100%; max-height:330px; height:auto; display:block;">
+  <text class="lbl-hl" x="0" y="22" dominant-baseline="middle">Presentations &amp; communication</text>
+  <rect class="bar-hl" x="300" y="9" width="540.0" height="26" rx="3"/>
+  <text class="val-hl" x="850.0" y="22" dominant-baseline="middle">13</text>
+  <text class="lbl" x="0" y="66" dominant-baseline="middle">Research workflows</text>
+  <rect class="bar-n" x="300" y="53" width="498.5" height="26" rx="3"/>
+  <text class="val" x="808.5" y="66" dominant-baseline="middle">12</text>
+  <text class="lbl" x="0" y="110" dominant-baseline="middle">Data analysis</text>
+  <rect class="bar-n" x="300" y="97" width="456.9" height="26" rx="3"/>
+  <text class="val" x="766.9" y="110" dominant-baseline="middle">11</text>
+  <text class="lbl" x="0" y="154" dominant-baseline="middle">Automation (n8n, agents)</text>
+  <rect class="bar-n" x="300" y="141" width="373.8" height="26" rx="3"/>
+  <text class="val" x="683.8" y="154" dominant-baseline="middle">9</text>
+  <text class="lbl" x="0" y="198" dominant-baseline="middle">Prompt engineering</text>
+  <rect class="bar-n" x="300" y="185" width="373.8" height="26" rx="3"/>
+  <text class="val" x="683.8" y="198" dominant-baseline="middle">9</text>
+  <text class="lbl" x="0" y="242" dominant-baseline="middle">Coding</text>
+  <rect class="bar-n" x="300" y="229" width="166.2" height="26" rx="3"/>
+  <text class="val" x="476.2" y="242" dominant-baseline="middle">4</text>
+  <text class="lbl" x="0" y="286" dominant-baseline="middle">Local / private AI</text>
+  <rect class="bar-n" x="300" y="273" width="41.5" height="26" rx="3"/>
+  <text class="val" x="351.5" y="286" dominant-baseline="middle">1</text>
+</svg>
+
+<p class="take">AI for presentations and communication came first. The top five topics all scored 9 or more.</p>
+
+<style scoped>
+.cap { color:var(--fg2); font-size:14px; margin:0 0 6px; }
+.take { margin-top:10px; font-family:var(--font-serif); font-size:var(--t-body-lg); color:var(--fg1); }
+.lbl   { fill:var(--fg1); font-family:var(--font-sans); font-size:14px; }
+.lbl-hl{ fill:var(--nyu-violet); font-family:var(--font-sans); font-size:14px; font-weight:700; }
+.val   { fill:var(--fg2); font-family:var(--font-sans); font-size:13px; }
+.val-hl{ fill:var(--nyu-violet); font-family:var(--font-sans); font-size:15px; font-weight:700; }
+.bar-hl{ fill:var(--nyu-violet); }
+.bar-n { fill:var(--violet-300); }
+</style>
+
+<!--
+The "why we are here" slide. n = 21 responses. Context to say aloud: 95% already use AI at
+least weekly, but the team is concentrated beginner-to-intermediate; ChatGPT is the dominant
+tool. The headline outcome on screen: AI for presentations and communication was the single
+most requested topic (13 of 21), and the top five all scored 9 or more.
+-->
+
+---
+layout: default
+---
+
+# Shaped by your survey
+
+<p class="lead">The number-one request, in the number-one format: hands-on, AI-assisted presentations.</p>
+
+<div class="rm">
+  <div class="rm-row rm-now"><span class="dot dot-now"></span><span class="rm-title">01 &middot; AI-Assisted Presentations with Slidev</span><span class="pill pill-now">Today</span></div>
+  <div class="rm-row"><span class="dot"></span><span class="rm-title">AI for Research Workflows &amp; Literature Synthesis</span><span class="pill">12 asked</span></div>
+  <div class="rm-row"><span class="dot"></span><span class="rm-title">Data Analytics with AI</span><span class="pill">11 asked</span></div>
+  <div class="rm-row"><span class="dot"></span><span class="rm-title">Workflow Automation with n8n &amp; AI Agents</span><span class="pill">9 asked</span></div>
+  <div class="rm-row"><span class="dot"></span><span class="rm-title">Prompt Engineering for Reliable Outputs</span><span class="pill">9 asked</span></div>
+</div>
+
+<style scoped>
+.lead { font-family:var(--font-serif); font-size:var(--t-body-lg); color:var(--fg1); margin:0 0 14px; }
+.note { margin-top:14px; color:var(--fg2); font-size:14px; }
+.rm { display:flex; flex-direction:column; gap:8px; }
+.rm-row { display:flex; align-items:center; gap:14px; border:1px solid var(--hairline); border-radius:var(--r-2); padding:9px 18px; }
+.rm-now { background:var(--violet-050); border-color:var(--violet-200); }
+.dot { flex:none; width:10px; height:10px; border:2px solid var(--violet-300); background:transparent; }
+.dot-now { background:var(--nyu-violet); border-color:var(--nyu-violet); }
+.rm-title { flex:1; font-size:16px; color:var(--fg1); }
+.rm-now .rm-title { font-weight:700; }
+.pill { flex:none; font-family:var(--font-sans); font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--fg2); border:1px solid var(--hairline); border-radius:999px; padding:3px 10px; }
+.pill-now { background:var(--nyu-violet); color:var(--white); border-color:var(--nyu-violet); }
+</style>
+
+<!--
+The "so this exists, and there is more" slide. The series is shaped directly by the survey:
+this workshop is the #1 requested topic in the #1 preferred format. Upcoming topics map to the
+next-highest demand (research 12, data 11, automation 9, prompting 9). Leads from the proposals sheet: research/data/automation have owners (Rachid, Lawrence);
+presentations/Slidev is Hadi + Sam. Further out: documentation, privacy, and coding sessions.
+-->
+
+---
+layout: default
+---
+
 # What you'll leave with
 
 <div class="agenda">
@@ -415,6 +504,49 @@ you can review, version, reuse, and hand to the next AI. Then move into Part B.
 -->
 
 ---
+layout: two-cols-header
+---
+
+# One file, every agent: AGENTS.md
+
+::left::
+
+<div style="display:inline-block;font-family:var(--font-mono);font-size:13px;color:var(--fg2);background:var(--bg2);border:1px solid var(--hairline);border-bottom:0;border-radius:2px 2px 0 0;padding:5px 12px;margin-bottom:-2px;">AGENTS.md</div>
+
+```md
+# AGENTS.md
+
+## What this repo is
+Slidev decks for the CTP workshop series.
+
+## Hard rules
+- Never edit the theme from this repo.
+- No em dashes in generated content.
+
+## Commands
+pnpm install
+pnpm dev:01
+```
+
+::right::
+
+<p style="font-family:var(--font-serif);font-size:var(--t-body-lg);color:var(--fg2);margin:0 0 18px;">A README for AI agents. Independent of the tool you use.</p>
+
+<ul style="list-style:none;padding:0;margin:0;">
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Codex, Cursor, Copilot, Aider all read it</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Conventions, commands, and guardrails in one place</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Point your agent here first</span></li>
+  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Codex picks it up automatically in this repo</span></li>
+</ul>
+
+<!--
+The "how do you steer the agent" beat. AGENTS.md is plain Markdown at the repo root that
+any agent reads first, so the repo is independent of which tool you use. Point Codex at the
+repo and it reads this automatically. Mention CLAUDE.md verbally: same idea, Claude Code's
+own flavor; the open AGENTS.md works across all of them, so we keep just one.
+-->
+
+---
 layout: section
 ---
 
@@ -582,49 +714,6 @@ The "now run it" payoff after scaffolding. Stress the loop: edit Markdown, see i
 live. The CTP theme is already wired (theme: ctp in the frontmatter). If port 3030
 is busy, Slidev picks the next free port. Mirrors the earlier "Running the deck"
 slide, but here it's the scaffolded deck specifically.
--->
-
----
-layout: two-cols-header
----
-
-# One file, every agent: AGENTS.md
-
-::left::
-
-<div style="display:inline-block;font-family:var(--font-mono);font-size:13px;color:var(--fg2);background:var(--bg2);border:1px solid var(--hairline);border-bottom:0;border-radius:2px 2px 0 0;padding:5px 12px;margin-bottom:-2px;">AGENTS.md</div>
-
-```md
-# AGENTS.md
-
-## What this repo is
-Slidev decks for the CTP workshop series.
-
-## Hard rules
-- Never edit the theme from this repo.
-- No em dashes in generated content.
-
-## Commands
-pnpm install
-pnpm dev:01
-```
-
-::right::
-
-<p style="font-family:var(--font-serif);font-size:var(--t-body-lg);color:var(--fg2);margin:0 0 18px;">A README for AI agents. Independent of the tool you use.</p>
-
-<ul style="list-style:none;padding:0;margin:0;">
-  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Codex, Cursor, Copilot, Aider all read it</span></li>
-  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Conventions, commands, and guardrails in one place</span></li>
-  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Point your agent here first</span></li>
-  <li style="display:flex;align-items:flex-start;gap:12px;margin:0 0 13px;font-size:18px;line-height:1.5;color:var(--fg1);"><span style="flex:none;width:8px;height:8px;margin-top:8px;background:var(--nyu-violet);"></span><span>Codex picks it up automatically in this repo</span></li>
-</ul>
-
-<!--
-The "how do you steer the agent" beat. AGENTS.md is plain Markdown at the repo root that
-any agent reads first, so the repo is independent of which tool you use. Point Codex at the
-repo and it reads this automatically. Mention CLAUDE.md verbally: same idea, Claude Code's
-own flavor; the open AGENTS.md works across all of them, so we keep just one.
 -->
 
 ---
@@ -940,18 +1029,5 @@ from the same parameters.
 The point: this is real computation in the slide, not a screenshot. The OLS
 slope/intercept are computed in JS (closed form) and R squared updates live.
 A seeded RNG keeps the data fixed when you change one parameter, so each button
-isolates one effect; Resample bumps the seed for a new draw. Component lives in
-components/LeastSquaresDemo.vue. Tie back to the "interactive by design" slide.
+isolates one effect; Resample bumps the seed for a new draw.
 -->
-
----
-layout: end
----
-
-# Thanks!
-
-::meta::
-
-Questions? Drop them in the CTP Upscaling channel.
-
-Repo &nbsp;·&nbsp; [github.com/NYUAD-Core-Technology-Platforms/ctp-upscaling-workshop-series](https://github.com/NYUAD-Core-Technology-Platforms/ctp-upscaling-workshop-series)
