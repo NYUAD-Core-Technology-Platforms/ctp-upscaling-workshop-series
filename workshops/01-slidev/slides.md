@@ -1031,3 +1031,15 @@ slope/intercept are computed in JS (closed form) and R squared updates live.
 A seeded RNG keeps the data fixed when you change one parameter, so each button
 isolates one effect; Resample bumps the seed for a new draw.
 -->
+
+---
+layout: end
+---
+
+# Thanks!
+
+::meta::
+
+Questions? Drop them in the CTP Upscaling channel.
+
+Repo &nbsp;·&nbsp; [github.com/NYUAD-Core-Technology-Platforms/ctp-upscaling-workshop-series](https://github.com/NYUAD-Core-Technology-Platforms/ctp-upscaling-workshop-series)
