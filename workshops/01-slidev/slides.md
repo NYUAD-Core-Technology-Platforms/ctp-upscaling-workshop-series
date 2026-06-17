@@ -665,6 +665,44 @@ npx slidev
 layout: two-cols-header
 ---
 
+# Export to PDF or PowerPoint
+
+Hand the deck off as a portable file. One time, install the headless browser Slidev renders with: `npm install -D playwright-chromium`. Exports are snapshots, so interactive parts become static images.
+
+::left::
+
+### PDF
+
+```bash
+npx slidev export
+# CTP-scaffolded decks: npm run export:pdf
+```
+
+One page per slide, written to `slides-export.pdf`. Good for handouts and archives.
+
+::right::
+
+### PowerPoint
+
+```bash
+npx slidev export --format pptx
+# CTP-scaffolded decks: npm run export:pptx
+```
+
+A `.pptx` with each slide as a full-page image, ready to drop into a required template.
+
+<!--
+Slidev exports by driving a headless Chromium (playwright-chromium), so that one
+dependency is required before either command. The CTP template already ships the
+export:pdf / export:pptx npm scripts; the npx form works for any deck. Stress that
+exports are static: the live charts, Mermaid links, and stepped clicks flatten to
+images, so the running deck (or the published site) stays the richest version.
+-->
+
+---
+layout: two-cols-header
+---
+
 # Start your own deck with CTP template:
 
 After the manual setup above works once, the **CTP templates repo** ships a scaffold script so you never repeat those steps. Clone [`ctp-templates`](https://github.com/NYUAD-Core-Technology-Platforms/ctp-templates) once as a sibling of where you keep code, then:
