@@ -299,22 +299,24 @@ layout: default
 
 <span class="ctp-eyebrow">Raw material &rarr; a portable brief</span>
 
-Paste source material into ChatGPT, Claude, or Gemini and ask for a structured Markdown brief. Running this live:
+Upload the AD Ports competition proposal PDF, then ask for a structured Markdown brief. Running this live:
 
 ```text
-Turn the source material below into a Markdown presentation brief.
+Turn the attached proposal PDF into a Markdown presentation brief.
 
-Audience: NYUAD researchers and staff new to the Core Technology Platforms.
-Goal: they understand what the platforms offer and how to start a project with one.
-Length: 6-8 slides, about 10 minutes.
-Tone: clear, technical, no hype, no emoji.
+Audience: AD Ports Innovation Department.
+Goal: explain the competition workflow so they understand the
+technical steps, participant flow, robot roles, handoffs, scoring,
+and reliability plan.
+Length: 10 slides, about 15 minutes.
+Tone: executive-friendly, technical, clear, no hype, no emoji.
 
-Return Markdown with: title, audience, learning objectives,
+Return Markdown with: title, audience, objective, narrative arc,
 one H2 heading per slide, 2-4 bullets per slide, speaker notes,
-and a short list of facts to verify before presenting.
+suggested diagrams, and facts to verify before presenting.
 
 Source material:
-PASTE NOTES, ABSTRACT, WEBSITE TEXT, OR A PAPER EXCERPT HERE
+ADPorts_Humanoid_Competition_Edition2_Proposal_NB.pdf
 ```
 
 <!--
