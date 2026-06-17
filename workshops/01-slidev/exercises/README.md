@@ -51,11 +51,29 @@ Result: you should have a `presentation-brief.md`-style outline that could feed 
 ## Exercise 1, Your first deck (5 min)
 
 1. Make a new folder and `cd` into it.
-2. Run `npm init slidev@latest` and accept the defaults.
-3. `npm install`
-4. `npm run dev`
-5. Open the URL it prints. You should see the default Slidev intro deck.
-6. Edit `slides.md`, change the title, add a new slide. Save. Watch the browser reload.
+2. Run `npm init -y`.
+3. Run `npm i -D "@slidev/cli@^0.49.0" @slidev/theme-default`.
+4. Create a `slides.md` file with this starter deck:
+
+   ```md
+   ---
+   title: My first Slidev deck
+   ---
+
+   # My first Slidev deck
+
+   Hello Slidev.
+
+   ---
+
+   # One more slide
+
+   Edit this file and save.
+   ```
+
+5. Run `npx slidev`.
+6. Open the URL it prints.
+7. Edit `slides.md`, change the title, add a new slide. Save. Watch the browser reload.
 
 **Stretch:** add a code block and a two-column layout (`layout: two-cols`).
 

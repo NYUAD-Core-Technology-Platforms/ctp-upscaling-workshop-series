@@ -637,7 +637,7 @@ Then in a **fresh** PowerShell window:
 ```powershell
 cd C:\path\to\your\deck
 npm init -y
-npm install --save-dev "@slidev/cli@^0.49.0"
+npm i -D "@slidev/cli@^0.49.0" @slidev/theme-default
 npx slidev
 ```
 
@@ -657,7 +657,7 @@ Then in your deck folder:
 ```bash
 cd /path/to/your/deck
 npm init -y
-npm install --save-dev "@slidev/cli@^0.49.0"
+npm i -D "@slidev/cli@^0.49.0" @slidev/theme-default
 npx slidev
 ```
 

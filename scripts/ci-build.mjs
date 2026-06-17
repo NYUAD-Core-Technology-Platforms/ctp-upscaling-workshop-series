@@ -55,6 +55,7 @@ import { execFileSync } from 'node:child_process'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = resolve(__dirname, '..')
 const workshopsDir = join(root, 'workshops')
+const useShell = process.platform === 'win32'
 
 // ----- Args ------------------------------------------------------------------
 
@@ -124,7 +125,7 @@ function slidev(name, slidevArgs) {
   execFileSync(
     'pnpm',
     ['--filter', `./workshops/${name}`, 'exec', 'slidev', ...slidevArgs],
-    { cwd: root, stdio: 'inherit' },
+    { cwd: root, stdio: 'inherit', shell: useShell },
   )
 }
 
