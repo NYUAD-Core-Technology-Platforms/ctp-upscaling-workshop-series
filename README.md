@@ -26,7 +26,8 @@ A repository holding the **Core Technology Platforms (CTP) at NYU Abu Dhabi** up
 ```
 .
 ├── workshops/
-│   └── 01-slidev/            # Workshop 01, "AI-Assisted Presentations with Slidev"
+│   ├── 01-slidev/            # Workshop 01, AI-assisted presentations
+│   └── 02-research-workflows/ # Workshop 02, AI-assisted research workflows
 ├── scripts/
 │   └── new-workshop.mjs      # Scaffolds a new minimal workshop folder
 ├── pnpm-workspace.yaml
@@ -272,7 +273,9 @@ Three modes summary:
 
 > `slidev export --format pptx` puts each slide in as an image (so the text isn't editable), with the speaker notes carried over per slide. Needs the same `playwright-chromium` as PDF export.
 
-There are also shorthand aliases in the root `package.json` for workshop 01: `pnpm dev:01`, `pnpm build:01`, `pnpm export:01`, `pnpm export:01:pptx`. Same commands, less typing.
+There are also shorthand aliases in the root `package.json` for each workshop:
+`pnpm dev:01`, `pnpm build:01`, `pnpm export:01`, `pnpm export:01:pptx`, and the
+matching `:02` commands for Workshop 02. Same commands, less typing.
 
 ---
 
@@ -341,6 +344,7 @@ If you've already given workshop 01 and don't want a future theme change to alte
 | # | Title | Status | Links |
 |---|-------|--------|-------|
 | 01 | AI-Assisted Presentations with Slidev: From Prompt to Polished Deck | Draft | [slides](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/) · [PDF](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/slides.pdf) · [PPTX](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/slides.pptx) |
+| 02 | AI-Assisted Research Workflows: From Search Strategy to Evidence Brief | Draft | [slides](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/02-research-workflows/) · [PDF](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/02-research-workflows/slides.pdf) · [PPTX](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/02-research-workflows/slides.pptx) |
 
 When you add a new workshop, add it to this table. Its links follow the pattern `…github.io/ctp-upscaling-workshop-series/<NN-slug>/` (live slides), `…/<NN-slug>/slides.pdf` (PDF), and `…/<NN-slug>/slides.pptx` (PowerPoint).
 
@@ -361,6 +365,11 @@ Every command this repo uses, in one place. Run them from the repo root unless n
 | `pnpm dev:01` | Shortcut for `pnpm --filter ./workshops/01-slidev dev`. Defined in the root `package.json`. |
 | `pnpm build:01` | Shortcut for `pnpm --filter ./workshops/01-slidev build`. |
 | `pnpm export:01` | Shortcut for `pnpm --filter ./workshops/01-slidev export`. |
+| `pnpm export:01:pptx` | Shortcut for `pnpm --filter ./workshops/01-slidev export:pptx`. |
+| `pnpm dev:02` | Shortcut for `pnpm --filter ./workshops/02-research-workflows dev`. |
+| `pnpm build:02` | Shortcut for `pnpm --filter ./workshops/02-research-workflows build`. |
+| `pnpm export:02` | Shortcut for `pnpm --filter ./workshops/02-research-workflows export`. |
+| `pnpm export:02:pptx` | Shortcut for `pnpm --filter ./workshops/02-research-workflows export:pptx`. |
 | `git tag <tag-name>` | Marks the current commit with a label. Useful for snapshotting a delivered workshop. |
 
 ### The flag explanations
