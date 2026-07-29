@@ -1,0 +1,21 @@
+{
+  "name": "ctp-ws02-research-workflows",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Workshop 02, AI-Assisted Research Workflows: From Search Strategy to Evidence Brief. Part of the CTP at NYUAD upscaling workshop series.",
+  "scripts": {
+    "dev": "slidev --open",
+    "build": "slidev build",
+    "export": "slidev export",
+    "export:pdf": "slidev export --format pdf",
+    "export:pptx": "slidev export --format pptx"
+  },
+  "dependencies": {
+    "slidev-theme-ctp": "file:../../../ctp-templates/slidev"
+  },
+  "devDependencies": {
+    "@slidev/cli": "^0.49.0",
+    "@slidev/types": "^0.49.0",
+    "vue": "^3.4.0"
+  }
+}
