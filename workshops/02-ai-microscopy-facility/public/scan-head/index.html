@@ -1,0 +1,1277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simplified SP8 scan head</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --ink: #173447;
+      --muted: #607888;
+      --line: #d9e2e8;
+      --paper: #1F0233;
+      --teal: #18c6d8;
+      --laser: #44e5ff;
+      --green: #73f3ac;
+      --emission: #d8ff70;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { min-height: 100%; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    /* Embedded in the CTP Slidev deck (workshop 02): the stage fills the iframe,
+       the page header is hidden, and the chrome follows the CTP design tokens. */
+    main {
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-rows: 1fr;
+      gap: 0;
+    }
+
+
+
+    header {
+      display: none;
+      grid-template-columns: minmax(0, 1fr) minmax(270px, 0.48fr);
+      align-items: end;
+      gap: 32px;
+    }
+
+    .eyebrow {
+      margin: 0 0 9px;
+      color: #087a87;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 18ch;
+      font-size: clamp(34px, 4.1vw, 64px);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .intro {
+      margin: 0;
+      max-width: 46ch;
+      color: var(--muted);
+      font-size: clamp(15px, 1.3vw, 19px);
+      line-height: 1.5;
+    }
+
+    .model-stage {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      border: 0;
+      border-radius: 0;
+      background:
+        radial-gradient(circle at 54% 44%, rgba(122, 46, 176, 0.22), transparent 38%),
+        linear-gradient(145deg, #1F0233 0%, #2D0349 58%, #1F0233 100%);
+      box-shadow: none;
+      isolation: isolate;
+    }
+
+    #scan-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      touch-action: none;
+    }
+
+    .stage-top,
+    .stage-bottom {
+      position: absolute;
+      z-index: 3;
+      left: 16px;
+      right: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      pointer-events: none;
+    }
+
+    .stage-top { top: 14px; }
+    .stage-bottom { bottom: 14px; align-items: end; }
+
+    .path-label,
+    .drag-hint,
+    .status {
+      margin: 0;
+      color: rgba(231, 248, 255, 0.78);
+      font-size: 12px;
+      letter-spacing: 0.035em;
+    }
+
+    .path-label {
+      color: #ffffff;
+      font-weight: 650;
+      letter-spacing: 0.075em;
+      text-transform: uppercase;
+    }
+
+    .drag-hint { text-align: right; }
+
+    .status {
+      flex: 0 1 38%;
+      max-width: 38%;
+      line-height: 1.45;
+    }
+
+    .controls {
+      display: flex;
+      flex: 1 1 58%;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+      pointer-events: auto;
+    }
+
+    button {
+      min-height: 30px;
+      padding: 0 11px;
+      border: 1px solid rgba(201, 166, 224, 0.4);
+      border-radius: 4px;
+      background: rgba(31, 2, 51, 0.8);
+      color: #ffffff;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(9px);
+    }
+
+    button:hover { border-color: #C9A6E0; background: rgba(74, 5, 119, 0.85); }
+    button[aria-pressed="true"] {
+      border-color: #C99A1E;
+      background: #57068C;
+    }
+    button:focus-visible { outline: 2px solid #C99A1E; outline-offset: 2px; }
+
+    .part-label {
+      position: absolute;
+      z-index: 4;
+      display: none;
+      transform: translate(-50%, -50%);
+      padding: 5px 8px;
+      border: 1px solid rgba(151, 208, 226, 0.24);
+      border-radius: 7px;
+      background: rgba(4, 17, 27, 0.76);
+      color: #eafaff;
+      font-size: 11px;
+      font-weight: 650;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+    }
+
+    .part-label strong { color: var(--laser); font-weight: 700; }
+
+    .legend {
+      position: absolute;
+      z-index: 3;
+      top: 40px;
+      left: 16px;
+      display: flex;
+      gap: 15px;
+      color: rgba(222, 242, 249, 0.7);
+      font-size: 11px;
+      pointer-events: none;
+    }
+
+    .legend span { display: inline-flex; align-items: center; gap: 6px; transition: opacity 180ms ease; }
+    .legend i { width: 18px; height: 2px; background: var(--laser); box-shadow: 0 0 9px var(--laser); }
+    .legend span:nth-child(2) i { background: var(--emission); box-shadow: 0 0 9px var(--emission); }
+    .legend span:nth-child(3) i { background: var(--green); box-shadow: 0 0 9px var(--green); }
+    .part-label[data-label="detector"] strong { color: var(--emission); }
+
+    .credit {
+      position: absolute;
+      z-index: 3;
+      right: 16px;
+      bottom: 88px;
+      max-width: 36ch;
+      margin: 0;
+      color: rgba(189, 216, 225, 0.55);
+      font-size: 10px;
+      line-height: 1.35;
+      text-align: right;
+      pointer-events: none;
+    }
+
+    .error {
+      position: absolute;
+      inset: 0;
+      z-index: 8;
+      display: none;
+      place-items: center;
+      padding: 32px;
+      background: #091824;
+      color: #eafaff;
+      text-align: center;
+    }
+
+    .model-stage[data-error="true"] .error { display: grid; }
+
+    @media (max-width: 760px) {
+      main { padding: 18px; grid-template-rows: auto minmax(560px, 1fr); }
+      header { grid-template-columns: 1fr; gap: 12px; }
+      .model-stage { border-radius: 18px; }
+      .stage-top { align-items: flex-start; flex-direction: column; }
+      .drag-hint { display: none; }
+      .stage-bottom { align-items: flex-start; flex-direction: column; }
+      .status, .controls { flex: none; max-width: 100%; }
+      .controls { justify-content: flex-start; }
+      .credit { display: none; }
+      .part-label { font-size: 10px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      button { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<!--
+Bundled dependency license: Three.js
+The MIT License
+
+Copyright © 2010-2024 three.js authors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<body>
+  <main>
+    <header>
+      <div>
+        <p class="eyebrow">Simplified confocal scan head</p>
+        <h1>From excitation to detected signal</h1>
+      </div>
+      <p class="intro">The dichroic reflects the scanned excitation beam into the objective, which focuses it to one spot. Fluorescence leaves that spot in all directions; the objective accepts only its numerical-aperture cone, and the dichroic transmits that return signal to the detector.</p>
+    </header>
+
+    <section class="model-stage" id="model-stage" aria-label="Interactive simplified 3D model of a confocal scan head">
+      <canvas id="scan-canvas" aria-label="Animated 3D confocal excitation and fluorescence detection paths through galvo mirrors, a dichroic, an objective, a sample and a detector"></canvas>
+
+      <div class="stage-top">
+        <p class="path-label" id="path-label">Excitation ↘ sample &nbsp;·&nbsp; fluorescence ↗ detector</p>
+        <p class="drag-hint">Drag to rotate · wheel to zoom</p>
+      </div>
+
+      <div class="legend" aria-hidden="true">
+        <span id="legend-excitation"><i></i>488 nm excitation</span>
+        <span id="legend-detection"><i></i>fluorescence signal</span>
+        <span id="legend-raster"><i></i>raster trace</span>
+      </div>
+
+      <div class="part-label" data-label="laser"><strong>Laser</strong> · 488 nm</div>
+      <div class="part-label" data-label="galvo-x"><strong>Galvo X</strong> · fast axis</div>
+      <div class="part-label" data-label="galvo-y"><strong>Galvo Y</strong> · slow axis</div>
+      <div class="part-label" data-label="dichroic"><strong>Dichroic mirror</strong></div>
+      <div class="part-label" data-label="objective"><strong>Objective</strong></div>
+      <div class="part-label" data-label="sample"><strong>Sample</strong></div>
+      <div class="part-label" data-label="detector"><strong>Detector</strong> · PMT / HyD</div>
+
+      <p class="credit">Teaching schematic based on the Leica SP8 Scan Head with 4Tune Detection poster, 2018. Reciprocal ray geometry is shown; relay lenses, pinhole and spectral-selection optics are omitted for clarity.</p>
+
+      <div class="stage-bottom">
+        <p class="status" id="scan-status" aria-live="polite">Both paths: excitation converges to the scan spot; only fluorescence inside the objective NA is collected.</p>
+        <div class="controls">
+          <button id="scan-toggle" type="button">Pause scanning</button>
+          <button id="scan-x" type="button" aria-pressed="false">Move X only</button>
+          <button id="scan-y" type="button" aria-pressed="false">Move Y only</button>
+          <button id="path-excitation" type="button" aria-pressed="false">Excitation</button>
+          <button id="path-detection" type="button" aria-pressed="false">Detection</button>
+          <button id="path-both" type="button" aria-pressed="true">Both paths</button>
+          <button id="view-top" type="button" aria-pressed="false">Top view</button>
+          <button id="view-side" type="button" aria-pressed="false">Side view</button>
+          <button id="view-reset" type="button" aria-pressed="true">Perspective</button>
+        </div>
+      </div>
+
+      <div class="error" id="model-error">The 3D model could not start. Reload the page in a browser with WebGL enabled.</div>
+    </section>
+  </main>
+
+  <script type="module">
+    const stage = document.getElementById("model-stage");
+    const canvas = document.getElementById("scan-canvas");
+    const toggleButton = document.getElementById("scan-toggle");
+    const scanXButton = document.getElementById("scan-x");
+    const scanYButton = document.getElementById("scan-y");
+    const excitationButton = document.getElementById("path-excitation");
+    const detectionButton = document.getElementById("path-detection");
+    const bothPathsButton = document.getElementById("path-both");
+    const topViewButton = document.getElementById("view-top");
+    const sideViewButton = document.getElementById("view-side");
+    const resetButton = document.getElementById("view-reset");
+    const status = document.getElementById("scan-status");
+    const pathLabel = document.getElementById("path-label");
+    const excitationLegend = document.getElementById("legend-excitation");
+    const detectionLegend = document.getElementById("legend-detection");
+
+    try {
+      const THREE = await import("./three.module.js");
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.Fog(0x1F0233, 15, 27);
+
+      const camera = new THREE.PerspectiveCamera(37, 1, 0.1, 60);
+      const cameraPresets = {
+        perspective: {
+          position: new THREE.Vector3(10.4, 7.5, -13.8),
+          target: new THREE.Vector3(-0.25, 0.95, -0.35),
+          up: new THREE.Vector3(0, 1, 0),
+        },
+        top: {
+          position: new THREE.Vector3(-0.2, 18.5, 0.15),
+          target: new THREE.Vector3(-0.35, 0.25, -0.45),
+          up: new THREE.Vector3(0, 0, -1),
+        },
+        side: {
+          position: new THREE.Vector3(-0.25, 5.4, 17.8),
+          target: new THREE.Vector3(-0.25, 1.35, -0.25),
+          up: new THREE.Vector3(0, 1, 0),
+        },
+      };
+      let cameraTargetPosition = cameraPresets.perspective.position.clone();
+      let cameraLookTarget = cameraPresets.perspective.target.clone();
+      let cameraTargetUp = cameraPresets.perspective.up.clone();
+      camera.position.copy(cameraTargetPosition);
+      camera.lookAt(cameraLookTarget);
+
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.12;
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+      scene.add(new THREE.HemisphereLight(0xE8D9F2, 0x1F0233, 2.15));
+      const keyLight = new THREE.DirectionalLight(0xffffff, 3.6);
+      keyLight.position.set(3, 9, 7);
+      keyLight.castShadow = true;
+      scene.add(keyLight);
+      const rimLight = new THREE.PointLight(0x41dbff, 28, 18, 2);
+      rimLight.position.set(-4.5, 4.5, 2.8);
+      scene.add(rimLight);
+
+      const root = new THREE.Group();
+      root.rotation.set(-0.08, 0.05, 0);
+      scene.add(root);
+
+      const metal = new THREE.MeshStandardMaterial({ color: 0x7d91a1, roughness: 0.28, metalness: 0.9 });
+      const darkMetal = new THREE.MeshStandardMaterial({ color: 0x213747, roughness: 0.42, metalness: 0.82 });
+      const black = new THREE.MeshStandardMaterial({ color: 0x0a1520, roughness: 0.55, metalness: 0.48 });
+      const cyanGlass = new THREE.MeshPhysicalMaterial({
+        color: 0x3be1f6,
+        emissive: 0x063d4c,
+        emissiveIntensity: 0.9,
+        roughness: 0.08,
+        metalness: 0.05,
+        transmission: 0.45,
+        transparent: true,
+        opacity: 0.78,
+      });
+      const galvoMirrorMaterial = new THREE.MeshStandardMaterial({
+        color: 0x4de9fb,
+        emissive: 0x073b49,
+        emissiveIntensity: 0.72,
+        roughness: 0.12,
+        metalness: 0.78,
+        side: THREE.DoubleSide,
+      });
+      const dichroicMaterial = new THREE.MeshPhysicalMaterial({
+        color: 0xa263d8,
+        emissive: 0x1e0a36,
+        emissiveIntensity: 0.85,
+        roughness: 0.12,
+        metalness: 0.18,
+        transmission: 0.5,
+        transparent: true,
+        opacity: 0.7,
+        side: THREE.DoubleSide,
+      });
+      const objectiveGlass = new THREE.MeshPhysicalMaterial({
+        color: 0x8eeeff,
+        emissive: 0x063b48,
+        emissiveIntensity: 0.5,
+        roughness: 0.03,
+        metalness: 0,
+        transmission: 0.92,
+        transparent: true,
+        opacity: 0.3,
+        depthWrite: false,
+      });
+      const emissionGlass = new THREE.MeshPhysicalMaterial({
+        color: 0xd8ff70,
+        emissive: 0x536b13,
+        emissiveIntensity: 1.25,
+        roughness: 0.05,
+        metalness: 0,
+        transmission: 0.76,
+        transparent: true,
+        opacity: 0.72,
+        depthWrite: false,
+      });
+      const excitationConeMaterial = new THREE.MeshBasicMaterial({
+        color: 0x44e5ff,
+        transparent: true,
+        opacity: 0.13,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+      });
+      const detectionConeMaterial = new THREE.MeshBasicMaterial({
+        color: 0xd8ff70,
+        transparent: true,
+        opacity: 0.11,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+      });
+      const sampleMaterial = new THREE.MeshPhysicalMaterial({
+        color: 0x7ed7dd,
+        roughness: 0.12,
+        metalness: 0.05,
+        transmission: 0.65,
+        transparent: true,
+        opacity: 0.54,
+      });
+
+      function mesh(geometry, material, position, rotation = [0, 0, 0]) {
+        const object = new THREE.Mesh(geometry, material);
+        object.position.set(...position);
+        object.rotation.set(...rotation);
+        object.castShadow = true;
+        object.receiveShadow = true;
+        root.add(object);
+        return object;
+      }
+
+      function cylinder(radiusTop, radiusBottom, height, material, position, rotation = [0, 0, 0], segments = 32) {
+        return mesh(new THREE.CylinderGeometry(radiusTop, radiusBottom, height, segments), material, position, rotation);
+      }
+
+      // Minimal optical bench structure; kept low so the optical path stays visible.
+      mesh(new THREE.BoxGeometry(12.2, 0.14, 4.8), darkMetal, [-0.35, -2.05, 0]);
+      for (const z of [-2.15, 2.15]) {
+        cylinder(0.055, 0.055, 10.8, metal, [-0.7, -1.93, z], [0, 0, Math.PI / 2], 18);
+      }
+
+      // Laser source: excitation only. No detector is placed in this incoming path.
+      cylinder(0.48, 0.48, 1.75, black, [-5.65, 2.72, -0.8], [0, 0, Math.PI / 2]);
+      cylinder(0.39, 0.39, 0.56, metal, [-4.58, 2.72, -0.8], [0, 0, Math.PI / 2]);
+      cylinder(0.27, 0.27, 0.12, cyanGlass, [-4.25, 2.72, -0.8], [0, 0, Math.PI / 2]);
+
+      function makeGalvo(position, normal, scanAxis) {
+        const galvo = new THREE.Group();
+        galvo.position.set(...position);
+        root.add(galvo);
+
+        const base = new THREE.Group();
+        base.quaternion.setFromUnitVectors(
+          new THREE.Vector3(1, 0, 0),
+          new THREE.Vector3(...normal).normalize(),
+        );
+        galvo.add(base);
+
+        const pivot = new THREE.Group();
+        base.add(pivot);
+
+        // Mirror only: no motor body or axle passes through the optical surface.
+        // The faint stationary outline makes the rocking motion easy to see.
+        const mirrorGeometry = new THREE.BoxGeometry(0.035, 0.82, 0.66);
+        const neutralFrame = new THREE.LineSegments(
+          new THREE.EdgesGeometry(new THREE.BoxGeometry(0.025, 0.88, 0.72)),
+          new THREE.LineBasicMaterial({ color: 0x9cb5c2, transparent: true, opacity: 0.18 }),
+        );
+        base.add(neutralFrame);
+
+        const mirror = new THREE.Mesh(mirrorGeometry, galvoMirrorMaterial);
+        mirror.castShadow = true;
+        pivot.add(mirror);
+
+        const frame = new THREE.LineSegments(
+          new THREE.EdgesGeometry(mirrorGeometry),
+          new THREE.LineBasicMaterial({ color: 0xbdefff, transparent: true, opacity: 0.75 }),
+        );
+        pivot.add(frame);
+
+        // A line painted on the mirror shows the true rotation axis without
+        // implying that a shaft protrudes through the reflective surface.
+        const axisPoints = scanAxis === "y"
+          ? [new THREE.Vector3(0.022, -0.47, 0), new THREE.Vector3(0.022, 0.47, 0)]
+          : [new THREE.Vector3(0.022, 0, -0.39), new THREE.Vector3(0.022, 0, 0.39)];
+        const axisLine = new THREE.Line(
+          new THREE.BufferGeometry().setFromPoints(axisPoints),
+          new THREE.LineBasicMaterial({ color: 0xffd166, transparent: true, opacity: 0.96, depthTest: false }),
+        );
+        axisLine.renderOrder = 8;
+        pivot.add(axisLine);
+        return { galvo, base, pivot, scanAxis, axisLine };
+      }
+
+      // Each plate is 45° to the ray. Their scan axes are perpendicular.
+      const galvoX = makeGalvo([-2.55, 2.72, -0.8], [1, 0, -1], "y");
+      const galvoY = makeGalvo([-2.55, 2.72, 0.4], [-1, 0, 1], "z");
+
+      const galvoSweepGeometry = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(),
+        new THREE.Vector3(),
+      ]);
+      const galvoSweepLine = new THREE.Line(
+        galvoSweepGeometry,
+        new THREE.LineBasicMaterial({ color: 0x73f3ac, transparent: true, opacity: 1, depthTest: false }),
+      );
+      galvoSweepLine.renderOrder = 6;
+      root.add(galvoSweepLine);
+
+      // The dichroic is turned 90° from the earlier draft so excitation reflects downward.
+      const dichroic = mesh(new THREE.BoxGeometry(1.05, 0.075, 1.0), dichroicMaterial, [1.55, 2.72, 0.4], [0, 0, -Math.PI / 4]);
+      const dichroicEdges = new THREE.LineSegments(
+        new THREE.EdgesGeometry(dichroic.geometry),
+        new THREE.LineBasicMaterial({ color: 0xf5c5ff, transparent: true, opacity: 0.78 }),
+      );
+      dichroicEdges.position.copy(dichroic.position);
+      dichroicEdges.rotation.copy(dichroic.rotation);
+      root.add(dichroicEdges);
+
+      const dichroicScanGeometry = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(),
+        new THREE.Vector3(),
+        new THREE.Vector3(),
+        new THREE.Vector3(),
+      ]);
+      const dichroicScanBox = new THREE.LineLoop(
+        dichroicScanGeometry,
+        new THREE.LineBasicMaterial({ color: 0x73f3ac, transparent: true, opacity: 1, depthTest: false }),
+      );
+      dichroicScanBox.renderOrder = 6;
+      root.add(dichroicScanBox);
+
+      // Objective simplified as a short stack of metal and glass cylinders.
+      const objectiveParts = [
+        cylinder(0.78, 0.78, 0.42, black, [1.55, 1.05, 0.4]),
+        cylinder(0.68, 0.74, 0.72, darkMetal, [1.55, 0.48, 0.4]),
+        cylinder(0.58, 0.66, 0.38, black, [1.55, -0.08, 0.4]),
+        cylinder(0.42, 0.58, 0.34, objectiveGlass, [1.55, -0.42, 0.4]),
+        cylinder(0.56, 0.6, 0.075, cyanGlass, [1.55, -0.62, 0.4]),
+      ];
+
+      // Simplified detection branch placed on the transmitted side of the
+      // dichroic. Fluorescence continues through the plate rather than
+      // turning back toward the excitation laser.
+      const detectorParts = [
+        mesh(new THREE.BoxGeometry(1.4, 0.78, 1.16), black, [1.55, 4.58, 0.4]),
+        mesh(new THREE.BoxGeometry(1.12, 0.16, 0.9), darkMetal, [1.55, 4.12, 0.4]),
+        cylinder(0.42, 0.42, 0.08, emissionGlass, [1.55, 4.0, 0.4]),
+      ];
+      const detectorLight = new THREE.PointLight(0xd8ff70, 8, 2.2, 2);
+      detectorLight.position.set(1.55, 4.0, 0.4);
+      root.add(detectorLight);
+
+      // Sample slide and illuminated scan field.
+      mesh(new THREE.BoxGeometry(3.25, 0.12, 2.45), sampleMaterial, [1.55, -1.52, 0.4]);
+      mesh(new THREE.BoxGeometry(1.5, 0.025, 1.75), new THREE.MeshBasicMaterial({ color: 0x102b38, transparent: true, opacity: 0.72 }), [1.55, -1.43, 0.4]);
+
+      const scanOutlinePoints = [
+        new THREE.Vector3(1.04, -1.4, -0.42),
+        new THREE.Vector3(2.06, -1.4, -0.42),
+        new THREE.Vector3(2.06, -1.4, 1.22),
+        new THREE.Vector3(1.04, -1.4, 1.22),
+      ];
+      const scanOutline = new THREE.LineLoop(
+        new THREE.BufferGeometry().setFromPoints(scanOutlinePoints),
+        new THREE.LineBasicMaterial({ color: 0x4ae9f7, transparent: true, opacity: 0.62 }),
+      );
+      root.add(scanOutline);
+
+      const columns = 13;
+      const rows = 9;
+      const scanPositions = [];
+      const scanColors = [];
+      const cold = new THREE.Color(0x173747);
+      const warm = new THREE.Color(0x73f3ac);
+      for (let row = 0; row < rows; row += 1) {
+        for (let column = 0; column < columns; column += 1) {
+          const orderedColumn = row % 2 ? columns - 1 - column : column;
+          const x = THREE.MathUtils.lerp(1.1, 2.0, row / (rows - 1));
+          const z = THREE.MathUtils.lerp(-0.35, 1.15, orderedColumn / (columns - 1));
+          scanPositions.push(x, -1.37, z);
+          scanColors.push(cold.r, cold.g, cold.b);
+        }
+      }
+      const traceGeometry = new THREE.BufferGeometry();
+      traceGeometry.setAttribute("position", new THREE.Float32BufferAttribute(scanPositions, 3));
+      traceGeometry.setAttribute("color", new THREE.Float32BufferAttribute(scanColors, 3));
+      const trace = new THREE.Points(traceGeometry, new THREE.PointsMaterial({ size: 0.075, vertexColors: true, transparent: true, opacity: 0.9 }));
+      root.add(trace);
+
+      const spotMaterial = new THREE.MeshBasicMaterial({ color: 0x83ffd0 });
+      const spot = mesh(new THREE.SphereGeometry(0.11, 20, 14), spotMaterial, [0.84, -1.31, -0.21]);
+      const spotLight = new THREE.PointLight(0x73f3ac, 15, 2.5, 2);
+      spot.add(spotLight);
+
+      // Excitation beam, subtle photon pulses and explicit reflection markers.
+      const beamGeometry = new THREE.BufferGeometry();
+      beamGeometry.setAttribute("position", new THREE.Float32BufferAttribute(new Float32Array(18), 3));
+      const beam = new THREE.Line(beamGeometry, new THREE.LineBasicMaterial({ color: 0x44e5ff, transparent: true, opacity: 0.98 }));
+      root.add(beam);
+
+      const beamGlow = new THREE.Line(beamGeometry, new THREE.LineBasicMaterial({ color: 0x44e5ff, transparent: true, opacity: 0.22, blending: THREE.AdditiveBlending }));
+      root.add(beamGlow);
+
+      const photons = Array.from({ length: 5 }, () => {
+        const photon = new THREE.Mesh(
+          new THREE.SphereGeometry(0.036, 12, 8),
+          new THREE.MeshBasicMaterial({ color: 0x79eeff }),
+        );
+        root.add(photon);
+        return photon;
+      });
+
+      const reflectionMarkers = Array.from({ length: 3 }, () => {
+        const marker = new THREE.Mesh(
+          new THREE.SphereGeometry(0.075, 16, 10),
+          new THREE.MeshBasicMaterial({ color: 0xf2ffff, depthTest: false }),
+        );
+        marker.renderOrder = 7;
+        root.add(marker);
+        return marker;
+      });
+
+      function makeConeSurface(material, segments = 24) {
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute("position", new THREE.Float32BufferAttribute(new Float32Array(segments * 9), 3));
+        const surface = new THREE.Mesh(geometry, material);
+        surface.renderOrder = 4;
+        root.add(surface);
+        return surface;
+      }
+
+      function makeConeRays(color, count = 8) {
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute("position", new THREE.Float32BufferAttribute(new Float32Array(count * 6), 3));
+        const rays = new THREE.LineSegments(
+          geometry,
+          new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.7, depthWrite: false }),
+        );
+        rays.renderOrder = 5;
+        root.add(rays);
+        return rays;
+      }
+
+      function updateCone(surface, rays, apex, pupilCenter, radius) {
+        const surfacePositions = surface.geometry.attributes.position.array;
+        const segments = surfacePositions.length / 9;
+        for (let index = 0; index < segments; index += 1) {
+          const angleA = (index / segments) * Math.PI * 2;
+          const angleB = ((index + 1) / segments) * Math.PI * 2;
+          const ringA = new THREE.Vector3(
+            pupilCenter.x + Math.cos(angleA) * radius,
+            pupilCenter.y,
+            pupilCenter.z + Math.sin(angleA) * radius,
+          );
+          const ringB = new THREE.Vector3(
+            pupilCenter.x + Math.cos(angleB) * radius,
+            pupilCenter.y,
+            pupilCenter.z + Math.sin(angleB) * radius,
+          );
+          const offset = index * 9;
+          surfacePositions.set([apex.x, apex.y, apex.z, ringA.x, ringA.y, ringA.z, ringB.x, ringB.y, ringB.z], offset);
+        }
+        surface.geometry.attributes.position.needsUpdate = true;
+        surface.geometry.computeVertexNormals();
+
+        const rayPositions = rays.geometry.attributes.position.array;
+        const rayCount = rayPositions.length / 6;
+        for (let index = 0; index < rayCount; index += 1) {
+          const angle = (index / rayCount) * Math.PI * 2;
+          const ringPoint = new THREE.Vector3(
+            pupilCenter.x + Math.cos(angle) * radius,
+            pupilCenter.y,
+            pupilCenter.z + Math.sin(angle) * radius,
+          );
+          const offset = index * 6;
+          rayPositions.set([ringPoint.x, ringPoint.y, ringPoint.z, apex.x, apex.y, apex.z], offset);
+        }
+        rays.geometry.attributes.position.needsUpdate = true;
+      }
+
+      // The cyan cone shows convergence to the excitation focus. The wider
+      // yellow-green cone shows the subset of isotropic fluorescence admitted
+      // by the objective numerical aperture.
+      const excitationCone = makeConeSurface(excitationConeMaterial);
+      const excitationFocusRays = makeConeRays(0x70efff, 8);
+      const collectionCone = makeConeSurface(detectionConeMaterial);
+      const collectionRays = makeConeRays(0xd8ff70, 10);
+
+      const detectionGeometry = new THREE.BufferGeometry();
+      detectionGeometry.setAttribute("position", new THREE.Float32BufferAttribute(new Float32Array(12), 3));
+      const detectionBeam = new THREE.Line(
+        detectionGeometry,
+        new THREE.LineBasicMaterial({ color: 0xd8ff70, transparent: true, opacity: 0.96 }),
+      );
+      root.add(detectionBeam);
+      const detectionGlow = new THREE.Line(
+        detectionGeometry,
+        new THREE.LineBasicMaterial({ color: 0xd8ff70, transparent: true, opacity: 0.22, blending: THREE.AdditiveBlending }),
+      );
+      root.add(detectionGlow);
+
+      const detectionPhotons = Array.from({ length: 6 }, () => {
+        const photon = new THREE.Mesh(
+          new THREE.SphereGeometry(0.04, 12, 8),
+          new THREE.MeshBasicMaterial({ color: 0xe7ff9b }),
+        );
+        root.add(photon);
+        return photon;
+      });
+      const detectorSignal = new THREE.Mesh(
+        new THREE.SphereGeometry(0.09, 18, 12),
+        new THREE.MeshBasicMaterial({ color: 0xf0ffb0, transparent: true, opacity: 0.92 }),
+      );
+      detectorSignal.renderOrder = 7;
+      root.add(detectorSignal);
+
+      const emissionBurst = new THREE.Group();
+      root.add(emissionBurst);
+      const emissionDirections = [];
+      const emissionRayMaterial = new THREE.LineBasicMaterial({
+        color: 0xd8ff70,
+        transparent: true,
+        opacity: 0.34,
+        blending: THREE.AdditiveBlending,
+      });
+      const emissionCount = 22;
+      const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+      for (let index = 0; index < emissionCount; index += 1) {
+        const y = 1 - (2 * (index + 0.5)) / emissionCount;
+        const radius = Math.sqrt(Math.max(0, 1 - y * y));
+        const azimuth = index * goldenAngle;
+        const direction = new THREE.Vector3(Math.cos(azimuth) * radius, y, Math.sin(azimuth) * radius).normalize();
+        emissionDirections.push(direction);
+        const ray = new THREE.Line(
+          new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), direction.clone().multiplyScalar(0.82)]),
+          emissionRayMaterial,
+        );
+        emissionBurst.add(ray);
+      }
+      const freeEmissionPhotons = emissionDirections.map((direction) => {
+        const photon = new THREE.Mesh(
+          new THREE.SphereGeometry(0.026, 10, 7),
+          new THREE.MeshBasicMaterial({ color: 0xd8ff70, transparent: true, opacity: 0.8 }),
+        );
+        photon.userData.direction = direction;
+        root.add(photon);
+        return photon;
+      });
+
+      const anchors = {};
+      function anchor(name, position) {
+        const object = new THREE.Object3D();
+        object.position.set(...position);
+        root.add(object);
+        anchors[name] = object;
+      }
+      anchor("laser", [-5.35, 3.68, -0.8]);
+      anchor("galvo-x", [-2.55, 3.75, -0.74]);
+      anchor("galvo-y", [-2.35, 3.7, 0.58]);
+      anchor("dichroic", [1.75, 3.72, 0.58]);
+      anchor("objective", [2.45, 0.42, 0.65]);
+      anchor("sample", [2.75, -1.44, 1.1]);
+      anchor("detector", [2.42, 4.66, 0.58]);
+      const labelElements = Object.fromEntries(
+        [...document.querySelectorAll("[data-label]")].map((element) => [element.dataset.label, element]),
+      );
+      const labelOffsets = {
+        laser: [-12, -24],
+        "galvo-x": [0, 14],
+        "galvo-y": [0, -24],
+        dichroic: [14, 14],
+        objective: [18, 0],
+        sample: [18, 8],
+        detector: [20, -8],
+      };
+      const viewButtons = {
+        perspective: resetButton,
+        top: topViewButton,
+        side: sideViewButton,
+      };
+      const pathButtons = {
+        excitation: excitationButton,
+        detection: detectionButton,
+        both: bothPathsButton,
+      };
+      const excitationObjects = [
+        beam,
+        beamGlow,
+        excitationCone,
+        excitationFocusRays,
+        galvoSweepLine,
+        dichroicScanBox,
+        ...photons,
+        ...reflectionMarkers,
+      ];
+      const detectionObjects = [
+        detectionBeam,
+        detectionGlow,
+        collectionCone,
+        collectionRays,
+        emissionBurst,
+        detectorSignal,
+        ...detectionPhotons,
+        ...freeEmissionPhotons,
+      ];
+      let pathMode = "both";
+      let activeView = "perspective";
+
+      function setPathMode(mode) {
+        pathMode = mode;
+        const showExcitation = mode !== "detection";
+        const showDetection = mode !== "excitation";
+        excitationObjects.forEach((object) => { object.visible = showExcitation; });
+        detectionObjects.forEach((object) => { object.visible = showDetection; });
+        detectorParts.forEach((part) => { part.visible = showDetection && activeView !== "top"; });
+        detectorLight.visible = showDetection && activeView !== "top";
+        detectorSignal.visible = showDetection && activeView !== "top";
+        Object.entries(pathButtons).forEach(([pathName, button]) => {
+          button.setAttribute("aria-pressed", String(pathName === mode));
+        });
+        excitationLegend.style.opacity = showExcitation ? "1" : "0.2";
+        detectionLegend.style.opacity = showDetection ? "1" : "0.2";
+        if (mode === "excitation") {
+          pathLabel.innerHTML = "Laser &nbsp;→&nbsp; galvos &nbsp;→&nbsp; dichroic reflection &nbsp;→&nbsp; objective &nbsp;→&nbsp; focus";
+          status.textContent = "Excitation: the objective converts the scanned beam into a converging cone and a moving focal spot.";
+        } else if (mode === "detection") {
+          pathLabel.innerHTML = "Sample &nbsp;→&nbsp; objective NA &nbsp;→&nbsp; dichroic transmission &nbsp;→&nbsp; detector";
+          status.textContent = "Detection: fluorescence is isotropic, but only the objective NA cone reaches the detector.";
+        } else {
+          pathLabel.innerHTML = "Excitation ↘ sample &nbsp;·&nbsp; fluorescence ↗ detector";
+          status.textContent = "Both paths: excitation converges to the scan spot; only fluorescence inside the objective NA is collected.";
+        }
+      }
+
+      function setActiveView(name) {
+        activeView = name;
+        objectiveParts.forEach((part) => { part.visible = name !== "top"; });
+        detectorParts.forEach((part) => { part.visible = pathMode !== "excitation" && name !== "top"; });
+        detectorLight.visible = pathMode !== "excitation" && name !== "top";
+        detectorSignal.visible = pathMode !== "excitation" && name !== "top";
+        Object.entries(viewButtons).forEach(([viewName, button]) => {
+          button.setAttribute("aria-pressed", String(viewName === name));
+        });
+      }
+
+      const floor = new THREE.Mesh(
+        new THREE.PlaneGeometry(26, 18),
+        new THREE.MeshStandardMaterial({ color: 0x1F0233, roughness: 0.9, metalness: 0.08 }),
+      );
+      floor.rotation.x = -Math.PI / 2;
+      floor.position.y = -2.16;
+      floor.receiveShadow = true;
+      scene.add(floor);
+
+      const grid = new THREE.GridHelper(24, 30, 0x1d5064, 0x102c3b);
+      grid.position.y = -2.14;
+      grid.material.transparent = true;
+      grid.material.opacity = 0.32;
+      scene.add(grid);
+
+      let playing = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let elapsed = 0;
+      let previousTime = performance.now();
+      let previousCycle = -1;
+      let previousScanMode = "xy";
+      let scanMode = "xy";
+      let yaw = 0.05;
+      let pitch = -0.08;
+      let zoom = 1;
+      let dragging = false;
+      let pointerX = 0;
+      let pointerY = 0;
+
+      function rasterPosition(phase) {
+        const scaled = phase * rows;
+        const row = Math.min(rows - 1, Math.floor(scaled));
+        const linePhase = scaled - row;
+        const xFraction = row % 2 ? 1 - linePhase : linePhase;
+        return {
+          x: THREE.MathUtils.lerp(1.1, 2.0, row / (rows - 1)),
+          z: THREE.MathUtils.lerp(-0.35, 1.15, xFraction),
+          fast: xFraction * 2 - 1,
+          slow: (row / (rows - 1)) * 2 - 1,
+          row,
+          progressIndex: Math.min(columns * rows - 1, Math.floor(phase * columns * rows)),
+        };
+      }
+
+      function galvoNormal(galvo) {
+        return new THREE.Vector3(1, 0, 0)
+          .applyQuaternion(galvo.pivot.quaternion)
+          .applyQuaternion(galvo.base.quaternion)
+          .normalize();
+      }
+
+      function galvoNormalAt(galvo, angle) {
+        const axis = galvo.scanAxis === "y"
+          ? new THREE.Vector3(0, 1, 0)
+          : new THREE.Vector3(0, 0, 1);
+        const pivotQuaternion = new THREE.Quaternion().setFromAxisAngle(axis, angle);
+        return new THREE.Vector3(1, 0, 0)
+          .applyQuaternion(pivotQuaternion)
+          .applyQuaternion(galvo.base.quaternion)
+          .normalize();
+      }
+
+      function intersectPlane(origin, direction, planePoint, planeNormal) {
+        const denominator = direction.dot(planeNormal);
+        if (Math.abs(denominator) < 0.0001) return planePoint.clone();
+        const distance = planePoint.clone().sub(origin).dot(planeNormal) / denominator;
+        return origin.clone().addScaledVector(direction, distance);
+      }
+
+      function intersectAxis(origin, direction, axis, value) {
+        const denominator = direction[axis];
+        if (Math.abs(denominator) < 0.0001) return origin.clone();
+        const distance = (value - origin[axis]) / denominator;
+        return origin.clone().addScaledVector(direction, distance);
+      }
+
+      const laserExit = new THREE.Vector3(-4.18, 2.72, -0.8);
+      const galvoXCenter = new THREE.Vector3(-2.55, 2.72, -0.8);
+      const galvoYCenter = new THREE.Vector3(-2.55, 2.72, 0.4);
+      const dichroicCenter = new THREE.Vector3(1.55, 2.72, 0.4);
+      const dichroicNormal = new THREE.Vector3(1, 1, 0).normalize();
+      const incomingX = galvoXCenter.clone().sub(laserExit).normalize();
+      const galvoXAmplitude = 0.04;
+      const galvoYAmplitude = 0.035;
+      const objectivePupilY = -0.62;
+      const samplePlaneY = -1.31;
+      const detectorPlaneY = 4.0;
+
+      function traceScanRay(xDrive, yDrive) {
+        const normalX = galvoNormalAt(galvoX, xDrive * galvoXAmplitude);
+        const reflectedX = incomingX.clone().reflect(normalX).normalize();
+        const normalY = galvoNormalAt(galvoY, yDrive * galvoYAmplitude);
+        const galvoYHit = intersectPlane(galvoXCenter, reflectedX, galvoYCenter, normalY);
+        const reflectedY = reflectedX.clone().reflect(normalY).normalize();
+        const dichroicHit = intersectPlane(galvoYHit, reflectedY, dichroicCenter, dichroicNormal);
+        const reflectedDown = reflectedY.clone().reflect(dichroicNormal).normalize();
+        return { reflectedX, galvoYHit, reflectedY, dichroicHit, reflectedDown };
+      }
+
+      function pointOnPath(points, amount) {
+        const lengths = [];
+        let total = 0;
+        for (let index = 1; index < points.length; index += 1) {
+          const length = points[index].distanceTo(points[index - 1]);
+          lengths.push(length);
+          total += length;
+        }
+        let distance = THREE.MathUtils.clamp(amount, 0, 1) * total;
+        for (let index = 0; index < lengths.length; index += 1) {
+          if (distance <= lengths[index] || index === lengths.length - 1) {
+            const fraction = lengths[index] ? distance / lengths[index] : 0;
+            return new THREE.Vector3().lerpVectors(points[index], points[index + 1], fraction);
+          }
+          distance -= lengths[index];
+        }
+        return points.at(-1).clone();
+      }
+
+      function updateLabels() {
+        const rect = stage.getBoundingClientRect();
+        const projected = new THREE.Vector3();
+        Object.entries(anchors).forEach(([name, object]) => {
+          if (
+            (activeView === "top" && (name === "objective" || name === "sample" || name === "detector"))
+            || (name === "detector" && pathMode === "excitation")
+          ) {
+            labelElements[name].style.display = "none";
+            return;
+          }
+          object.getWorldPosition(projected);
+          projected.project(camera);
+          const element = labelElements[name];
+          if (!element || projected.z < -1 || projected.z > 1) {
+            if (element) element.style.display = "none";
+            return;
+          }
+          const [offsetX, offsetY] = labelOffsets[name] || [0, 0];
+          const labelX = (projected.x * 0.5 + 0.5) * rect.width + offsetX;
+          const labelY = (-projected.y * 0.5 + 0.5) * rect.height + offsetY;
+          element.style.display = "block";
+          element.style.left = `${THREE.MathUtils.clamp(labelX, 72, rect.width - 72)}px`;
+          element.style.top = `${THREE.MathUtils.clamp(labelY, 86, rect.height - 76)}px`;
+        });
+      }
+
+      function updateScan() {
+        const phase = (elapsed * 0.105) % 1;
+        const cycle = Math.floor(elapsed * 0.105);
+        const position = rasterPosition(phase);
+
+        const xOnlyPhase = (elapsed * 0.2) % 1;
+        const yOnlyPhase = (elapsed * 0.14) % 1;
+        const triangle = (value) => 1 - 4 * Math.abs(value - 0.5);
+        const xDrive = scanMode === "y" ? 0 : scanMode === "x" ? triangle(xOnlyPhase) : position.fast;
+        const yDrive = scanMode === "x" ? 0 : scanMode === "y" ? triangle(yOnlyPhase) : position.slow;
+
+        // Orthogonal mirror pivots. The ray below is recalculated from their normals.
+        galvoX.pivot.rotation[galvoX.scanAxis] = xDrive * galvoXAmplitude;
+        galvoY.pivot.rotation[galvoY.scanAxis] = yDrive * galvoYAmplitude;
+
+        const ray = traceScanRay(xDrive, yDrive);
+        const objectivePoint = intersectAxis(ray.dichroicHit, ray.reflectedDown, "y", objectivePupilY);
+        const samplePoint = intersectAxis(ray.dichroicHit, ray.reflectedDown, "y", samplePlaneY);
+        const detectionDirection = ray.reflectedDown.clone().negate();
+        const detectorHit = intersectAxis(ray.dichroicHit, detectionDirection, "y", detectorPlaneY);
+        spot.position.copy(samplePoint);
+        detectorSignal.position.copy(detectorHit);
+        emissionBurst.position.copy(samplePoint);
+
+        updateCone(excitationCone, excitationFocusRays, samplePoint, objectivePoint, 0.31);
+        updateCone(collectionCone, collectionRays, samplePoint, objectivePoint, 0.52);
+
+        const beamPoints = [
+          laserExit,
+          galvoXCenter,
+          ray.galvoYHit,
+          ray.dichroicHit,
+          objectivePoint,
+          samplePoint,
+        ];
+        const beamPositions = beamGeometry.attributes.position.array;
+        beamPoints.forEach((point, index) => {
+          beamPositions[index * 3] = point.x;
+          beamPositions[index * 3 + 1] = point.y;
+          beamPositions[index * 3 + 2] = point.z;
+        });
+        beamGeometry.attributes.position.needsUpdate = true;
+
+        // Fluorescence retraces the objective-to-dichroic chief ray by
+        // reciprocity, then passes straight through the dichroic to the
+        // detector instead of reflecting toward the laser.
+        const detectionPoints = [samplePoint, objectivePoint, ray.dichroicHit, detectorHit];
+        const detectionPositions = detectionGeometry.attributes.position.array;
+        detectionPoints.forEach((point, index) => {
+          detectionPositions[index * 3] = point.x;
+          detectionPositions[index * 3 + 1] = point.y;
+          detectionPositions[index * 3 + 2] = point.z;
+        });
+        detectionGeometry.attributes.position.needsUpdate = true;
+
+        photons.forEach((photon, index) => {
+          const photonPhase = (elapsed * 0.38 + index / photons.length) % 1;
+          photon.position.copy(pointOnPath(beamPoints, photonPhase));
+        });
+        detectionPhotons.forEach((photon, index) => {
+          const photonPhase = (elapsed * 0.31 + index / detectionPhotons.length) % 1;
+          photon.position.copy(pointOnPath(detectionPoints, photonPhase));
+        });
+        freeEmissionPhotons.forEach((photon, index) => {
+          const radialPhase = (elapsed * 0.42 + index / freeEmissionPhotons.length) % 1;
+          photon.position.copy(samplePoint).addScaledVector(photon.userData.direction, 0.12 + radialPhase * 0.72);
+          photon.material.opacity = 0.86 * (1 - radialPhase);
+        });
+
+        reflectionMarkers[0].position.copy(galvoXCenter).addScaledVector(ray.reflectedX, 0.06);
+        reflectionMarkers[1].position.copy(ray.galvoYHit).addScaledVector(ray.reflectedY, 0.06);
+        reflectionMarkers[2].position.copy(ray.dichroicHit).addScaledVector(ray.reflectedDown, 0.06);
+
+        const sweepStart = traceScanRay(-1, yDrive).galvoYHit;
+        const sweepEnd = traceScanRay(1, yDrive).galvoYHit;
+        galvoSweepGeometry.setFromPoints([sweepStart, sweepEnd]);
+
+        const scanCorners = [
+          traceScanRay(-1, -1),
+          traceScanRay(1, -1),
+          traceScanRay(1, 1),
+          traceScanRay(-1, 1),
+        ].map((corner) => corner.dichroicHit.clone().addScaledVector(corner.reflectedDown, 0.035));
+        dichroicScanGeometry.setFromPoints(scanCorners);
+
+        const colorAttribute = traceGeometry.attributes.color;
+        if (cycle !== previousCycle || scanMode !== previousScanMode) {
+          for (let index = 0; index < colorAttribute.count; index += 1) colorAttribute.setXYZ(index, cold.r, cold.g, cold.b);
+          previousCycle = cycle;
+          previousScanMode = scanMode;
+        }
+        if (scanMode === "xy") {
+          for (let index = 0; index <= position.progressIndex; index += 1) colorAttribute.setXYZ(index, warm.r, warm.g, warm.b);
+        } else if (scanMode === "x") {
+          const centerRow = Math.floor(rows / 2);
+          for (let column = 0; column < columns; column += 1) {
+            colorAttribute.setXYZ(centerRow * columns + column, warm.r, warm.g, warm.b);
+          }
+        } else {
+          const centerColumn = Math.floor(columns / 2);
+          for (let row = 0; row < rows; row += 1) {
+            const orderedColumn = row % 2 ? columns - 1 - centerColumn : centerColumn;
+            colorAttribute.setXYZ(row * columns + orderedColumn, warm.r, warm.g, warm.b);
+          }
+        }
+        colorAttribute.needsUpdate = true;
+      }
+
+      function resize() {
+        const rect = stage.getBoundingClientRect();
+        renderer.setSize(rect.width, rect.height, false);
+        camera.aspect = rect.width / Math.max(1, rect.height);
+        camera.updateProjectionMatrix();
+      }
+
+      new ResizeObserver(resize).observe(stage);
+      resize();
+
+      canvas.addEventListener("pointerdown", (event) => {
+        dragging = true;
+        pointerX = event.clientX;
+        pointerY = event.clientY;
+        canvas.setPointerCapture(event.pointerId);
+      });
+      canvas.addEventListener("pointermove", (event) => {
+        if (!dragging) return;
+        yaw += (event.clientX - pointerX) * 0.006;
+        pitch = THREE.MathUtils.clamp(pitch + (event.clientY - pointerY) * 0.004, -0.48, 0.32);
+        pointerX = event.clientX;
+        pointerY = event.clientY;
+      });
+      canvas.addEventListener("pointerup", (event) => {
+        dragging = false;
+        canvas.releasePointerCapture(event.pointerId);
+      });
+      canvas.addEventListener("pointercancel", () => { dragging = false; });
+      canvas.addEventListener("wheel", (event) => {
+        event.preventDefault();
+        zoom = THREE.MathUtils.clamp(zoom + event.deltaY * 0.0008, 0.72, 1.42);
+      }, { passive: false });
+
+      toggleButton.addEventListener("click", () => {
+        playing = !playing;
+        toggleButton.textContent = playing ? "Pause scanning" : "Play scanning";
+        status.textContent = playing
+          ? pathMode === "detection"
+            ? "Detection: fluorescence is emitted isotropically; the objective collects only its NA cone."
+            : pathMode === "both"
+              ? "Both paths: excitation converges to the scan spot while collected fluorescence returns to the detector."
+              : scanMode === "x"
+                ? "X only: watch the first mirror rock about its amber axis and sweep one line on Galvo Y."
+                : scanMode === "y"
+                  ? "Y only: watch the second mirror rock about its perpendicular amber axis."
+                  : "Excitation: both mirror plates rock about their amber axes to build the XY raster."
+          : "Paused: rotate the model to inspect the optical path.";
+      });
+
+      function setScanMode(axis) {
+        scanMode = scanMode === axis ? "xy" : axis;
+        scanXButton.setAttribute("aria-pressed", String(scanMode === "x"));
+        scanYButton.setAttribute("aria-pressed", String(scanMode === "y"));
+        previousCycle = -1;
+        status.textContent = scanMode === "x"
+          ? "X only: watch the first mirror rock about its amber axis and sweep one line on Galvo Y. Select X again for XY."
+          : scanMode === "y"
+            ? "Y only: watch the second mirror rock about its perpendicular amber axis. Select Y again for XY."
+            : "XY scanning restored: both mirror plates rock about their amber axes to build the raster.";
+      }
+
+      scanXButton.addEventListener("click", () => setScanMode("x"));
+      scanYButton.addEventListener("click", () => setScanMode("y"));
+      excitationButton.addEventListener("click", () => setPathMode("excitation"));
+      detectionButton.addEventListener("click", () => setPathMode("detection"));
+      bothPathsButton.addEventListener("click", () => setPathMode("both"));
+
+      resetButton.addEventListener("click", () => {
+        setActiveView("perspective");
+        cameraTargetPosition.copy(cameraPresets.perspective.position);
+        cameraLookTarget.copy(cameraPresets.perspective.target);
+        cameraTargetUp.copy(cameraPresets.perspective.up);
+        yaw = 0.05;
+        pitch = -0.08;
+        zoom = 1;
+        status.textContent = "Perspective view: drag the model to compare excitation focusing with fluorescence collection.";
+      });
+
+      topViewButton.addEventListener("click", () => {
+        setActiveView("top");
+        cameraTargetPosition.copy(cameraPresets.top.position);
+        cameraLookTarget.copy(cameraPresets.top.target);
+        cameraTargetUp.copy(cameraPresets.top.up);
+        yaw = 0;
+        pitch = 0;
+        zoom = 1;
+        status.textContent = "Top view: the two orthogonal galvos steer the excitation across the dichroic scan field.";
+      });
+
+      sideViewButton.addEventListener("click", () => {
+        setActiveView("side");
+        cameraTargetPosition.copy(cameraPresets.side.position);
+        cameraLookTarget.copy(cameraPresets.side.target);
+        cameraTargetUp.copy(cameraPresets.side.up);
+        yaw = 0;
+        pitch = 0;
+        zoom = 1;
+        status.textContent = "Side view: excitation converges to the focus; collected fluorescence returns and transmits through the dichroic.";
+      });
+
+      function animate(now) {
+        const delta = Math.min(0.05, (now - previousTime) / 1000);
+        previousTime = now;
+        if (playing) elapsed += delta;
+        root.rotation.y += (yaw - root.rotation.y) * 0.12;
+        root.rotation.x += (pitch - root.rotation.x) * 0.12;
+        camera.position.lerp(cameraTargetPosition.clone().multiplyScalar(zoom), 0.11);
+        camera.up.lerp(cameraTargetUp, 0.14).normalize();
+        camera.lookAt(cameraLookTarget);
+        updateScan();
+        renderer.render(scene, camera);
+        updateLabels();
+        requestAnimationFrame(animate);
+      }
+
+      setPathMode("both");
+      updateScan();
+      requestAnimationFrame(animate);
+    } catch (error) {
+      console.error(error);
+      stage.dataset.error = "true";
+    }
+  </script>
+</body>
+</html>

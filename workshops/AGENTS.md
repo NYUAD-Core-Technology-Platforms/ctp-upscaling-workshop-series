@@ -46,6 +46,7 @@ If a slide is teaching two things, split it. The remedy is almost always more sl
 theme: ctp                              # always, pulls in the CTP theme
 title: Your Workshop Title              # shows in footer + browser tab
 author: Your Name                       # shows in footer
+date: 2026-10-08                        # YYYY-MM-DD; the landing page shows it (Slidev ignores it)
 info: |
   One-paragraph description.
   Appears in the presenter view and PDF metadata.
@@ -118,6 +119,20 @@ Pick layouts by name in slide frontmatter. See `ctp-templates/slidev/README.md` 
 
 When using `layout: section` or `layout: end`, the **markdown `# Title` produces the heading**, the layout doesn't wrap your title in a heading element. (If you find a layout that does wrap, that's a bug, fix in the theme repo, not here.)
 
+**Slot order matters.** Everything before the first `::slot::` marker is the default slot; everything after a marker belongs to that slot until the next marker. So on a `section` slide the `# Title` must come **before** `::number::`:
+
+```md
+# Run the facility
+
+::number::
+PART 01
+
+::subtitle::
+One-line lede.
+```
+
+If the title is placed after `::number::`, it is rendered inside the eyebrow block (uppercase, wrong size, gold rule under the title instead of under the PART label). Workshops 01 and 02 both had this and were fixed on 2026-10-08.
+
 ### Components available in every slide
 
 These are auto-imported by Slidev from the theme. Use directly in `.md`:
@@ -143,6 +158,20 @@ Conventions that keep these consistent and dependency-free:
 - **Seeded RNG for reproducibility.** Use a small deterministic generator (Mulberry32) keyed off a `seed` ref so changing one parameter isolates that parameter's effect on the result; a "Resample" button bumps the seed for a fresh draw. Keep the math (the fit, the statistic) in plain JS computed properties so it is easy to read and verify.
 
 ---
+
+### Porting a vanilla-JS / canvas demo (the workshop 02 pattern)
+
+Workshop 02 (`02-ai-microscopy-facility`) carries nine simulators that were written as plain `document.getElementById(...)` scripts in a standalone HTML deck. The port keeps the physics code untouched and wraps it:
+
+- `lib/optics.js`, `lib/imaging.js`: ES modules, one exported `initX(root)` per demo. Every DOM lookup is `root.querySelector(...)` (never `document.*`), and each init returns a `destroy()` that cancels animation frames, disconnects observers and removes document-level listeners.
+- `lib/useDemo.js`: the mount/unmount glue (`const root = useDemo(initX)` in a component's script-setup, `ref="root"` on the template root).
+- Each component root carries `data-demo="<name>"`; the range-slider readout helpers look for `[data-output-for]` inside the nearest `[data-demo]`, so the same IDs could even repeat across demos.
+- Canvas palettes come from CSS custom properties set on `.demo__stage` in `style.css` (`--canvas-bg`, `--text`, `--cyan`, ...), so the stages follow the theme tokens and dark mode.
+- Shared control styling (`.demo`, `.demo__controls`, `.demo__metric`, `.demo__btn`, `.demo__caption`, `.demo__stage`) lives in the deck's `style.css`, not in each component.
+- Slidev keeps neighbouring slides mounted but hidden, so anything heavy (the three.js iframe in `ScanHeadFrame.vue`) is created only once an `IntersectionObserver` sees the slide. Canvas demos use the same observer to pause their animation loops while off screen.
+- Screenshots go through `EvidenceFigure.vue` (prefixes `import.meta.env.BASE_URL`, so `/img/...` resolves under the GitHub Pages sub-path; a bare `/img/x.png` in markdown would 404 there).
+
+Slidev's own keyboard shortcuts are suspended while an `<input>` or `<button>` has focus, so sliders can take arrow keys and buttons can take Space without changing slides.
 
 ## Fit every slide to the canvas (no overlap), MANDATORY
 

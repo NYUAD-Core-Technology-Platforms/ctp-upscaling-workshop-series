@@ -11,6 +11,7 @@ info: |
   Markdown-driven presentations: install, author, theme, and publish a
   deck end to end using the CTP slidev theme.
 author: CTP at NYUAD
+date: 2026-05-12
 highlighter: shiki
 lineNumbers: false
 drawings:
@@ -190,10 +191,10 @@ B. Point at the two words "Watch" and "Build" rather than reading the lists.
 layout: section
 ---
 
+# From Prompt
+
 ::number::
 PART A
-
-# From Prompt
 
 ::subtitle::
 A quick tour of the AI tools that help build a deck.
@@ -552,10 +553,10 @@ own flavor; the open AGENTS.md works across all of them, so we keep just one.
 layout: section
 ---
 
+# To Polished Deck
+
 ::number::
 PART B
-
-# To Polished Deck
 
 ::subtitle::
 From portable Markdown source to a published Slidev presentation.

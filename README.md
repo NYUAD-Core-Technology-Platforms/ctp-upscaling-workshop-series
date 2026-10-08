@@ -26,7 +26,8 @@ A repository holding the **Core Technology Platforms (CTP) at NYU Abu Dhabi** up
 ```
 .
 ├── workshops/
-│   └── 01-slidev/            # Workshop 01, "AI-Assisted Presentations with Slidev"
+│   ├── 01-slidev/            # Workshop 01, "AI-Assisted Presentations with Slidev"
+│   └── 02-ai-microscopy-facility/  # Workshop 02, "From Ideas to Apps: AI in the Microscopy Facility"
 ├── scripts/
 │   └── new-workshop.mjs      # Scaffolds a new minimal workshop folder
 ├── pnpm-workspace.yaml
@@ -340,7 +341,8 @@ If you've already given workshop 01 and don't want a future theme change to alte
 
 | # | Title | Status | Links |
 |---|-------|--------|-------|
-| 01 | AI-Assisted Presentations with Slidev: From Prompt to Polished Deck | Draft | [slides](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/) · [PDF](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/slides.pdf) · [PPTX](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/slides.pptx) |
+| 01 | AI-Assisted Presentations with Slidev: From Prompt to Polished Deck | Delivered 12 May 2026 | [slides](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/) · [PDF](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/slides.pdf) · [PPTX](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/slides.pptx) |
+| 02 | From Ideas to Apps: AI in the Microscopy Facility (Rachid Rezgui) | Delivered 8 Oct 2026 | [slides](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/02-ai-microscopy-facility/) · [PDF](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/02-ai-microscopy-facility/slides.pdf) · [PPTX](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/02-ai-microscopy-facility/slides.pptx) |
 
 When you add a new workshop, add it to this table. Its links follow the pattern `…github.io/ctp-upscaling-workshop-series/<NN-slug>/` (live slides), `…/<NN-slug>/slides.pdf` (PDF), and `…/<NN-slug>/slides.pptx` (PowerPoint).
 
@@ -361,6 +363,7 @@ Every command this repo uses, in one place. Run them from the repo root unless n
 | `pnpm dev:01` | Shortcut for `pnpm --filter ./workshops/01-slidev dev`. Defined in the root `package.json`. |
 | `pnpm build:01` | Shortcut for `pnpm --filter ./workshops/01-slidev build`. |
 | `pnpm export:01` | Shortcut for `pnpm --filter ./workshops/01-slidev export`. |
+| `pnpm dev:02` / `build:02` / `export:02` / `export:02:pptx` | The same shortcuts for workshop 02 (`workshops/02-ai-microscopy-facility`). |
 | `git tag <tag-name>` | Marks the current commit with a label. Useful for snapshotting a delivered workshop. |
 
 ### The flag explanations

@@ -9,6 +9,10 @@
     "build:01": "pnpm --filter ./workshops/01-slidev build",
     "export:01": "pnpm --filter ./workshops/01-slidev export",
     "export:01:pptx": "pnpm --filter ./workshops/01-slidev export:pptx",
+    "dev:02": "pnpm --filter ./workshops/02-ai-microscopy-facility dev",
+    "build:02": "pnpm --filter ./workshops/02-ai-microscopy-facility build",
+    "export:02": "pnpm --filter ./workshops/02-ai-microscopy-facility export",
+    "export:02:pptx": "pnpm --filter ./workshops/02-ai-microscopy-facility export:pptx",
     "build:site": "node scripts/ci-build.mjs --mode pages",
     "preview:site": "node scripts/ci-build.mjs --mode pages --no-pdf --no-pptx",
     "build:release": "node scripts/ci-build.mjs --mode release"
