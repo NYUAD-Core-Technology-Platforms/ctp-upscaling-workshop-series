@@ -16,6 +16,28 @@ drawings:
 transition: fade
 selectable: true
 mdc: true
+layout: default
+class: sb-follow
+---
+
+<div class="sb-kicker ctp-eyebrow">Before we start</div>
+
+# Follow along *on your own screen*
+
+<div class="sb-follow-grid">
+<img class="sb-qr" src="/img/qr-live.svg" alt="QR code linking to the live slides" />
+<div class="sb-follow-text">
+<p>Scan the code, or type:</p>
+<p class="sb-tiny"><a href="https://tinyurl.com/26vwhkwh" target="_blank">tinyurl.com/26vwhkwh</a></p>
+<p class="sb-follow-sub">The same deck, live in your browser. The PDF, PowerPoint and starter vault are linked there too.</p>
+</div>
+</div>
+
+<!--
+Leave this up while people sit down, so laptops can open the slides before we start. The QR code and the TinyURL both open the live deck: https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/03-second-brain/ (before the start; not timed)
+-->
+
+---
 layout: cover
 class: sb-cover
 ---
@@ -37,9 +59,9 @@ KINESIS · Core Technology Platforms · NYU Abu Dhabi
 <!--
 Welcome. In the next 45 minutes (30 in a short slot): why chat memory breaks real work, how I run a core facility on plain Markdown files that any AI can use, a live demo with two different AIs on the same files, and then we set up your own vault together, step by step. Laptop optional: follow along or just watch. The moving graph is what a vault looks like in Obsidian: notes and the links between them. (0:30)
 
-Timing, full session (CTP team): about 45 min + Q&A. Hook 1-3: 2:30 · Problem 4-5: 2:30 · Idea 6-8: 3:30 · Obsidian 9: 2:00 · How we run it 10-16: 8:00 · Live demo 17-20: 8:00 · Credits and models 21-22: 2:00 · Start today 23: 1:00 · Hands-on 24-31: 14:30 · Habits 32: 1:00 · Close 33: 0:30 · then Q&A, 10-15 min.
+Timing, full session (CTP team): about 45 min + Q&A. Follow-along QR 1: before the start · Hook 2-4: 2:30 · Problem 5-6: 2:30 · Idea 7-9: 3:30 · Obsidian 10: 2:00 · How we run it 11-17: 8:00 · Live demo 18-21: 8:00 · Credits and models 22-23: 2:00 · Start today 24: 1:00 · Hands-on 25-32: 14:30 · Habits 33: 1:00 · Close 34: 0:30 · then Q&A, 10-15 min.
 
-Short slot (Cafe): about 32 min + Q&A. Skip 7, 11, 15 and 22; in the hands-on part show only 24, 26 and 27, as a demo; show the demo recaps 18-20 only if the live demo fails.
+Short slot (Cafe): about 32 min + Q&A. Skip 8, 12, 16 and 23; in the hands-on part show only 25, 27 and 28, as a demo; show the demo recaps 19-21 only if the live demo fails.
 -->
 
 ---
@@ -792,7 +814,7 @@ layout: default
 <div class="sb-check sb-late" style="--ts:3.4s"><span class="cb">✓</span><span><small>Checkpoint</small> It asked before changing anything. Don't approve yet: first, save a version.</span></div>
 
 <!--
-Step 6, the first prompt: the same one as on slide 23, also in first-prompt.md, with a second version for a folder of notes you already have. It is read-only: the AI looks, reports, proposes and waits. What to check in the answer: it changed nothing, it names the files it read, it proposes small reversible steps rather than a migration, it flags anything sensitive, and it stops for your OK. If it starts editing straight away, stop it. Don't approve the changes yet: first we save a version, so everything after that is visible and reversible. (2:00; short slot: skip, slide 23 already shows the prompt)
+Step 6, the first prompt: the same one as on slide 24, also in first-prompt.md, with a second version for a folder of notes you already have. It is read-only: the AI looks, reports, proposes and waits. What to check in the answer: it changed nothing, it names the files it read, it proposes small reversible steps rather than a migration, it flags anything sensitive, and it stops for your OK. If it starts editing straight away, stop it. Don't approve the changes yet: first we save a version, so everything after that is visible and reversible. (2:00; short slot: skip, slide 24 already shows the prompt)
 -->
 
 ---

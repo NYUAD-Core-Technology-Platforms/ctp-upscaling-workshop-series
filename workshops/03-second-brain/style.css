@@ -592,3 +592,11 @@ html:not(.dark) .sb-who.ag { background: rgba(160, 109, 203, .3); color: #E0CCF5
 
 /* Dark skin: the CTP theme's logo is a violet PNG; set it on a white plate. */
 html.dark .ctp-logo__img { background: #FFFFFF; padding: 6px 9px; border-radius: 4px; box-sizing: content-box; }
+
+/* Follow-along slide (first slide): QR code and short link to the live deck */
+.sb-follow-grid { display: flex; align-items: center; gap: 48px; margin-top: 28px; }
+.sb-qr { width: 250px; height: 250px; padding: 10px; background: #fff; border-radius: var(--ctp-radius, 8px); box-shadow: var(--ctp-shadow-card, none); }
+.sb-follow-text p { margin: 0 0 10px; font-size: 1.15rem; }
+.sb-tiny { font-family: var(--ctp-font-mono, monospace); font-size: 2rem !important; font-weight: 600; }
+.sb-tiny a { color: var(--ctp-link, inherit); text-decoration: none; border-bottom: 2px solid currentColor; }
+.sb-follow-sub { color: var(--ctp-color-ink-soft, inherit); max-width: 420px; }
