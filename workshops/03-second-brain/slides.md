@@ -16,28 +16,6 @@ drawings:
 transition: fade
 selectable: true
 mdc: true
-layout: default
-class: sb-follow
----
-
-<div class="sb-kicker ctp-eyebrow">Before we start</div>
-
-# Follow along *on your own screen*
-
-<div class="sb-follow-grid">
-<img class="sb-qr" src="/img/qr-live.svg" alt="QR code linking to the live slides" />
-<div class="sb-follow-text">
-<p>Scan the code, or type:</p>
-<p class="sb-tiny"><a href="https://tinyurl.com/26vwhkwh" target="_blank">tinyurl.com/26vwhkwh</a></p>
-<p class="sb-follow-sub">The same deck, live in your browser. The PDF, PowerPoint and starter vault are linked there too.</p>
-</div>
-</div>
-
-<!--
-Leave this up while people sit down, so laptops can open the slides before we start. The QR code and the TinyURL both open the live deck: https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/03-second-brain/ (before the start; not timed)
--->
-
----
 layout: cover
 class: sb-cover
 ---
@@ -59,9 +37,32 @@ KINESIS · Core Technology Platforms · NYU Abu Dhabi
 <!--
 Welcome. In the next 45 minutes (30 in a short slot): why chat memory breaks real work, how I run a core facility on plain Markdown files that any AI can use, a live demo with two different AIs on the same files, and then we set up your own vault together, step by step. Laptop optional: follow along or just watch. The moving graph is what a vault looks like in Obsidian: notes and the links between them. (0:30)
 
-Timing, full session (CTP team): about 45 min + Q&A. Follow-along QR 1: before the start · Hook 2-4: 2:30 · Problem 5-6: 2:30 · Idea 7-9: 3:30 · Obsidian 10: 2:00 · How we run it 11-17: 8:00 · Live demo 18-21: 8:00 · Credits and models 22-23: 2:00 · Start today 24: 1:00 · Hands-on 25-32: 14:30 · Habits 33: 1:00 · Close 34: 0:30 · then Q&A, 10-15 min.
+Timing, full session (CTP team): about 45 min + Q&A. Cover 1 and hook 3-4: 2:30 · Follow-along QR 2: 0:30 · Problem 5-6: 2:30 · Idea 7-9: 3:30 · Obsidian 10: 2:00 · How we run it 11-17: 8:00 · Live demo 18-21: 8:00 · Credits and models 22-23: 2:00 · Start today 24: 1:00 · Hands-on 25-32: 14:30 · Habits 33: 1:00 · Close 34: 0:30 · then Q&A, 10-15 min.
 
 Short slot (Cafe): about 32 min + Q&A. Skip 8, 12, 16 and 23; in the hands-on part show only 25, 27 and 28, as a demo; show the demo recaps 19-21 only if the live demo fails.
+-->
+
+
+---
+layout: default
+class: sb-follow
+---
+
+<div class="sb-kicker ctp-eyebrow">Before we start</div>
+
+# Follow along *on your own screen*
+
+<div class="sb-follow-grid">
+<img class="sb-qr" src="/img/qr-live.svg" alt="QR code linking to the live slides" />
+<div class="sb-follow-text">
+<p>Scan the code, or type:</p>
+<p class="sb-tiny"><a href="https://tinyurl.com/26vwhkwh" target="_blank">tinyurl.com/26vwhkwh</a></p>
+<p class="sb-follow-sub">The same deck, live in your browser. The PDF, PowerPoint and starter vault are linked there too.</p>
+</div>
+</div>
+
+<!--
+Right after the welcome: leave this up for half a minute so people can open the slides on their laptops and follow along. The QR code and the TinyURL both open the live deck: https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/03-second-brain/ (0:30)
 -->
 
 ---
