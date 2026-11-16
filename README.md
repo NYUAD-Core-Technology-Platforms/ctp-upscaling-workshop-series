@@ -27,7 +27,8 @@ A repository holding the **Core Technology Platforms (CTP) at NYU Abu Dhabi** up
 .
 ├── workshops/
 │   ├── 01-slidev/            # Workshop 01, "AI-Assisted Presentations with Slidev"
-│   └── 02-ai-microscopy-facility/  # Workshop 02, "From Ideas to Apps: AI in the Microscopy Facility"
+│   ├── 02-ai-microscopy-facility/  # Workshop 02, "From Ideas to Apps: AI in the Microscopy Facility"
+│   └── 03-second-brain/      # Workshop 03, "Your AI forgets. Your vault doesn't." (Obsidian second brain)
 ├── scripts/
 │   └── new-workshop.mjs      # Scaffolds a new minimal workshop folder
 ├── pnpm-workspace.yaml
@@ -343,6 +344,7 @@ If you've already given workshop 01 and don't want a future theme change to alte
 |---|-------|--------|-------|
 | 01 | AI-Assisted Presentations with Slidev: From Prompt to Polished Deck | Delivered 12 May 2026 | [slides](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/) · [PDF](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/slides.pdf) · [PPTX](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/01-slidev/slides.pptx) |
 | 02 | From Ideas to Apps: AI in the Microscopy Facility (Rachid Rezgui) | Delivered 8 Oct 2026 | [slides](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/02-ai-microscopy-facility/) · [PDF](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/02-ai-microscopy-facility/slides.pdf) · [PPTX](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/02-ai-microscopy-facility/slides.pptx) |
+| 03 | Your AI forgets. Your vault doesn't.: Obsidian and Markdown as a Second Brain for Any AI (Samuel A. Prieto) | Scheduled 17 Nov 2026 | [slides](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/03-second-brain/) · [PDF](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/03-second-brain/slides.pdf) · [PPTX](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/03-second-brain/slides.pptx) · [starter vault](https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/03-second-brain/starter-vault.zip) |
 
 When you add a new workshop, add it to this table. Its links follow the pattern `…github.io/ctp-upscaling-workshop-series/<NN-slug>/` (live slides), `…/<NN-slug>/slides.pdf` (PDF), and `…/<NN-slug>/slides.pptx` (PowerPoint).
 

@@ -4,8 +4,9 @@ Obsidian and Markdown as a shared, model-agnostic memory for AI-assisted work.
 About 45 minutes plus Q&A (short slot: about 32 minutes), with a live demo of two
 AIs working on one vault and a hands-on setup of a starter vault.
 
-Presenter-ready for the 2026-11-17 session. Take-home material is in
-`starter-vault/` (see below).
+Live: https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/03-second-brain/
+
+Take-home starter vault: https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/03-second-brain/starter-vault.zip (source in `starter-vault/`, see below).
 
 ## Run it
 
