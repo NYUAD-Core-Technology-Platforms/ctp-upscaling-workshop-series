@@ -56,7 +56,7 @@ class: sb-follow
 <img class="sb-qr" src="/img/qr-live.svg" alt="QR code linking to the live slides" />
 <div class="sb-follow-text">
 <p>Scan the code, or type:</p>
-<p class="sb-tiny"><a href="https://tinyurl.com/26vwhkwh" target="_blank">tinyurl.com/26vwhkwh</a></p>
+<p class="sb-tiny"><a href="https://tinyurl.com/ctp-vault" target="_blank">tinyurl.com/ctp-vault</a></p>
 <p class="sb-follow-sub">The same deck, live in your browser. The PDF, PowerPoint and starter vault are linked there too.</p>
 </div>
 </div>
