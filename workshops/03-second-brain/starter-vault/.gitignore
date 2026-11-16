@@ -1,0 +1,8 @@
+# Obsidian per-device window layout (changes all the time, not worth versioning)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# Obsidian's local trash folder and system files
+.trash/
+.DS_Store
+Thumbs.db

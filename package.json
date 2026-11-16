@@ -13,6 +13,10 @@
     "build:02": "pnpm --filter ./workshops/02-ai-microscopy-facility build",
     "export:02": "pnpm --filter ./workshops/02-ai-microscopy-facility export",
     "export:02:pptx": "pnpm --filter ./workshops/02-ai-microscopy-facility export:pptx",
+    "dev:03": "pnpm --filter ./workshops/03-second-brain dev",
+    "build:03": "pnpm --filter ./workshops/03-second-brain build",
+    "export:03": "pnpm --filter ./workshops/03-second-brain export",
+    "export:03:pptx": "pnpm --filter ./workshops/03-second-brain export:pptx",
     "build:site": "node scripts/ci-build.mjs --mode pages",
     "preview:site": "node scripts/ci-build.mjs --mode pages --no-pdf --no-pptx",
     "build:release": "node scripts/ci-build.mjs --mode release"
