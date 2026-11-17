@@ -34,14 +34,6 @@ class: sb-cover
 
 KINESIS · Core Technology Platforms · NYU Abu Dhabi
 
-<!--
-Welcome. In the next 45 minutes (30 in a short slot): why chat memory breaks real work, how I run a core facility on plain Markdown files that any AI can use, a live demo with two different AIs on the same files, and then we set up your own vault together, step by step. Laptop optional: follow along or just watch. The moving graph is what a vault looks like in Obsidian: notes and the links between them. (0:30)
-
-Timing, full session (CTP team): about 45 min + Q&A. Cover 1 and hook 3-4: 2:30 · Follow-along QR 2: 0:30 · Problem 5-6: 2:30 · Idea 7-9: 3:30 · Obsidian 10: 2:00 · How we run it 11-17: 8:00 · Live demo 18-21: 8:00 · Credits and models 22-23: 2:00 · Start today 24: 1:00 · Hands-on 25-32: 14:30 · Habits 33: 1:00 · Close 34: 0:30 · then Q&A, 10-15 min.
-
-Short slot (Cafe): about 32 min + Q&A. Skip 8, 12, 16 and 23; in the hands-on part show only 25, 27 and 28, as a demo; show the demo recaps 19-21 only if the live demo fails.
--->
-
 
 ---
 layout: default
@@ -61,10 +53,6 @@ class: sb-follow
 </div>
 </div>
 
-<!--
-Right after the welcome: leave this up for half a minute so people can open the slides on their laptops and follow along. The QR code and the TinyURL both open the live deck: https://nyuad-core-technology-platforms.github.io/ctp-upscaling-workshop-series/03-second-brain/ (0:30)
--->
-
 ---
 layout: default
 ---
@@ -78,10 +66,6 @@ layout: default
 <div v-click class="sb-hook"><div class="big">02</div><div class="sb-hic"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><g class="bob"><path d="M9.9 11.2a2.1 2.1 0 1 1 3 1.9c-.6.3-.9.8-.9 1.4v.3"/><circle cx="12" cy="17.4" r=".55" fill="currentColor"/></g></svg></div><p>…opened an AI-written document and couldn't say why it says what it says?</p></div>
 <div v-click class="sb-hook"><div class="big">03</div><div class="sb-hic"><svg viewBox="0 0 24 24"><path d="M3 5.5A2.5 2.5 0 0 1 5.5 3h9A2.5 2.5 0 0 1 17 5.5v3.8a2.5 2.5 0 0 1-2.5 2.5H9.2L5.6 14.6v-2.8A2.5 2.5 0 0 1 3 9.3z"/><path d="M7 7.4h6"/><g class="seek"><circle cx="16.6" cy="16.2" r="3.7"/><path d="M19.4 19l2.4 2.4"/></g></svg></div><p>…lost a useful answer somewhere in your chat history?</p></div>
 </div>
-
-<!--
-Reveal one question at a time and pause for hands. Most hands go up on the first one. The point to land: we keep paying a "re-explain" tax because the memory lives inside the chat. (1:00)
--->
 
 ---
 layout: default
@@ -97,10 +81,6 @@ layout: default
 <div class="sb-quote sb-rise" style="--d:5">Which version is the current one?</div>
 <div class="sb-quote sb-rise" style="--d:7">I came back two months later and the chat was working from outdated information.</div>
 </div>
-
-<!--
-Questions people raise as soon as they use AI for real processes or teaching materials. None of them says the model is weak. They are about where the memory lives and whether you can audit it. That is what this session answers. (1:00)
--->
 
 ---
 layout: default
@@ -120,10 +100,6 @@ layout: default
 
 <p class="sb-statement sb-late sb-push" style="--ts:3.4s;--tl:.2s">The chat doesn't know what it doesn't know.</p>
 
-<!--
-A familiar case, built on our own battery change. In August you draft the battery SOP with an AI chat, while the batteries sit in temporary storage in Room 101. In September the new fire-resistant cabinet goes into the KINESIS lab and every battery moves there. In October you go back to the same chat to make a quick-start for new users, and it confidently writes the old rule, because it has no way to know. Multiply that by every SOP, risk assessment, course material or analysis built inside a chat. (1:30)
--->
-
 ---
 layout: default
 ---
@@ -142,10 +118,6 @@ layout: default
 
 <div v-click class="sb-banner sb-push">And when your tool, plan or credits change, <b>that memory stays behind.</b></div>
 
-<!--
-Five failure modes. Stale: it does not know what changed. Untraceable: you cannot see what it did or why. Unversioned: no history, no undo. Siloed: one tool's memory is not another's. Personal: your colleagues cannot read your chats. And when your plan, credits or tool change, all of that memory stays behind. (1:00)
--->
-
 ---
 layout: default
 ---
@@ -159,10 +131,6 @@ layout: default
 </div>
 <div class="sb-grow" style="display:flex;justify-content:center"><HubDiagram class="sb-rise" style="height:440px;width:490px" /></div>
 </div>
-
-<!--
-This is the whole talk in one picture. The vault is a folder of Markdown files, versioned with Git. I work in it with Obsidian; the AIs read context from it (violet) and write their results back to it (gold). Any of them can be swapped, because the memory never lived inside them. (1:30)
--->
 
 ---
 layout: default
@@ -184,10 +152,6 @@ layout: default
 
 <p class="sb-statement sb-late sb-push" style="--ts:1.1s;font-size:18px">A chat is a hallway conversation with a brilliant colleague who forgets it the moment you walk away. <b>The vault is the lab notebook.</b></p>
 
-<!--
-Side by side. The analogy I use: a chat is a hallway conversation with a brilliant colleague who forgets everything when you walk away; the vault is the lab notebook. Nobody would run a lab from hallway conversations. (1:00; short slot: skip)
--->
-
 ---
 layout: default
 ---
@@ -205,10 +169,6 @@ layout: default
 </div>
 
 <p class="sb-statement sb-late sb-push" style="--ts:1.1s;font-size:18px">Capture is not completion: new evidence has to <b>update the current state.</b></p>
-
-<!--
-Three layers keep the brain honest. Evidence (emails, attachments, transcripts) is kept as it is and linked. Canonical state is one current record per project, equipment item, procedure or decision. Views (tasks, reports, wiki pages) are generated from that state. The classic mistake is to stop at capture: saving everything without ever updating the current state. (1:00)
--->
 
 ---
 layout: default
@@ -245,10 +205,6 @@ see <span class="l">[[decisions#D7]]</span>.
 
 <div class="sb-chips sb-late" style="--ts:1.9s"><span class="sb-chip">Links &amp; backlinks</span><span class="sb-chip">Properties</span><span class="sb-chip">Graph view</span><span class="sb-chip">Search</span><span class="sb-chip">Git plugin</span><span class="sb-caption" style="margin-left:6px;font-size:12.5px">Free · offline · no database · opens in any editor</span></div>
 
-<!--
-Obsidian in three minutes. A vault is just a folder of .md files. On the left, the raw file; on the right, what Obsidian shows. The properties at the top are structured fields; double square brackets make links; Obsidian tracks backlinks and draws the graph. No database, no lock-in, free, works offline. And every AI tool can read and write these files. No need to switch to Obsidian now: we open it together in the hands-on part. (2:00)
--->
-
 ---
 layout: default
 ---
@@ -282,10 +238,6 @@ layout: default
 </div>
 </div>
 
-<!--
-Every AI tool reads an instruction file when it starts. We write the rules once, in AGENTS.md: pull first, navigate instead of reading everything, record decisions, ask before deleting, commit when done. Codex and Cursor read it natively; Claude's own file simply points to it. Switching tools means pointing the new one at the folder. (1:30)
--->
-
 ---
 layout: default
 ---
@@ -305,10 +257,6 @@ layout: default
 <p class="sb-lede sb-late" style="--ts:1s;margin-top:14px;color:var(--fg1)">Each role is one Markdown file, loaded only when the task needs it. <b>Same model, different procedure.</b></p>
 
 <p class="sb-caption sb-late sb-push" style="--ts:1.4s">Yes, it's a Star Wars crew. Droids get memory wipes; the knowledge lives in the Holocron.</p>
-
-<!--
-Roles are not different bots. They are procedures written in Markdown and loaded only when needed. The orchestrator talks to me and routes work; intake files whatever comes in; records keeps meetings, links and reports; equipment owns SOPs, risk assessments and the wiki; procurement handles quotes and purchase orders. And yes, it's a Star Wars crew: droids get memory wipes, so the knowledge lives in the Holocron. (1:00; short slot: skip)
--->
 
 ---
 layout: default
@@ -341,10 +289,6 @@ layout: default
 </div>
 </div>
 
-<!--
-Every lasting decision gets a dated entry: what was decided, why, the alternatives and its status. Superseded decisions stay, marked as such, so you can always see why something is the way it is. Our third decision, back in June, sums up the whole approach: capture it durably so it survives across chats and agents. (1:30)
--->
-
 ---
 layout: default
 ---
@@ -374,10 +318,6 @@ layout: default
 </div>
 </div>
 
-<!--
-Git is the time machine. Every change, mine or an agent's, is a commit with a message, so you can see who changed what, when and why, undo anything, and trace any line back to the change and the decision behind it. You don't need the terminal: the Obsidian Git plugin commits automatically and GitHub shows the history in a browser. These are the kinds of commits our vault gets every day: scheduled triage, interactive agent work, automatic backups and my own edits. You'll make your own first commit in the hands-on part. (1:00)
--->
-
 ---
 layout: default
 ---
@@ -390,10 +330,6 @@ layout: default
 
 <div style="flex:1;display:flex;justify-content:center;align-items:flex-end;min-height:0"><AgentLoop class="sb-rise" style="height:330px;width:711px" /></div>
 
-<!--
-No agent reads the whole vault. It reads the contract, loads the role it needs, enters through an index, searches narrowly, resolves the current state (the latest accepted decision wins), and only then does the work, writes back and commits. A good answer gives the current state, its source and when it was last verified. You don't need a vector database to start: links, aliases and one home per fact do most of the work. (1:00)
--->
-
 ---
 layout: default
 ---
@@ -405,10 +341,6 @@ layout: default
 <p class="sb-lede" style="margin-top:0">Author once, generate every view: one note feeds the wiki, the training pack and the report.</p>
 
 <StoresMap class="sb-push" style="margin-bottom:6px" />
-
-<!--
-One brain is not one giant folder. Documents stay in Box, code in its repositories, email in the mailbox, tasks in the task app. The vault holds the current state and points to all of them. Published things, like our private wiki and the equipment training packs, are generated from the notes: author once, generate every view. (1:00; short slot: skip)
--->
 
 ---
 layout: default
@@ -428,10 +360,6 @@ layout: default
 </div>
 
 <div class="sb-banner sb-late sb-push" style="--ts:1.9s">When our AI access changed, we moved the whole daily workflow to a different AI tool <b>in one day</b>. Nothing was lost, because nothing lived in the old tool.</div>
-
-<!--
-A few numbers from our vault (as of 2026-11-16). The one I care about most is the last story: when our AI access changed, we moved the whole daily workflow to a different AI tool in a single day, and nothing was lost, because nothing lived in the old tool. (1:00)
--->
 
 ---
 layout: section
@@ -453,10 +381,6 @@ Live demo <span class="sb-live"></span>
 </div>
 
 <div class="sb-pill" style="margin-top:auto;align-self:flex-start">Same vault · different companies · no shared memory</div>
-
-<!--
-Before starting: demo vault open in Obsidian; Claude and Codex pointed at the demo folder only; memory off in both; fresh sessions; the old August chat open in another tab. Steps: (1) tell Claude the new cabinet is in service in the KINESIS lab and the batteries have moved from Room 101; it updates the SOP and the equipment note and logs D7; (2) git log, diff and blame; (3) ask Codex for a briefing for new users; (4) ask the old chat the same thing: it still says Room 101. If anything fails, the next three slides show each step. Press B to blank the screen while switching windows. (8:00 for the whole demo)
--->
 
 ---
 layout: default
@@ -489,10 +413,6 @@ layout: default
 </CodeWin>
 </div>
 
-<!--
-Step 1 recap (skip quickly if the live demo worked). Notice the order: it read the contract, found the notes through the index, edited only the two notes affected, logged the decision with its context and what it supersedes, and committed. Nothing was pasted into the chat.
--->
-
 ---
 layout: default
 ---
@@ -523,10 +443,6 @@ layout: default
 </div>
 </div>
 
-<!--
-Step 2 recap. Git shows exactly which lines changed, in which files, and blame traces any line to the commit and from there to the decision. One command undoes the whole change.
--->
-
 ---
 layout: default
 ---
@@ -555,10 +471,6 @@ layout: default
 
 <p class="sb-statement sb-late sb-push" style="--ts:3.3s">Different model. Different company. No shared chat. <b>Same answer, with a source and a date.</b></p>
 
-<!--
-Step 3 recap. A different model, from a different company, with no shared chat, gives the current rule with its source and date. The old chat still says Room 101 and can't point to a source. The memory was never in the model.
--->
-
 ---
 layout: default
 ---
@@ -584,10 +496,6 @@ layout: default
 
 <div class="sb-banner sb-late sb-push" style="--ts:2.5s">Good structure is what makes <b>smaller, cheaper models</b> good enough.</div>
 
-<!--
-In long agent sessions, most of what you pay for is the AI re-reading context it has already seen; the answer itself is a small share. These numbers are illustrative, but the pattern is consistent. So: navigate instead of pasting, one task per chat, right-size the model, keep instructions short and stable. Good structure is what lets a smaller, cheaper model do the job. (1:00)
--->
-
 ---
 layout: default
 ---
@@ -599,10 +507,6 @@ layout: default
 <p class="sb-lede" style="margin-top:0">The memory lives outside every tool: each job gets the right model, and any of them can be swapped.</p>
 
 <WorkflowMap class="sb-push" style="margin-bottom:6px" />
-
-<!--
-Because the memory is outside, you can mix models and workflows: a frontier model for hard reasoning and reviews, a fast model for everyday edits, a scheduled agent that triages email overnight, a local model for monitoring and routine checks (on site, no credits), and you, in Obsidian. They all read from and write to the same vault, so any of them can be replaced tomorrow. (1:00; short slot: skip)
--->
 
 ---
 layout: default
@@ -623,10 +527,6 @@ layout: default
 <p class="sb-caption sb-late sb-push" style="--ts:1.2s;font-size:13px;color:var(--fg2)">Take-home: <b>starter-vault.zip</b>, with these three files, example notes, this prompt and a cheat sheet. <b>We set it up together, now.</b></p>
 </div>
 </div>
-
-<!--
-Start small. Three files are enough: the rules, the decisions and one project note. All three come in the starter vault, together with example notes, this prompt and a one-page cheat sheet. The prompt is read-only: audit first, change nothing, propose the smallest reversible setup for one real project, and wait for your approval (the full text, plus a version for a folder of notes you already have, is in first-prompt.md). Now let's set it up together. (1:00; short slot: keep)
--->
 
 ---
 layout: section
@@ -662,12 +562,6 @@ Hands-on <span class="sb-live"></span>
 
 <div class="sb-pill sb-late" style="--ts:2.2s;margin-top:auto;align-self:flex-start">Take-home: starter-vault.zip · first-prompt.md · cheat-sheet.md</div>
 
-<!--
-Now the practical part: we set up a vault together, step by step, with the starter vault. If you have a laptop, follow along: there is a checkpoint after every step and I'll ask for hands. If you don't, just watch: every step is in the README of the starter vault, so you can do it later at your own pace. Pace it by the room: do each step live in Obsidian, come back to the slide for the checkpoint, and if a few people are stuck, move on and pick them up in Q&A.
-
-Before the session: share the starter-vault.zip link (QR code or chat; it is in this repository under workshops/03-second-brain/starter-vault, and the zip is served next to the deck as starter-vault.zip) and, for the CTP team, ask people to install Obsidian beforehand; keep a fresh, unzipped copy of the starter vault on the presenter laptop (not the demo vault); to show the vault picker live, click the vault name at the bottom left of Obsidian and choose Manage vaults. Press B to blank the screen while switching windows. (1:00; short slot: keep, say it's a demo)
--->
-
 ---
 layout: default
 ---
@@ -692,10 +586,6 @@ layout: default
 
 <div class="sb-check sb-late" style="--ts:1.4s"><span class="cb">✓</span><span><small>Checkpoint</small> The left sidebar shows AGENTS, decisions, index and README.</span></div>
 
-<!--
-Steps 1 and 2. Obsidian is free from obsidian.md, for Windows, macOS and Linux. Download the zip and extract it: the most common mistake is opening it inside the zip. Move the folder to Documents and rename it if you like, because the folder name is the vault name. Then Open folder as vault. Show it live, then the checkpoint: hands up if you see AGENTS, decisions, index and README in the left sidebar. On a managed laptop where installs are blocked, watch now and install later. (2:00; short slot: skip, just say "install Obsidian and open the folder as a vault")
--->
-
 ---
 layout: default
 ---
@@ -717,10 +607,6 @@ layout: default
 </div>
 
 <div class="sb-check sb-late" style="--ts:1.8s"><span class="cb">✓</span><span><small>Checkpoint</small> Press <CtpKbd>Ctrl</CtpKbd>+<CtpKbd>G</CtpKbd>: the notes are already linked. No orphans.</span></div>
-
-<!--
-Step 3, the tour. Three files do the work: AGENTS.md is the rules every AI follows, decisions.md is the why, and the project note is the current state. The rest helps: the index is the map, the README is the setup guide for you, CLAUDE.md only points to AGENTS.md, two example notes are already linked and show the shape of a project and a meeting note (AGENTS.md describes the same shapes, so the AI writes new notes that way), and first-prompt and the cheat sheet are for you. Open index, decisions and AGENTS live, then Ctrl+G (Cmd+G on a Mac) for the graph: every note is linked, nothing is an orphan. (2:00; short slot: keep)
--->
 
 ---
 layout: default
@@ -750,10 +636,6 @@ layout: default
 
 <div class="sb-check sb-late" style="--ts:2.2s"><span class="cb">✓</span><span><small>Checkpoint</small> <CtpKbd>Ctrl</CtpKbd>+<CtpKbd>G</CtpKbd> shows your note connected to index.</span></div>
 
-<!--
-Step 4, the first note. No template plugin: we don't use one ourselves. The example note is the shape, and AGENTS.md describes the same shape, so once the AI is connected it writes new notes that way. Right-click Example project, Make a copy: the copy opens with its title selected, so just type the name of a real project. Delete the grey Example box, the example tag and the alias: properties and sections are already there, linked to the index and the decision log. Write one line of current state and one next step. Then open the index and link the note by typing two square brackets. That is the habit: every new note is linked from a hub. Checkpoint: the graph shows your note connected. (2:30; short slot: keep, as a demo)
--->
-
 ---
 layout: default
 ---
@@ -782,10 +664,6 @@ layout: default
 
 <div class="sb-check sb-late" style="--ts:3.3s"><span class="cb">✓</span><span><small>Checkpoint</small> It answers from AGENTS.md, and you pasted nothing.</span></div>
 
-<!--
-Step 5. Point an AI tool at this folder, and only this folder, not your whole drive. Each tool reads its instruction file when it starts: Codex and Cursor read AGENTS.md; Claude reads CLAUDE.md, which points to AGENTS.md. A local model works too, through any local client that can read a folder, and a chat-only assistant works by uploading AGENTS.md and the note and pasting the result back. Use only AI tools approved for the data you put in. Quick check, ten seconds: ask "What are the rules in this folder?" It should answer from AGENTS.md without you pasting anything. If it doesn't, start a fresh session opened in the vault folder. (2:00; short slot: skip)
--->
-
 ---
 layout: default
 ---
@@ -813,10 +691,6 @@ layout: default
 </div>
 
 <div class="sb-check sb-late" style="--ts:3.4s"><span class="cb">✓</span><span><small>Checkpoint</small> It asked before changing anything. Don't approve yet: first, save a version.</span></div>
-
-<!--
-Step 6, the first prompt: the same one as on slide 24, also in first-prompt.md, with a second version for a folder of notes you already have. It is read-only: the AI looks, reports, proposes and waits. What to check in the answer: it changed nothing, it names the files it read, it proposes small reversible steps rather than a migration, it flags anything sensitive, and it stops for your OK. If it starts editing straight away, stop it. Don't approve the changes yet: first we save a version, so everything after that is visible and reversible. (2:00; short slot: skip, slide 24 already shows the prompt)
--->
 
 ---
 layout: default
@@ -851,10 +725,6 @@ layout: default
 
 <div class="sb-check sb-late" style="--ts:2.2s"><span class="cb">✓</span><span><small>Checkpoint</small> The history shows one commit. From now on: approve, review the diff, commit.</span></div>
 
-<!--
-Step 7. Save a version before the AI writes anything, so every later change is visible and can be undone. Three ways: GitHub Desktop, no terminal (add the folder as a local repository, create the repository, commit; publishing to GitHub is optional and should stay private); or ask your AI tool to initialise Git and commit; or three commands. Later, the Git community plugin for Obsidian can commit on a timer. No Git today? Obsidian's File recovery keeps snapshots in the meantime. Checkpoint: one commit in the history. From now on every session ends the same way: the AI writes back, you review the diff, you commit. Now go back to the AI and approve its first step. (2:00; short slot: skip)
--->
-
 ---
 layout: default
 ---
@@ -884,10 +754,6 @@ layout: default
 
 <p class="sb-caption sb-late sb-push" style="--ts:1.2s">All of this is in the starter vault's README, so nobody has to finish it today.</p>
 
-<!--
-You're set up. The first week is about one real project: put it in, log one real decision, do one task with your AI from the files and have it write back, copy the example meeting for one real meeting, and at the end of the week read the history. On the right, the five problems people are most likely to hit today, and the fix for each. All of it is in the README, so nobody has to finish today. (1:00; short slot: skip)
--->
-
 ---
 layout: default
 ---
@@ -914,10 +780,6 @@ layout: default
 </ul></div>
 </div>
 
-<!--
-Five habits make it stick; the most important is the second one: before you close a chat, have the AI write the decision and the current state into the vault. And six guardrails: no secrets or personal data, a private repository, institutional data only with approved tools, a human approves anything irreversible, treat what the AI reads (emails, documents) as data rather than instructions, and review the diff. (1:00)
--->
-
 ---
 layout: cover
 class: sb-cover sb-close
@@ -940,7 +802,3 @@ class: sb-cover sb-close
 <div class="sb-chips sb-late" style="--ts:1s"><span class="sb-label" style="margin-right:4px">Take home</span><span class="sb-chip good">starter-vault.zip</span><span class="sb-chip good">first-prompt.md</span><span class="sb-chip good">cheat-sheet.md</span></div>
 
 <p class="sb-late" style="--ts:1.4s;margin-top:10px"><strong style="font:700 26px/1 var(--font-serif);color:var(--fg1);margin-right:14px">Questions?</strong>Samuel A. Prieto · samuel.prieto@nyu.edu</p>
-
-<!--
-Three takeaways. The chat is a workspace, not the record. Any AI plugs into the same brain. Every change and every decision is written down and versioned. You take home the starter vault, the first prompt and the cheat sheet. Then open for questions, including any setup problems from the hands-on part. (0:30, then Q&A: 10-15 min for the CTP team, about 5 in a short slot)
--->

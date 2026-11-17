@@ -19,27 +19,12 @@ pnpm build:03      # static site in workshops/03-second-brain/dist
 pnpm export:03     # PDF
 ```
 
-Presenter view: `/presenter` (speaker notes and timer). Dark mode: `d`.
-
-## What is different from the other decks
-
-The deck keeps the CTP theme (cover, section and default layouts, footer, serif
-titles, violet and gold, `CtpKbd`) and adds a deck-local visual layer:
-
-- `style.css`: `sb-` prefixed cards, chips, mock windows, chat panes, checkpoint
-  bars and entrance motion. Base states are final states, so print/PDF and
-  reduced-motion show everything.
-- `components/`: `VaultGraph` (drifting graph, cover and close), `HubDiagram`,
-  `AgentLoop`, `StoresMap`, `WorkflowMap`, `CodeWin` (window with line-by-line
-  reveal), `CountUp`, `TypeWriter`. All client-side, no libraries.
-
-Motion restarts every time a slide is shown (Slidev mounts slides once and
-toggles them with `v-show`, which restarts CSS animations).
+Presenter view: `/presenter` (timer). Dark mode: `d`.
 
 ## Before the session
 
-See the speaker notes on slides 1, 17 and 24: demo vault, fresh AI sessions with
-memory off, the old August chat, and the starter-vault link.
+Have ready: the demo vault, fresh AI sessions with memory off, the old August chat, and
+the starter-vault link.
 
 ## Starter vault (take-home)
 
